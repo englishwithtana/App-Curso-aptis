@@ -880,13 +880,132 @@ const _u1WritingExtraEx = [
       checklist: ['Escribo a Sam (tono formal).', 'Explico cómo me siento ante el cambio.', 'Sugiero posibles alternativas.', 'Mi texto tiene entre 120 y 150 palabras.'] }
 ];
 
+/* ------------------- EJERCICIOS DE PRÁCTICA DE LOS TEMAS (añadidos) ------------------- */
+const _u1ClozeLines = (title, instruction, items) => {
+    const gaps = [];
+    const text = items.map((it, i) => { gaps.push(_u1Gap(it[1], it[2], it[3])); return it[0].replace('{}', '{' + (i + 1) + '}'); }).join('\n');
+    return { type: 'cloze', title, instruction, text, gaps, extra: true, label: 'Completar (elige la opción correcta)' };
+};
+const _u1INS = 'Elige la opción correcta para cada hueco. / Choose the correct option for each gap.';
+
+const _u1TemasAuxEx = [
+    _u1ClozeLines('Ejercicio 1 · Question tags', _u1INS, [
+        ["1. She works in a hospital, {} she?", ["isn't", "doesn't", "hasn't"], 1, "Presente simple afirmativo → tag negativa con «does»: doesn't she?"],
+        ["2. They aren't coming tonight, {} they?", ["do", "will", "are"], 2, "Frase negativa con «are» → tag afirmativa con el mismo auxiliar: are they?"],
+        ["3. We have finished the exam, {} we?", ["haven't", "don't", "didn't"], 0, "Present perfect afirmativo → tag negativa con «have»: haven't we?"],
+        ["4. You didn't call him, {} you?", ["do", "did", "have"], 1, "Pasado simple negativo → tag afirmativa en pasado: did you?"],
+        ["5. Let's have a pizza, {} we?", ["will", "shall", "don't"], 1, "Después de «Let's…» la tag es siempre «shall we?»."],
+        ["6. Tom can drive, {} he?", ["can't", "doesn't", "isn't"], 0, "Con un modal se repite el mismo modal en negativo: can't he?"],
+        ["7. Nobody called, {} they?", ["did", "didn't", "do"], 0, "«Nobody» es negativo, así que la tag es afirmativa: did they?"],
+        ["8. I'm right, {} I?", ["am", "aren't", "isn't"], 1, "Caso especial: con «I am» la tag negativa es «aren't I?»."],
+        ["9. It was a great film, {} it?", ["wasn't", "didn't", "isn't"], 0, "Verbo «be» en pasado afirmativo → tag negativa: wasn't it?"],
+        ["10. Don't be late, {}?", ["will you", "don't you", "do you"], 0, "Con un imperativo (también negativo) la tag habitual es «will you?»."]
+    ]),
+    _u1ClozeLines('Ejercicio 2 · Respuestas cortas y So / Neither', _u1INS, [
+        ["1. A: \"I love pizza.\"  B: \"{} do I.\"", ["So", "Neither", "Too"], 0, "La frase de A es afirmativa: B usa «So» (yo también)."],
+        ["2. A: \"I can't swim.\"  B: \"Neither {} I.\"", ["do", "can", "am"], 1, "Se repite el auxiliar de A (can): Neither can I."],
+        ["3. A: \"She is a nurse.\"  B: \"So {} her sister.\"", ["does", "is", "has"], 1, "El verbo de A es «is»: So is her sister."],
+        ["4. A: \"We haven't seen that film.\"  B: \"{} have we.\"", ["So", "Neither", "Either"], 1, "La frase de A es negativa: B usa «Neither» (nosotros tampoco)."],
+        ["5. A: \"Are you hungry?\"  B: \"Yes, I {}.\"", ["do", "am", "have"], 1, "La respuesta corta repite el auxiliar de la pregunta: Yes, I am."],
+        ["6. A: \"Does Mark play tennis?\"  B: \"No, he {}.\"", ["doesn't", "isn't", "hasn't"], 0, "La pregunta usa «does»: No, he doesn't."],
+        ["7. A: \"Have they arrived?\"  B: \"Yes, they {}.\"", ["did", "are", "have"], 2, "La pregunta usa «have»: Yes, they have."],
+        ["8. A: \"I didn't go to the party.\"  B: \"Neither {} I.\"", ["did", "do", "was"], 0, "A usa pasado simple negativo: Neither did I."],
+        ["9. A: \"I'll be there at six.\"  B: \"So {} I.\"", ["do", "will", "would"], 1, "A usa «will» (I'll = I will): So will I."],
+        ["10. A: \"Did you enjoy the trip?\"  B: \"Yes, we {}.\"", ["did", "were", "do"], 0, "La pregunta usa «did»: Yes, we did."]
+    ])
+];
+
+const _u1TemasArtEx = [
+    { type: 'cloze', title: 'Ejercicio 1 · Texto: unas vacaciones', extra: true, label: 'Completar (elige la opción correcta)',
+      instruction: 'Elige el artículo correcto para cada hueco. El símbolo (–) significa cero artículo. / Choose the correct article. (–) = no article.',
+      text: 'Last summer I took {1} trip to {2} Italy with my sister. We stayed in {3} small hotel near {4} sea. {5} hotel had {6} amazing garden, and every morning we had {7} breakfast in {8} garden. In {9} afternoon we visited {10} interesting museum, and at night we had {11} dinner in {12} old town.',
+      gaps: [
+        _u1Gap(['a', 'an', 'the', '–'], 0, '«Trip» es singular contable y se menciona por primera vez: a trip.'),
+        _u1Gap(['a', 'an', 'the', '–'], 3, 'La mayoría de los países no llevan artículo: Italy.'),
+        _u1Gap(['a', 'an', 'the', '–'], 0, 'Hotel nuevo en la historia, singular contable: a small hotel.'),
+        _u1Gap(['a', 'an', 'the', '–'], 2, 'Los mares llevan «the»: the sea.'),
+        _u1Gap(['a', 'an', 'the', '–'], 2, 'El hotel ya se ha mencionado: The hotel.'),
+        _u1Gap(['a', 'an', 'the', '–'], 1, '«Amazing» empieza por sonido vocálico: an amazing garden.'),
+        _u1Gap(['a', 'an', 'the', '–'], 3, 'Las comidas del día no llevan artículo: have breakfast.'),
+        _u1Gap(['a', 'an', 'the', '–'], 2, 'El jardín ya se ha mencionado (an amazing garden): the garden.'),
+        _u1Gap(['a', 'an', 'the', '–'], 2, 'Con in + parte del día usamos «the»: in the afternoon.'),
+        _u1Gap(['a', 'an', 'the', '–'], 1, '«Interesting» empieza por sonido vocálico: an interesting museum.'),
+        _u1Gap(['a', 'an', 'the', '–'], 3, 'Las comidas del día no llevan artículo: have dinner.'),
+        _u1Gap(['a', 'an', 'the', '–'], 2, 'Es un lugar concreto que ambos conocemos: the old town.')
+      ] },
+    _u1ClozeLines('Ejercicio 2 · Reglas especiales', 'Elige el artículo correcto para cada hueco. El símbolo (–) significa cero artículo. / Choose the correct article. (–) = no article.', [
+        ["1. My father plays {} guitar in a band.", ["a", "the", "–"], 1, "Con los instrumentos musicales usamos «the»: play the guitar."],
+        ["2. I'm studying {} Biology at university.", ["the", "a", "–"], 2, "Las asignaturas no llevan artículo: Biology."],
+        ["3. {} Nile is the longest river in Africa.", ["The", "A", "–"], 0, "Los ríos llevan «the»: the Nile."],
+        ["4. She works as {} engineer.", ["a", "an", "the"], 1, "Con las profesiones usamos a / an; «engineer» empieza por vocal: an engineer."],
+        ["5. We're going to {} cinema tonight.", ["a", "–", "the"], 2, "Los edificios públicos llevan «the»: the cinema."],
+        ["6. Spain is {} beautiful country.", ["a", "the", "an"], 0, "«Beautiful» empieza por consonante y el nombre es singular contable: a beautiful country."],
+        ["7. We'll meet {} next Friday.", ["the", "–", "a"], 1, "Con next / last + expresión de tiempo no se usa artículo."],
+        ["8. What {} nice surprise!", ["a", "an", "–"], 0, "En exclamaciones con nombre singular contable: What + a / an. «Nice» empieza por consonante: What a nice surprise!"],
+        ["9. He has {} one-hour lesson on Mondays.", ["an", "a", "the"], 1, "«One» empieza con sonido /w/ (consonante), así que usamos «a»: a one-hour lesson."],
+        ["10. We went skiing in {} Alps.", ["the", "–", "an"], 0, "Las cordilleras llevan «the»: the Alps."],
+        ["11. She goes to {} work by bus.", ["the", "a", "–"], 2, "Con «go to work» no se usa artículo."],
+        ["12. Is there {} bank near here?", ["a", "an", "the"], 0, "Preguntamos por un banco cualquiera (singular contable, no conocido): a bank."]
+    ])
+];
+
+const _u1TemasCountEx = [
+    _u1ClozeLines('Ejercicio 1 · Cantidades (many / much / a few / a little…)', _u1INS, [
+        ["1. How {} money do you have?", ["much", "many", "few"], 0, "«Money» es incontable: How much…?"],
+        ["2. There aren't {} apples in the basket.", ["much", "many", "a little"], 1, "«Apples» es contable en plural: many."],
+        ["3. There isn't {} traffic today.", ["many", "much", "a few"], 1, "«Traffic» es incontable: much (en negativas)."],
+        ["4. We have {} homework today.", ["a lot of", "a few", "many"], 0, "«Homework» es incontable: «a lot of» sirve con incontables; «a few» y «many» son para contables."],
+        ["5. Could you give me {} of paper?", ["a piece", "a few", "many"], 0, "Para contar un incontable usamos «a piece of»: a piece of paper."],
+        ["6. She has {} friends in London.", ["a little", "a few", "much"], 1, "«Friends» es contable en plural: a few."],
+        ["7. The weather {} lovely today.", ["is", "are", "were"], 0, "«Weather» es incontable y lleva verbo en singular: The weather is…"],
+        ["8. I'd like {} bread, please.", ["a little", "a few", "many"], 0, "«Bread» es incontable: a little bread."],
+        ["9. There are too {} people in this room.", ["much", "many", "little"], 1, "«People» es plural contable: too many."],
+        ["10. We haven't got {} milk left.", ["many", "a few", "much"], 2, "«Milk» es incontable: much."],
+        ["11. Three {} are playing in the park.", ["child", "childs", "children"], 2, "El plural irregular de «child» es children."],
+        ["12. We didn't take {} photos on the trip.", ["much", "many", "a little"], 1, "«Photos» es contable en plural: many."]
+    ]),
+    _u1ClozeLines('Ejercicio 2 · Contables, incontables y plurales irregulares', _u1INS, [
+        ["1. Two {} are waiting outside.", ["man", "men", "mans"], 1, "El plural irregular de «man» es men."],
+        ["2. My {} hurt after the long walk.", ["foot", "feet", "foots"], 1, "El plural irregular de «foot» es feet."],
+        ["3. She doesn't have {} luck.", ["a", "many", "any"], 2, "«Luck» es incontable: no lleva «a» ni «many». En negativas usamos «any»."],
+        ["4. There are three {} on the table.", ["knife", "knives", "knifes"], 1, "El plural de «knife» es knives."],
+        ["5. How {} water do you drink every day?", ["many", "much", "few"], 1, "«Water» es incontable: How much…?"],
+        ["6. {} are waiting for the bus.", ["People", "Peoples", "A people"], 0, "«People» es el plural de «person»: va con verbo en plural y sin «a»."],
+        ["7. There is {} milk in the fridge.", ["a", "some", "many"], 1, "«Milk» es incontable: some milk."],
+        ["8. I've got only {} euros left.", ["a few", "a little", "much"], 0, "«Euros» es contable en plural: a few."],
+        ["9. A baby has no {} when it is born.", ["tooth", "teeth", "tooths"], 1, "El plural irregular de «tooth» es teeth."],
+        ["10. Bread {} made from flour.", ["is", "are", "were"], 0, "«Bread» es incontable y lleva verbo en singular: Bread is made…"]
+    ])
+];
+
+const _u1TemasVocabEx = [
+    { type: 'match', instruction: 'Empareja cada palabra en inglés con su traducción.', extra: true, pairs: [
+        { left: 'Brother-in-law', right: 'Cuñado' }, { left: 'Father-in-law', right: 'Suegro' }, { left: 'Grandchild', right: 'Nieto/a' },
+        { left: 'Widow', right: 'Viuda' }, { left: 'Ex-husband', right: 'Ex-marido' }, { left: 'Niece', right: 'Sobrina' },
+        { left: 'Colleague', right: 'Compañero/a de trabajo' }, { left: 'Employee', right: 'Empleado/a' }, { left: 'Fiancée', right: 'Prometida' },
+        { left: 'Best friend', right: 'Mejor amigo/a' }, { left: 'Twins', right: 'Gemelos/as' }, { left: 'Parents', right: 'Padres' }
+    ] },
+    _u1ClozeLines('Ejercicio 2 · Mi familia y mis relaciones', _u1INS, [
+        ["1. My mother's brother is my {}.", ["aunt", "uncle", "nephew"], 1, "El hermano de mi madre es mi tío: uncle."],
+        ["2. My uncle's children are my {}.", ["grandchildren", "cousins", "in-laws"], 1, "Los hijos de mis tíos son mis primos: cousins."],
+        ["3. My sister's son is my {}.", ["niece", "nephew", "uncle"], 1, "El hijo de mi hermana es mi sobrino: nephew."],
+        ["4. My husband's father is my {}.", ["father-in-law", "step-father", "godfather"], 0, "El padre de mi marido es mi suegro: father-in-law."],
+        ["5. My parents are not together any more: they are {}.", ["engaged", "divorced", "single"], 1, "Divorced = divorciados."],
+        ["6. My grandfather died, so my grandmother is a {}.", ["widow", "widower", "window"], 0, "Widow = viuda. («Widower» es viudo y «window» es ventana)."],
+        ["7. She isn't married and she doesn't have a boyfriend: she is {}.", ["single", "married", "divorced"], 0, "Single = soltera."],
+        ["8. My best friend is going to get married next June, so she is {} now.", ["widowed", "engaged", "separated"], 1, "Engaged = prometida/comprometida."],
+        ["9. The people who live in the next house are my {}.", ["neighbours", "acquaintances", "colleagues"], 0, "Neighbours = vecinos."],
+        ["10. I only know Peter a little. He is just an {}.", ["acquaintance", "employer", "employee"], 0, "Acquaintance = conocido/a (no es un amigo)."]
+    ])
+];
+
 /* ---------------------------------- LECCIONES ---------------------------------- */
 const _u1Ref = (tema) => `<p>Antes de empezar, repasa el tema <strong>${tema}</strong> en la sección «Temas» (Unidad 1).</p>`;
 const UNIT_1 = [
-    { id: 'u1-temas-aux', section: 'temas', unit: 1, title: 'Auxiliary Verbs — Question tags y respuestas cortas', description: 'Question tags, respuestas cortas y respuestas con So / Neither.', theory: _u1AuxTheory, flashcards: [], exercises: [] },
-    { id: 'u1-temas-articles', section: 'temas', unit: 1, title: 'Articles: a, an, the, (zero article)', description: 'Artículos: un/una, el/la y cero artículo, con sus reglas especiales.', theory: _u1ArtTheory, flashcards: [], exercises: [] },
-    { id: 'u1-temas-countable', section: 'temas', unit: 1, title: 'Countable and Uncountable Nouns', description: 'Sustantivos contables e incontables, plurales irregulares y cantidades.', theory: _u1CountTheory, flashcards: [], exercises: [] },
-    { id: 'u1-temas-vocab', section: 'temas', unit: 1, title: 'Vocabulary — Family and Relationships', description: 'Vocabulario: familia, estado civil, verbos y otras palabras relacionadas.', theory: _u1VocabTheory, flashcards: _u1VocabCards, exercises: [] },
+    { id: 'u1-temas-aux', mandatory: false, section: 'temas', unit: 1, title: 'Auxiliary Verbs — Question tags y respuestas cortas', description: 'Question tags, respuestas cortas y respuestas con So / Neither.', theory: _u1AuxTheory, flashcards: [], exercises: _u1TemasAuxEx },
+    { id: 'u1-temas-articles', mandatory: false, section: 'temas', unit: 1, title: 'Articles: a, an, the, (zero article)', description: 'Artículos: un/una, el/la y cero artículo, con sus reglas especiales.', theory: _u1ArtTheory, flashcards: [], exercises: _u1TemasArtEx },
+    { id: 'u1-temas-countable', mandatory: false, section: 'temas', unit: 1, title: 'Countable and Uncountable Nouns', description: 'Sustantivos contables e incontables, plurales irregulares y cantidades.', theory: _u1CountTheory, flashcards: [], exercises: _u1TemasCountEx },
+    { id: 'u1-temas-vocab', mandatory: false, section: 'temas', unit: 1, title: 'Vocabulary — Family and Relationships', description: 'Vocabulario: familia, estado civil, verbos y otras palabras relacionadas.', theory: _u1VocabTheory, flashcards: _u1VocabCards, exercises: _u1TemasVocabEx },
 
     { id: 'u1-core-aux', section: 'core', unit: 1, title: 'Auxiliary Verbs', description: 'Elige el auxiliar correcto. Las question tags llevan el mismo tiempo verbal que la frase principal y polaridad contraria; las respuestas con So / Neither siguen la polaridad de la frase de la otra persona.', theory: _u1Ref('Auxiliary Verbs'), flashcards: [], exercises: _u1AuxEx },
     { id: 'u1-core-articles', section: 'core', unit: 1, title: 'Articles', description: 'Elige la respuesta correcta. El símbolo (–) significa cero artículo (no se necesita ningún artículo).', theory: _u1Ref('Articles'), flashcards: [], exercises: _u1ArtEx },
@@ -2652,7 +2771,7 @@ const UNIT_1 = [
                 });
                 return `
                     <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">Pregunta ${idx + 1} • Reading (completar el texto)</span>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md">Pregunta ${idx + 1} • ${escapeHTML(ex.label || 'Reading (completar el texto)')}</span>
                         ${ex.instruction ? `<p class="font-bold text-slate-900 text-sm mt-3 mb-3">${escapeHTML(ex.instruction)}</p>` : ''}
                         <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-800 leading-loose whitespace-pre-line mb-4">${body}</div>
                         <button id="cloze-btn-${idx}" onclick="checkCloze('${lessonId}', ${idx})" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition cursor-pointer">Comprobar huecos</button>
