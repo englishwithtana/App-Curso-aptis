@@ -1044,7 +1044,426 @@ const UNIT_1 = [
     { id: 'u1-writing-extra', section: 'temas', unit: 1, mandatory: false, title: 'Writing — WORLD FRIENDS (práctica extra)', description: 'Práctica adicional opcional con el mismo formato que la tarea anterior.', theory: '', flashcards: [], exercises: _u1WritingExtraEx }
 ];
 
-        const COURSE_CONTENT = (typeof UNIT_1 !== 'undefined') ? [...UNIT_1] : [];
+/* ===========================================================================
+ * UNIDAD 2 — Contenido a partir de los PDF "EDITADO" de la profesora.
+ * Usa los ayudantes de la Unidad 1 (_u1T, _u1Q, _u1Gap, _u1ClozeLines, _u1INS).
+ * Convención: extra:true = ejercicio añadido (no estaba en los PDF originales).
+ * Todo el contenido va en la sección «Temas».
+ * ======================================================================== */
+
+/* ------------------------ TEMA: COMPARATIVOS Y SUPERLATIVOS ------------------------ */
+const _u2CompTheory = [
+    _u1T.p("<strong>Comparative and Superlative Adjectives</strong> — Adjetivos comparativos y superlativos."),
+    _u1T.h("1. Comparatives / Comparativos"),
+    _u1T.p("We use comparative adjectives to compare different things, people, animals or actions.<br><span class=\"text-slate-500 text-xs\">Usamos los adjetivos comparativos para comparar diferentes cosas, personas, animales o acciones.</span>"),
+    _u1T.p("To make comparisons, it is important to distinguish between short and long adjectives, because their structure depends on their length.<br><span class=\"text-slate-500 text-xs\">Para hacer comparaciones, es importante distinguir entre adjetivos cortos y largos, porque, dependiendo de su longitud, tendrán una estructura u otra.</span>"),
+    _u1T.tbl(["", "Short adjectives / Adjetivos cortos", "Long adjectives / Adjetivos largos"], [
+        ["<strong>Which?</strong>", "One-syllable words (palabras de una sílaba)<br>Two-syllable words ending in '-y' (palabras de dos sílabas que terminan en '-y')", "Words with two or more syllables, not ending in '-y' (palabras de dos o más sílabas que no terminan en '-y')"],
+        ["<strong>Rule / Regla</strong>", "Add <strong>-er</strong> to the adjective (añadimos «-er»)", "Put <strong>more</strong> before the adjective (ponemos «more» delante)"],
+        ["<strong>Examples</strong>", "hard → harder (duro → más duro)<br>small → smaller (pequeño → más pequeño)", "intelligent → more intelligent (inteligente → más inteligente)<br>expensive → more expensive (caro → más caro)"]
+    ]),
+    _u1T.note("CASO ESPECIAL: adjetivos terminados en -e", "<p>If a short adjective ends in '-e', we only add '-r'. / Si el adjetivo corto termina en «-e», solo le añadimos una «-r».</p>" + _u1T.ex("late → later", "tarde → más tarde")),
+    _u1T.note("CASO ESPECIAL: adjetivos terminados en -y", "<p>If a short adjective ends in '-y', the 'y' turns into an 'i', followed by '-er'. / Si el adjetivo corto termina en «-y», se transforma en una «i» y va seguido de «-er».</p>" + _u1T.ex("happy → happier", "feliz → más feliz")),
+    _u1T.note("CASO ESPECIAL: una vocal + una consonante", "<p>If a one-syllable adjective ends in a <strong>single vowel + a single consonant</strong>, the final consonant is doubled. / Si el adjetivo de una sílaba termina en una sola vocal + una sola consonante, la consonante final se dobla.</p>" + _u1T.ex("big → bigger", "grande → más grande") + "<p class=\"text-[11px]\">Aclaración añadida: si hay dos vocales seguidas, la consonante no se dobla (cheap → cheaper).</p>"),
+    _u1T.p("<strong>IMPORTANT:</strong> these same special rules also apply to short adjectives in the superlative form.<br><span class=\"text-slate-500 text-xs\">Estas mismas reglas especiales también se aplican a los adjetivos cortos en el superlativo.</span>"),
+    _u1T.p("Comparative adjectives are usually followed by <em>than</em>, plus the person or object we are comparing the subject to.<br><span class=\"text-slate-500 text-xs\">Los adjetivos comparativos normalmente van seguidos de «than» («que»), más la persona u objeto con el cual comparamos el sujeto.</span>"),
+    _u1T.ex("Dogs are more affectionate than cats.", "Los perros son más cariñosos que los gatos."),
+    _u1T.p("If the comparison involves two identical (equal) things, we use the structure <strong>as + adjective + as</strong>.<br><span class=\"text-slate-500 text-xs\">Si la comparación implica dos personas u objetos iguales, usamos la estructura «as + adjetivo + as».</span>"),
+    _u1T.ex("Your job is as enriching as mine.", "Tu trabajo es tan enriquecedor como el mío."),
+    _u1T.h("2. Superlatives / Superlativos"),
+    _u1T.p("We use superlative adjectives to compare one member of a group of objects, animals, people or actions with the rest of the whole group.<br><span class=\"text-slate-500 text-xs\">Usamos los adjetivos superlativos para comparar un miembro de un grupo con el resto del grupo entero.</span>"),
+    _u1T.p("The criteria to tell short and long adjectives apart are the same as in the comparative. The only thing that changes is the word structure: for short adjectives we add <strong>-est</strong>, and for long ones we add <strong>most</strong> before the adjective.<br><span class=\"text-slate-500 text-xs\">Los criterios para diferenciar adjetivos cortos y largos son los mismos que en el comparativo. Para los cortos añadimos «-est» y para los largos añadimos «most» delante del adjetivo.</span>"),
+    _u1T.ex("Frank is the shortest boy in the class.", "Frank es el chico más bajo de la clase."),
+    _u1T.ex("A house is the most expensive thing you can buy.", "Una casa es lo más caro que puedes comprar."),
+    _u1T.p("Superlative adjectives are always preceded by <em>the</em>.<br><span class=\"text-slate-500 text-xs\">Los adjetivos superlativos van siempre precedidos por «the».</span>"),
+    _u1T.ex("You are the most amazing person I have ever met!", "¡Eres la persona más asombrosa que jamás he conocido!"),
+    _u1T.h("3. Irregular adjectives / Adjetivos irregulares"),
+    _u1T.p("There is a small set of adjectives that do not follow the rules above: they use completely different words.<br><span class=\"text-slate-500 text-xs\">Hay un grupo de adjetivos que no siguen las reglas anteriores: toman palabras totalmente distintas.</span>"),
+    _u1T.tbl(["Adjective", "Comparative", "Superlative"], [
+        ["good", "better", "the best"], ["bad", "worse", "the worst"], ["far", "further", "the furthest"], ["little", "less", "the least"]
+    ]),
+    _u1T.h("4. Resumen (apartado añadido)"),
+    _u1T.p("<span class=\"text-xs text-slate-500\">Tabla añadida para repasar las reglas con ejemplos.</span>"),
+    _u1T.tbl(["Adjective", "Comparative", "Superlative"], [
+        ["tall (corto)", "taller", "the tallest"],
+        ["late (termina en -e)", "later", "the latest"],
+        ["happy (termina en -y)", "happier", "the happiest"],
+        ["big (vocal + consonante)", "bigger", "the biggest"],
+        ["expensive (largo)", "more expensive", "the most expensive"]
+    ])
+].join("");
+
+/* ---------------------------- TEMA: ADJETIVOS -ED / -ING ---------------------------- */
+const _u2EdIngTheory = [
+    _u1T.p("<strong>Adjectives Ending in '-ed' and '-ing'</strong> — Adjetivos terminados en «-ed» y «-ing»."),
+    _u1T.p("In English, the same adjective can end in either '-ed' or '-ing', and in each case it will have a different meaning.<br><span class=\"text-slate-500 text-xs\">En inglés podemos tener el mismo adjetivo acabado en «-ed» o en «-ing», y en cada caso tendrá un significado diferente.</span>"),
+    _u1T.p("For instance, it is not the same to say «my brother is bored» as to say «my brother is boring».<br><span class=\"text-slate-500 text-xs\">Por ejemplo, no es lo mismo decir «mi hermano está aburrido» que decir «mi hermano es aburrido».</span>"),
+    _u1T.h("1. '-ED' adjectives / Adjetivos terminados en «-ed»"),
+    _u1T.p("Adjectives ending in '-ed' describe feelings and emotions.<br><span class=\"text-slate-500 text-xs\">Describen sentimientos y emociones. En español, son los que van acompañados por el verbo «estar» y equivalen a los que terminan en «-ado» o «-ido».</span>"),
+    _u1T.ex("I am interested in Science and Technology.", "Estoy interesado/a en Ciencia y Tecnología."),
+    _u1T.ex("I am always bored during the summer holidays.", "Siempre estoy aburrido/a durante las vacaciones de verano."),
+    _u1T.h("2. '-ING' adjectives / Adjetivos terminados en «-ing»"),
+    _u1T.p("'-ing' adjectives describe something that causes that emotion. For example, a surprising gift makes you feel surprised.<br><span class=\"text-slate-500 text-xs\">Describen algo que causa esa emoción. Por ejemplo, un regalo sorprendente (surprising) te hace sentir sorprendido (surprised). Por lo general, equivalen a los adjetivos españoles terminados en «-ante» o «-ente» y van con el verbo «ser».</span>"),
+    _u1T.ex("Diane is a very interesting person.", "Diane es una persona muy interesante."),
+    _u1T.ex("Travelling is one of the most exciting things you can do.", "Viajar es una de las cosas más emocionantes que puedes hacer."),
+    _u1T.note("REGLA CLAVE", "<p>Quick check: if the adjective describes how a person feels, use '-ed' (I am bored). If it describes the thing that causes the feeling, use '-ing' (the film is boring).</p><p>Comprobación rápida: si el adjetivo describe cómo se siente una persona, usa «-ed» (I am bored). Si describe lo que causa ese sentimiento, usa «-ing» (the film is boring).</p>"),
+    _u1T.h("Pares frecuentes (apartado añadido)"),
+    _u1T.p("<span class=\"text-xs text-slate-500\">Apartado añadido: pares que aparecen en los ejercicios de esta unidad.</span>"),
+    _u1T.tbl(["Siento… (-ed)", "Lo que lo causa (-ing)"], [
+        ["bored — aburrido/a", "boring — aburrido, que aburre"],
+        ["interested — interesado/a", "interesting — interesante"],
+        ["excited — emocionado/a", "exciting — emocionante"],
+        ["annoyed — molesto/a", "annoying — molesto, que molesta"],
+        ["confused — confundido/a", "confusing — confuso"],
+        ["frightened — asustado/a", "frightening — aterrador"],
+        ["depressed — deprimido/a", "depressing — deprimente"]
+    ])
+].join("");
+
+/* ------------------------------ TEMA: CUANTIFICADORES ------------------------------ */
+const _u2QuantTheory = [
+    _u1T.p("<strong>Quantifiers</strong> — Cuantificadores."),
+    _u1T.h("1. Too and enough"),
+    _u1T.p("We use 'too' and 'enough' to talk about the quantity of something.<br><span class=\"text-slate-500 text-xs\">Usamos «too» (demasiado) y «enough» (suficiente) para hablar sobre la cantidad de algo.</span>"),
+    _u1T.tbl(["", "TOO", "ENOUGH"], [
+        ["<strong>With an adjective</strong><br>Con un adjetivo", "too + adjective (+ full infinitive)<br><em>It's too hot (to cook a stew).</em><br>Hace demasiado calor (para cocinar un potaje).", "adjective + enough (+ full infinitive)<br><em>You are not tall enough (to play basketball).</em><br>No eres suficientemente alto (para jugar al baloncesto)."],
+        ["<strong>With a noun</strong><br>Con un sustantivo", "too + many/much + noun (+ full infinitive)<br><em>Christian works too many hours (to have any hobby).</em><br>Christian trabaja demasiadas horas (para tener algún hobby).", "enough + noun (+ full infinitive)<br><em>She has enough money (to buy a house).</em><br>Ella tiene suficiente dinero (para comprarse una casa)."],
+        ["<strong>With an adverb</strong><br>Con un adverbio", "too + adverb (+ full infinitive)<br><em>He arrived too late to see the start of the performance.</em><br>Él llegó demasiado tarde para ver el comienzo de la actuación.", "adverb + enough (+ full infinitive)<br><em>He was driving quickly enough to get noticed by the police.</em><br>Él conducía suficientemente rápido como para llamar la atención de la policía."]
+    ]),
+    _u1T.h("2. Much and many"),
+    _u1T.p("We use <strong>many</strong> with countable nouns. / Usamos «many» con sustantivos contables («muchos/as»)."),
+    _u1T.ex("There are many apples in the basket.", "Hay muchas manzanas en la cesta."),
+    _u1T.p("We use <strong>much</strong> with uncountable nouns, usually in negative and interrogative sentences. / Usamos «much» con sustantivos incontables, normalmente en frases negativas o interrogativas («mucho/a»)."),
+    _u1T.ex("My mum never shows much interest in football.", "Mi madre nunca muestra mucho interés en el fútbol."),
+    _u1T.p("We can add 'too' before 'many' or 'much' to express that there is more than we need (or expect) of something.<br><span class=\"text-slate-500 text-xs\">Podemos añadir «too» delante de «many» o «much» para expresar que hay más de lo que necesitamos (o esperamos). Se traduce como «demasiado/a» o «demasiados/as».</span>"),
+    _u1T.ex("There were too many people at the party.", "Había demasiadas personas (demasiada gente) en la fiesta."),
+    _u1T.ex("She is always bored because she has too much free time.", "Ella siempre está aburrida porque tiene demasiado tiempo libre."),
+    _u1T.h("3. Some and any"),
+    _u1T.p("Both 'some' and 'any' can be used with countable or uncountable nouns to express an indefinite quantity. The only difference is that <strong>some</strong> is used in affirmative sentences and <strong>any</strong> in negative and interrogative ones.<br><span class=\"text-slate-500 text-xs\">«Some» y «any» se pueden usar con sustantivos contables e incontables para expresar una cantidad indefinida. «Some» se usa en oraciones afirmativas y «any» en negativas e interrogativas. En las negativas, «any» se traduce como «ningún/o/a».</span>"),
+    _u1T.ex("There are some good restaurants in this city.", "Hay algunos restaurantes buenos en esta ciudad."),
+    _u1T.ex("Is there any letter for me?", "¿Hay alguna carta para mí?"),
+    _u1T.p("However, we can use 'some' in interrogative sentences when we are making an <strong>offer or a request</strong>.<br><span class=\"text-slate-500 text-xs\">Sin embargo, podemos usar «some» en frases interrogativas cuando hacemos un ofrecimiento o una petición.</span>"),
+    _u1T.ex("Would you like some cake?", "¿Quieres (un poco de) tarta?"),
+    _u1T.ex("Can I have some coffee, please?", "¿Puedo tomar (un poco de) café, por favor?"),
+    _u1T.p("We can also use 'any' in affirmative sentences when we mean «I don't mind which one» (cualquier/a).<br>"),
+    _u1T.ex("Any fruit is good for your health.", "Cualquier fruta es buena para tu salud."),
+    _u1T.h("4. No and none"),
+    _u1T.p("<strong>No</strong> is an alternative to 'any' if we don't want to put the verb in the negative form. It is used with countable and uncountable nouns. If the verb is affirmative and we want to deny something, we use 'no' followed by a noun.<br><span class=\"text-slate-500 text-xs\">«No» es una alternativa a «any» si no queremos poner el verbo en negativo. Se usa con sustantivos contables e incontables.</span>"),
+    _u1T.ex("I don't have any money. = I have no money.", "Ambas frases se traducen igual: No tengo dinero."),
+    _u1T.p("<strong>None</strong> is a pronoun and, as such, is never followed by a noun. It can be used with countable and uncountable nouns.<br><span class=\"text-slate-500 text-xs\">«None» es un pronombre y, como tal, no va seguido de ningún sustantivo. Se traduce como «ninguno/a» o «nada».</span>"),
+    _u1T.ex("How much money do you have? — None.", "¿Cuánto dinero llevas? — Nada."),
+    _u1T.h("5. Few / a few, little / a little"),
+    _u1T.p("'Few' and 'a few' are used with countable nouns, whereas 'little' and 'a little' are used with uncountable nouns. 'Few' and 'little' carry a negative connotation of «not enough», whereas 'a few' and 'a little' mean «enough».<br><span class=\"text-slate-500 text-xs\">«Few» y «a few» se usan con contables; «little» y «a little» con incontables. «Few» y «little» tienen sentido negativo («no es suficiente»); «a few» y «a little» tienen sentido positivo («es suficiente»).</span>"),
+    _u1T.tbl(["", "Countable", "Uncountable"], [
+        ["Negative sense: 'not enough'", "<strong>Few</strong> — pocos/as", "<strong>Little</strong> — poco/a"],
+        ["Positive sense: 'enough'", "<strong>A few</strong> — unos/as pocos/as", "<strong>A little</strong> — un poco"]
+    ]),
+    _u1T.ex("She has few friends. (negative sense)", "Ella tiene pocos amigos (sentido negativo)."),
+    _u1T.ex("She has a few friends. (positive sense)", "Ella tiene unos pocos amigos (sentido positivo)."),
+    _u1T.ex("There is little food. (not enough)", "Hay poca comida (no es suficiente)."),
+    _u1T.ex("There is a little food. (enough)", "Hay un poco de comida (es suficiente)."),
+    _u1T.h("6. Plenty and plenty of"),
+    _u1T.p("<strong>Plenty of</strong> means «more than enough» and can be used with countable or uncountable nouns.<br><span class=\"text-slate-500 text-xs\">«Plenty of» significa «más que suficiente» («de sobra»).</span>"),
+    _u1T.ex("There is plenty of bread.", "Hay pan de sobra."),
+    _u1T.p("<strong>Plenty</strong> without 'of' is a pronoun and is not followed by any other word. We use it when we already know what we are talking about.<br><span class=\"text-slate-500 text-xs\">«Plenty» sin «of» es un pronombre y no va acompañado de ninguna otra palabra.</span>"),
+    _u1T.ex("Is there any rice left? — Don't worry, there is plenty.", "¿Queda algo de arroz? — No te preocupes, hay de sobra."),
+    _u1T.h("7. A lot of and lots of"),
+    _u1T.p("'A lot of' and 'lots of' can be used in exactly the same way: with countable and uncountable nouns, in affirmative sentences.<br><span class=\"text-slate-500 text-xs\">Se pueden usar exactamente de la misma manera: con sustantivos contables e incontables en oraciones afirmativas («un montón de», «montones de»).</span>"),
+    _u1T.ex("In February we usually have a lot of / lots of exams.", "En febrero normalmente tenemos un montón de / montones de exámenes.")
+].join("");
+
+/* ------------------------------ TEMA: VOCABULARIO ------------------------------ */
+const _u2VocSight = [
+    ["Abroad", "Al extranjero"], ["Go / do sightseeing", "Hacer turismo urbano"], ["Have a look around", "Echar un vistazo alrededor"], ["Take pictures", "Tomar fotografías"],
+    ["Spend money", "Gastar dinero"], ["Get lost", "Perderse"], ["Have a great time", "Pasárselo bien"], ["Go out", "Salir"], ["Palace", "Palacio"], ["Market", "Mercado"],
+    ["Temple", "Templo"], ["Statue", "Estatua"], ["Castle", "Castillo"], ["Cathedral", "Catedral"], ["Historic monuments", "Monumentos históricos"], ["Nightlife", "Vida nocturna"],
+    ["Be worth + -ing (visiting)", "Vale la pena (visitar)"]
+];
+const _u2VocSea = [
+    ["Rent an apartment", "Alquilar un apartamento"], ["Go camping", "Ir de acampada"], ["Seaside resort", "Localidad turística costera"], ["Go to the beach", "Ir a la playa"],
+    ["Sunbathe", "Tomar el sol"], ["Cliff", "Acantilado"], ["Yacht", "Yate"], ["Sand", "Arena"], ["Gentle breeze", "Brisa suave"], ["Rough sea", "Mar revuelto"], ["Calm sea", "Mar calmado"],
+    ["Have a swim", "Darse un baño"], ["Get a suntan", "Ponerse moreno/a"], ["Suntan lotion / sun cream", "Crema solar"], ["Get sunburn", "Quemarse"]
+];
+const _u2VocHotel = [
+    ["A single room", "Habitación individual"], ["A double room", "Habitación doble"], ["A twin room", "Habitación con camas gemelas"], ["Full board", "Pensión completa"],
+    ["Half board", "Media pensión"], ["B&B (bed and breakfast)", "Habitación y desayuno"], ["Book (v)", "Reservar"], ["In advance", "Con antelación"], ["Tip (v)", "Dar propina"],
+    ["Waiter / waitress", "Camarero/a"], ["Bill", "La cuenta"], ["Wine", "Vino"], ["Starters", "Entrantes"], ["Main course", "Plato principal"], ["Dessert", "Postre"],
+    ["How do I get to…?", "¿Cómo puedo llegar a…?"], ["There is something wrong with…", "Hay un problema con…"], ["Are you ready to order?", "¿Estáis listos para pedir?"], ["I'll have…", "Tomaré…"],
+    ["Where is the toilet?", "¿Dónde está el aseo?"]
+];
+const _u2VocAir = [
+    ["Departures board", "Pantalla de salidas"], ["Flight number", "Número de vuelo"], ["Departure time", "Hora de salida"], ["Check-in desk", "Mostrador de facturación"],
+    ["Baggage / luggage", "Equipaje"], ["Hand luggage", "Equipaje de mano"], ["Boarding card", "Tarjeta de embarque"], ["Passport control", "Control de pasaporte"],
+    ["Duty-free shops", "Tiendas libres de impuestos"], ["Board (v)", "Embarcar"], ["Delay", "Retraso"], ["Overhead locker", "Compartimento superior"], ["Captain / pilot", "Capitán / piloto"],
+    ["Cabin crew", "Tripulación de cabina"], ["Fasten your seatbelt", "Abrocharse el cinturón"], ["Take off (v)", "Despegar"], ["Land (v)", "Aterrizar"], ["Terminal building", "Edificio de la terminal"],
+    ["Baggage reclaim", "Recogida de equipaje"], ["Customs", "Aduanas"], ["Hire / rent a car", "Alquilar un coche"]
+];
+const _u2VocTable = rows => _u1T.tbl(["English", "Español"], rows.map(r => ["<strong>" + r[0] + "</strong>", r[1]]));
+const _u2VocabTheory = [
+    _u1T.p("<strong>Holidays and Free Time</strong> — Vocabulario: vacaciones y tiempo libre."),
+    _u1T.h("Sightseeing holiday / Vacaciones de turismo"), _u2VocTable(_u2VocSight),
+    _u1T.h("Holidays by the sea / Vacaciones en la playa"), _u2VocTable(_u2VocSea),
+    _u1T.h("Hotels and restaurants / Hoteles y restaurantes"), _u2VocTable(_u2VocHotel),
+    _u1T.h("At the airport / En el aeropuerto"), _u2VocTable(_u2VocAir),
+    _u1T.p("<span class=\"text-xs text-slate-500\">Nota: <em>hire</em> se usa sobre todo con coches (hire a car); para un apartamento decimos <em>rent</em> (rent an apartment).</span>")
+].join("");
+const _u2VocabCards = [..._u2VocSight, ..._u2VocSea, ..._u2VocHotel, ..._u2VocAir].map(r => ({ front: r[0], back: r[1] }));
+
+/* ------------------------------ EJERCICIOS ORIGINALES ------------------------------ */
+const _u2CompEx = [
+    _u1Q("My sister is ______ than my father.", ["taller", "the tallest", "more taller"], 0, "Adjetivo corto (tall) + «than»: taller than. «More taller» mezcla las dos formas y «the tallest» es un superlativo."),
+    _u1Q("My son is ______ student in his class.", ["younger than", "the younger", "the youngest"], 2, "Comparamos a un alumno con todo el grupo (su clase): superlativo con «the»: the youngest."),
+    _u1Q("Her husband is about 25 and she is two years younger than ______.", ["himself", "him", "his"], 1, "Después de «than» usamos el pronombre objeto en el inglés habitual: younger than him. (En inglés formal también se dice «than he is»)."),
+    _u1Q("Jane's house is ______ as mine.", ["as big", "as bigger", "as same"], 0, "Para decir que dos cosas son iguales usamos as + adjetivo + as: as big as mine."),
+    _u1Q("The hotel was ______ from the airport than we were told.", ["farer", "more far", "further"], 2, "«Far» es irregular: far → further → the furthest."),
+    _u1Q("Could we have lunch a bit ______ tomorrow?", ["early", "earlier", "earlyer"], 1, "Adjetivo corto terminado en -y: la «y» pasa a «i» y añadimos -er: early → earlier."),
+    _u1Q("I don't visit my grandparents ______ often as I would like.", ["as", "than", "more"], 0, "Estructura as + adverbio + as: as often as I would like."),
+    _u1Q("It's the ______ sandwich I've ever tried.", ["best", "most best", "bestest"], 0, "«Good» es irregular: good → better → the best."),
+    _u1Q("Our teacher is not as ______ as he thinks he is.", ["cleverer", "more clever", "clever"], 2, "Con as … as usamos el adjetivo en grado normal: not as clever as."),
+    _u1Q("She would look much ______ with short dark hair.", ["good", "the better", "better"], 2, "Comparativo irregular: good → better. Se puede reforzar con «much»: much better.")
+];
+
+const _u2EdIngEx = [
+    _u1Q("My parents are ______ by the idea of travelling to India.", ["exciting", "excited"], 1, "Describe cómo se sienten las personas (mis padres): -ed → excited."),
+    _u1Q("I am certain famous people find media attention ______.", ["flattering", "flattered"], 0, "Describe la cosa que causa el sentimiento (la atención de los medios): -ing → flattering."),
+    _u1Q("I think bungee jumping is ______.", ["frightening", "frightened"], 0, "Describe la actividad que provoca miedo: -ing → frightening."),
+    _u1Q("Please stop making that noise. It's ______.", ["irritating", "irritated"], 0, "El ruido es lo que causa la irritación: -ing → irritating."),
+    _u1Q("When I fail an easy exam I feel really ______ with myself.", ["annoying", "annoyed"], 1, "Describe cómo me siento yo: -ed → annoyed."),
+    _u1Q("I found the instructions rather ______.", ["confusing", "confused"], 0, "Las instrucciones son lo que causa la confusión: -ing → confusing."),
+    _u1Q("I was fired two years ago, and last year my girlfriend left me too. I'm so ______.", ["depressing", "depressed"], 1, "Habla de cómo se siente la persona (I'm): -ed → depressed."),
+    _u1Q("I can't understand why people are so ______ in celebrities' private lives.", ["interested", "interesting"], 0, "Describe cómo se sienten las personas: -ed → interested (interested in)."),
+    _u1Q("The Monday morning English lessons are often quite ______.", ["boring", "bored"], 0, "Las clases son lo que causa el aburrimiento: -ing → boring.")
+];
+
+const _u2QuantEx = [
+    _u1Q("I don't like this place. There are ______ people here.", ["too much", "too many", "enough"], 1, "«People» es contable en plural, así que usamos «too many» (demasiadas personas)."),
+    _u1Q("She is a lonely girl. She has ______ friends.", ["a few", "little", "few"], 2, "Es una chica solitaria: sentido negativo («no es suficiente») con contable → few."),
+    _u1Q("We have had ______ rain these days.", ["plenty", "a lot of", "many"], 1, "«Rain» es incontable. «A lot of» se usa con incontables. «Plenty» sin «of» no puede ir delante de un nombre y «many» es solo para contables."),
+    _u1Q("There ______ enough umbrellas for everyone.", ["aren't", "don't", "isn't"], 0, "«Umbrellas» es plural, así que el verbo es «aren't»: There aren't enough umbrellas."),
+    _u1Q("My grandfather is retired, so he has ______ free time.", ["much", "many", "a lot of"], 2, "«Free time» es incontable y la frase es afirmativa: «much» se usa sobre todo en negativas e interrogativas, así que usamos «a lot of»."),
+    _u1Q("How many sisters do you have? — ______.", ["Any.", "None.", "A lot of."], 1, "«None» es un pronombre y puede responder solo: None (ninguna)."),
+    _u1Q("I am worried because I think I made ______ mistakes in the essay.", ["little", "few", "a few"], 2, "«Mistakes» es contable. «A few» (unos pocos, algunos) encaja con el sentido de la frase. «Little» es solo para incontables."),
+    _u1Q("We are not in a hurry, because we have ______ time.", ["plenty", "plenty of", "many"], 1, "«Plenty of» + nombre significa «de sobra»: plenty of time."),
+    _u1Q("He isn't tall ______ to reach the top shelf.", ["enough", "too many", "much"], 0, "Con un adjetivo, «enough» va detrás: tall enough."),
+    _u1Q("We have ______ work to do today.", ["much too", "too many", "too much"], 2, "«Work» es incontable: too much work. («Much too» se usa delante de adjetivos: much too hot).")
+];
+
+const _u2VocabEx = [
+    _u1Q("When we travelled to Tokyo we didn't bring a map, so we got ______.", ["lost", "out", "money"], 0, "Get lost = perderse."),
+    _u1Q("London is an amazing city, but everything is very expensive. We spent ______ in a week.", ["a great time", "all our money", "many pictures"], 1, "Spend money = gastar dinero. («Have a great time» y «take pictures» no se combinan con «spend»)."),
+    _u1Q("Last summer I went to Mallorca and I sunbathed almost every day. By the end of my holidays I had got a ______.", ["bill", "sun cream", "suntan"], 2, "Get a suntan = ponerse moreno/a."),
+    _u1Q("We didn't want to stay in a hotel, so we ______.", ["rented an apartment", "hired a car", "travelled abroad"], 0, "Rent an apartment = alquilar un apartamento. («Hired a car» no sustituye a alojarse en un hotel)."),
+    _u1Q("The service in that restaurant was excellent so, before leaving, I ______ the waiter.", ["asked", "tipped", "said"], 1, "Tip = dar propina."),
+    _u1Q("I'm leaving in a few minutes. Could I pay the ______?", ["account", "toilet", "bill"], 2, "Bill = la cuenta (en un restaurante)."),
+    _u1Q("There was a mechanical problem and we had a two-hour ______.", ["delay", "departure time", "passport control"], 0, "Delay = retraso."),
+    _u1Q("A woman at the check-in desk weighed our ______.", ["passports", "luggage", "boarding cards"], 1, "En el mostrador de facturación pesan el equipaje: luggage.")
+];
+
+/* --------------------------------- READING --------------------------------- */
+const _u2ReadingEx = [
+    { type: 'order', title: 'Text 1 · Put the story in order',
+      instruction: 'Order the sentences below to make a story. The first sentence is already given for you: «A. Andrew Sanders was born in the UK in 1895, but his childhood wasn\'t a happy one.» / Ordena las frases para formar la historia. La primera (A) ya está dada.',
+      items: [
+        'His father passed away when he was five and his mother had to find a job to support the family, so Andrew stayed at home to take care of his younger sister.',
+        'He left home when he was thirteen and travelled to the USA. There he had several different jobs, including being a kitchen assistant in Corbin, Kentucky, where he cooked for hungry travellers.',
+        'That was when he first learned to cook, and he improved very quickly.',
+        'Over the next ten years Andrew developed his secret hamburger recipe that made him famous.',
+        'In the 1970s he decided to close down his own restaurant and sold the secret recipe to other resourceful businesses, one of which became McDonald\'s.',
+        'Sanders enjoyed a long retirement and visited restaurants all over the world until he died in 1978, aged 83.'
+      ],
+      explanation: 'Orden correcto: A – E – G – B – C – F – D. Pistas: A habla de su infancia y E la explica (su padre murió); G cuenta que se fue a los 13 años y trabajó de ayudante de cocina, y B continúa con «That was when he first learned to cook»; C («Over the next ten years») va después; F (años 70) y D (jubilación y muerte) cierran la historia.' },
+    { type: 'order', title: 'Text 2 · A week in Edinburgh', extra: true,
+      instruction: 'Order the sentences below to make a story. The first sentence is already given for you: «A. Last summer Marta decided to spend a week in Edinburgh with her cousin.» / Ordena las frases para formar la historia. La primera (A) ya está dada.',
+      items: [
+        'Two months before the trip, they booked a twin room in a small B&B.',
+        'On the day of the flight, there was a two-hour delay, so they waited near the departures board.',
+        'When they finally landed, they collected their luggage and took a taxi to the hotel.',
+        'The next day they went sightseeing, visited the castle and took lots of pictures.',
+        'In the evening, they had dinner in a traditional restaurant and Marta left a tip for the waiter.',
+        'At the end of the week they were tired but happy, and they promised to come back next year.'
+      ],
+      explanation: 'Orden correcto: A – B – C – D – E – F – G. Sigue la cronología: la reserva (dos meses antes), el vuelo con retraso, la llegada («finally landed»), el día siguiente, la noche y el final de la semana.' }
+];
+
+/* --------------------------------- WRITING --------------------------------- */
+const _u2Notice = 'Dear customers,\n\nWe are sorry to inform you that from next month the service fee will go up by 20%. We also have to change the time of the customer service: now it will only be in the mornings, from 10am to 1pm.\n\nWe feel sorry for the troubles that this change may cause.\n\nPlease feel free to email us at management@hotelbookingonline.com';
+const _u2NoticeHotel = 'Dear guest,\n\nWe are sorry to tell you that the swimming pool will be closed next week because of repairs. We also have to stop serving dinner on Sundays: from now on the restaurant will only be open for breakfast and lunch.\n\nWe feel very sorry for the inconvenience.\n\nKind regards,\nThe management, SEASIDE HOTEL';
+const _u2WritingEx = [
+    { type: 'writingform', title: 'Part 1 — Fill in the form · HOTEL BOOKING ONLINE (Registration Form)', timeMinutes: 3,
+      prompt: 'Complete the registration form.',
+      fields: ['Username', 'Date of birth (day / month / year)', 'City / Town / Village', 'Mobile number', 'Delivery address — House', 'Delivery address — Street', 'Delivery address — State'] },
+    { type: 'writing', title: 'Part 2 — Member form', timeMinutes: 7, minWords: 20, maxWords: 30,
+      prompt: 'You have joined the \'HOTEL BOOKING ONLINE\' service. Fill in the form with complete sentences: please tell us about the place where you want to spend your holidays.',
+      checklist: ['He escrito frases completas.', 'Hablo del lugar donde quiero pasar mis vacaciones.', 'Mi texto tiene entre 20 y 30 palabras.', 'He revisado la ortografía y la gramática.'] },
+    { type: 'chat', title: 'Part 3 — Chat room conversation', timeMinutes: 10,
+      prompt: 'You are a member of the \'HOTEL BOOKING ONLINE\' website and you are in the chat room. You are talking to Jack, a customer who is also looking for a hotel. Write 30–40 words per answer, in complete sentences.',
+      turns: [
+        { who: 'Jack', text: 'Hi! I see you are new here. I joined a few days ago because I\'m looking for a suitable hotel in Cambridge. Why did you join?' },
+        { reply: true, minWords: 30, maxWords: 40 },
+        { who: 'Jack', text: 'What do you think about the service?' },
+        { reply: true, minWords: 30, maxWords: 40 },
+        { who: 'Jack', text: 'How do you feel about the recent rise in the price of the fee? It was 20% cheaper a month ago.' },
+        { reply: true, minWords: 30, maxWords: 40 }
+      ] },
+    { type: 'writing', title: 'Part 4 — Task A: email to a friend', timeMinutes: 10, minWords: 40, maxWords: 60, material: _u2Notice,
+      prompt: 'You are a member of the \'HOTEL BOOKING ONLINE\' service. On your last visit to their website, you saw the notice above. Write an email to a friend who also uses the \'HOTEL BOOKING ONLINE\' service. Write about your feelings regarding the message you received and suggest possible alternatives. Write about 50 words.',
+      checklist: ['Escribo a un amigo (tono informal).', 'Cuento cómo me siento por el aviso recibido.', 'Propongo posibles alternativas.', 'Mi texto tiene unas 50 palabras.'] },
+    { type: 'writing', title: 'Part 4 — Task B: email to the management', timeMinutes: 20, minWords: 120, maxWords: 150, material: _u2Notice,
+      prompt: 'Now write an email to the management, explaining your feelings about the change and suggesting possible alternatives. Write about 120–150 words.',
+      checklist: ['Escribo a la dirección (tono formal).', 'Explico cómo me siento ante el cambio.', 'Sugiero posibles alternativas.', 'Mi texto tiene entre 120 y 150 palabras.'] }
+];
+const _u2WritingExtraEx = [
+    { type: 'writingform', title: 'Part 1 — Fill in the form · SEASIDE HOLIDAYS club (Membership Form)', timeMinutes: 3, extra: true,
+      prompt: 'Complete the membership form.',
+      fields: ['Username', 'Date of birth (day / month / year)', 'City / Town / Village', 'Mobile number', 'Email address', 'Favourite holiday destination'] },
+    { type: 'writing', title: 'Part 2 — Member form', timeMinutes: 7, minWords: 20, maxWords: 30, extra: true,
+      prompt: 'You have joined the \'SEASIDE HOLIDAYS\' club. Fill in the form with complete sentences: please tell us about your best holiday or about what you like doing in your free time.',
+      checklist: ['He escrito frases completas.', 'Hablo de mis mejores vacaciones o de mi tiempo libre.', 'Mi texto tiene entre 20 y 30 palabras.', 'He revisado la ortografía y la gramática.'] },
+    { type: 'chat', title: 'Part 3 — Chat room conversation', timeMinutes: 10, extra: true,
+      prompt: 'You are a member of the \'SEASIDE HOLIDAYS\' club and you are in the chat room. You are talking to Anna, another member who is looking for a hotel by the sea. Write 30–40 words per answer, in complete sentences.',
+      turns: [
+        { who: 'Anna', text: 'Hello! I\'m looking for a hotel by the sea for next summer. What kind of holiday do you usually prefer?' },
+        { reply: true, minWords: 30, maxWords: 40 },
+        { who: 'Anna', text: 'Interesting! Which is more important for you: a cheap price or a good location?' },
+        { reply: true, minWords: 30, maxWords: 40 },
+        { who: 'Anna', text: 'The hotels I like have no swimming pool and the restaurant is not very good. What do you think?' },
+        { reply: true, minWords: 30, maxWords: 40 }
+      ] },
+    { type: 'writing', title: 'Part 4 — Task A: email to a friend', timeMinutes: 10, minWords: 40, maxWords: 60, material: _u2NoticeHotel, extra: true,
+      prompt: 'You are staying at the SEASIDE HOTEL next month and you received the notice above. Write an email to a friend who is travelling with you. Write about your feelings regarding the message and suggest possible alternatives. Write about 50 words.',
+      checklist: ['Escribo a un amigo (tono informal).', 'Cuento cómo me siento por el aviso recibido.', 'Propongo posibles alternativas.', 'Mi texto tiene unas 50 palabras.'] },
+    { type: 'writing', title: 'Part 4 — Task B: email to the hotel management', timeMinutes: 20, minWords: 120, maxWords: 150, material: _u2NoticeHotel, extra: true,
+      prompt: 'Now write an email to the management of the hotel, explaining your feelings about the changes and suggesting possible alternatives. Write about 120–150 words.',
+      checklist: ['Escribo a la dirección del hotel (tono formal).', 'Explico cómo me siento ante los cambios.', 'Sugiero posibles alternativas.', 'Mi texto tiene entre 120 y 150 palabras.'] }
+];
+
+/* ------------------- EJERCICIOS DE PRÁCTICA DE LOS TEMAS (añadidos) ------------------- */
+const _u2TemasCompEx = [
+    _u1ClozeLines('Ejercicio 1 · Comparativos', _u1INS, [
+        ["1. My brother is {} than me.", ["taller", "more tall", "tallest"], 0, "Adjetivo corto (tall): taller than."],
+        ["2. This book is {} than that one.", ["interestinger", "more interesting", "most interesting"], 1, "«Interesting» es largo (tres sílabas): more interesting than."],
+        ["3. Today is {} than yesterday.", ["more hot", "hottest", "hotter"], 2, "«Hot» termina en una vocal + una consonante: se dobla la consonante (hotter)."],
+        ["4. She is {} than her sister.", ["more happy", "happier", "happyer"], 1, "Adjetivo corto en -y: la «y» pasa a «i» (happier)."],
+        ["5. My new phone is {} than my old one.", ["more expensive", "expensiver", "most expensive"], 0, "«Expensive» es largo: more expensive than."],
+        ["6. Spanish is not {} difficult as Chinese.", ["as", "than", "more"], 0, "Para igualar usamos as + adjetivo + as: not as difficult as."],
+        ["7. The film was {} than the book.", ["more bad", "worse", "badder"], 1, "«Bad» es irregular: bad → worse → the worst."],
+        ["8. Their house is {} from the station than ours.", ["farer", "more far", "further"], 2, "«Far» es irregular: far → further."],
+        ["9. Please speak {} — I can't hear you.", ["louder", "more loud", "loudest"], 0, "Adjetivo corto (loud): louder."],
+        ["10. This exercise is {} than I thought.", ["easyer", "easier", "more easy"], 1, "Adjetivo corto en -y: easy → easier."],
+        ["11. London is bigger {} Cambridge.", ["as", "than", "that"], 1, "Después de un comparativo usamos «than»."],
+        ["12. She sings {} than her brother.", ["better", "more good", "best"], 0, "«Good/well» es irregular: better."]
+    ]),
+    _u1ClozeLines('Ejercicio 2 · Superlativos y estructuras con as…as', _u1INS, [
+        ["1. She is {} girl in the class.", ["taller", "tallest", "the tallest"], 2, "Superlativo de un adjetivo corto, siempre con «the»: the tallest."],
+        ["2. It's {} restaurant in town.", ["the most expensive", "the expensivest", "more expensive"], 0, "Adjetivo largo: the most expensive."],
+        ["3. This is {} film I have ever seen.", ["the goodest", "the best", "the most good"], 1, "«Good» es irregular: the best."],
+        ["4. Mount Everest is {} mountain in the world.", ["the highest", "higher", "the most high"], 0, "Adjetivo corto: the highest."],
+        ["5. August is {} month for tourists.", ["the most busy", "the busiest", "busiest"], 1, "Adjetivo corto en -y: busy → the busiest (con «the»)."],
+        ["6. That was {} day of my life.", ["the worse", "the worst", "the baddest"], 1, "«Bad» es irregular: the worst."],
+        ["7. He is the {} person I know.", ["kinder", "kindest", "more kind"], 1, "Ya aparece «the»; «kind» es corto: the kindest."],
+        ["8. Our flight is {} than yours.", ["more early", "earliest", "earlier"], 2, "Early termina en -y: earlier."],
+        ["9. This is the {} book in the library.", ["oldest", "older", "most old"], 0, "Con «the» usamos el superlativo corto: the oldest."],
+        ["10. My room is as {} as yours.", ["big", "bigger", "biggest"], 0, "En as … as el adjetivo va en grado normal: as big as."],
+        ["11. She is not as {} as her sister.", ["tall", "taller", "tallest"], 0, "En not as … as el adjetivo va en grado normal: not as tall as."],
+        ["12. Health is the {} thing in life.", ["more important", "most important", "importantest"], 1, "Adjetivo largo con «the»: the most important."]
+    ])
+];
+
+const _u2TemasEdIngEx = [
+    _u1ClozeLines('Ejercicio 1 · -ed o -ing (sentimiento o causa)', _u1INS, [
+        ["1. The football match was really {}.", ["exciting", "excited"], 0, "Describe el partido (lo que causa la emoción): exciting."],
+        ["2. I was {} when I heard the news.", ["surprising", "surprised"], 1, "Describe cómo me sentí yo: surprised."],
+        ["3. His speech was long and {}.", ["confusing", "confused"], 0, "Describe el discurso (la causa): confusing."],
+        ["4. She felt very {} after the long journey.", ["tiring", "tired"], 1, "Describe cómo se siente ella: tired."],
+        ["5. It was a very {} story. Everyone cried.", ["moving", "moved"], 0, "Describe la historia (la causa): moving."],
+        ["6. Are you {} in learning Italian?", ["interested", "interesting"], 0, "Describe cómo se siente la persona: interested in."],
+        ["7. The exam results were {}. We all passed!", ["amazing", "amazed"], 0, "Describe los resultados (la causa): amazing."],
+        ["8. My grandmother is {} by loud noises.", ["frightening", "frightened"], 1, "Describe cómo se siente ella: frightened."],
+        ["9. We were {} to see our old teacher again.", ["exciting", "excited"], 1, "Describe cómo nos sentimos: excited."],
+        ["10. It's {} to wait for hours in the rain.", ["annoying", "annoyed"], 0, "Describe la situación de esperar (la causa): annoying."],
+        ["11. I'm {} with my exam results.", ["disappointing", "disappointed"], 1, "Describe cómo me siento yo: disappointed with."],
+        ["12. This lesson is so {}. I want to go home.", ["boring", "bored"], 0, "Describe la clase (la causa): boring."]
+    ]),
+    _u1ClozeLines('Ejercicio 2 · Personas y cosas', _u1INS, [
+        ["1. Lucy is {}: she never stops talking about her problems.", ["boring", "bored"], 0, "Describe cómo es Lucy y el efecto que produce en los demás: boring."],
+        ["2. I'm {} because the train is late again.", ["annoyed", "annoying"], 0, "Describe cómo me siento: annoyed."],
+        ["3. The news about the accident was {}.", ["shocking", "shocked"], 0, "Describe la noticia (la causa): shocking."],
+        ["4. We were all {} by the news.", ["shocking", "shocked"], 1, "Describe cómo nos sentimos: shocked."],
+        ["5. What an {} view!", ["amazing", "amazed"], 0, "Describe la vista (la causa): amazing. (Delante de «view» solo cabe -ing)."],
+        ["6. My sister is {} in art. She goes to museums every week.", ["interested", "interesting"], 0, "Describe cómo se siente ella: interested in."],
+        ["7. That museum is {}; you should visit it.", ["interested", "interesting"], 1, "Describe el museo (la causa): interesting."],
+        ["8. I'm {} because I have too much work.", ["exhausting", "exhausted"], 1, "Describe cómo me siento: exhausted."],
+        ["9. Working all night is {}.", ["exhausting", "exhausted"], 0, "Describe la actividad (la causa): exhausting."],
+        ["10. The teacher was {} by my progress.", ["pleasing", "pleased"], 1, "Describe cómo se sintió el profesor: pleased."]
+    ])
+];
+
+const _u2TemasQuantEx = [
+    _u1ClozeLines('Ejercicio 1 · Too, enough, much y many', _u1INS, [
+        ["1. There isn't {} sugar left.", ["many", "much", "a few"], 1, "«Sugar» es incontable y la frase es negativa: much."],
+        ["2. I can't buy the car. It's {} expensive.", ["too", "enough", "much"], 0, "«Too» + adjetivo = demasiado: too expensive."],
+        ["3. Is this box big {} for all the books?", ["too", "enough", "many"], 1, "Con adjetivo, «enough» va detrás: big enough."],
+        ["4. She has {} homework to go out tonight.", ["too much", "too many", "enough"], 0, "«Homework» es incontable: too much homework."],
+        ["5. We have {} chairs for everybody. Don't worry.", ["enough", "too", "much"], 0, "«Enough» + nombre: enough chairs."],
+        ["6. There were {} cars on the road, so we were late.", ["too much", "too many", "much"], 1, "«Cars» es contable: too many cars."],
+        ["7. He speaks English {} to work abroad.", ["well enough", "enough well", "too well"], 0, "Con un adverbio, «enough» va detrás: well enough."],
+        ["8. How {} students are there in your class?", ["many", "much", "any"], 0, "«Students» es contable: How many…?"],
+        ["9. The water is {} cold to swim in.", ["too", "enough", "very"], 0, "«Too cold to swim»: demasiado frío para nadar."],
+        ["10. I haven't got {} money to pay for dinner.", ["enough", "too", "many"], 0, "«Enough» + nombre incontable: enough money."],
+        ["11. How {} time do we have?", ["many", "much", "few"], 1, "«Time» es incontable: How much…?"],
+        ["12. He drove {} fast and the police stopped him.", ["too", "enough", "many"], 0, "«Too» + adverbio: too fast."]
+    ]),
+    _u1ClozeLines('Ejercicio 2 · Some, any, no, none, few, little, plenty…', _u1INS, [
+        ["1. Would you like {} tea?", ["some", "any", "no"], 0, "En un ofrecimiento usamos «some» aunque sea una pregunta."],
+        ["2. I don't have {} brothers or sisters.", ["some", "any", "none"], 1, "Frase negativa: any."],
+        ["3. How many apples are there? — {}.", ["No", "None", "Any"], 1, "«None» es un pronombre y puede responder solo."],
+        ["4. There is {} milk in the fridge. I have to go shopping.", ["no", "none", "any"], 0, "«No» + nombre equivale a la negación: There is no milk."],
+        ["5. She has {} friends, so she feels lonely.", ["few", "a few", "little"], 0, "Sentido negativo con contable: few."],
+        ["6. I've got {} money, so I can buy you a coffee.", ["a little", "little", "few"], 0, "Sentido positivo («es suficiente») con incontable: a little."],
+        ["7. There is {} food. We can invite more people.", ["plenty", "plenty of", "few"], 1, "Delante de un nombre usamos «plenty of»."],
+        ["8. Is there {} bread left?", ["some", "any", "no"], 1, "Pregunta normal: any."],
+        ["9. We had {} rain in April.", ["a lot of", "many", "a few"], 0, "«Rain» es incontable: a lot of rain."],
+        ["10. I'm sorry, I've got {} time.", ["few", "little", "a few"], 1, "Sentido negativo («no es suficiente») con incontable: little."],
+        ["11. Can I have {} water, please?", ["some", "any", "none"], 0, "En una petición usamos «some»."],
+        ["12. I have {} idea where he is.", ["no", "none", "any"], 0, "«No» + nombre en una frase afirmativa: I have no idea."]
+    ])
+];
+
+const _u2TemasVocabEx = [
+    { type: 'match', instruction: 'Empareja cada palabra en inglés con su traducción.', extra: true, pairs: [
+        { left: 'Cliff', right: 'Acantilado' }, { left: 'Sunbathe', right: 'Tomar el sol' }, { left: 'Get sunburn', right: 'Quemarse' },
+        { left: 'Full board', right: 'Pensión completa' }, { left: 'Half board', right: 'Media pensión' }, { left: 'Starters', right: 'Entrantes' },
+        { left: 'Main course', right: 'Plato principal' }, { left: 'Customs', right: 'Aduanas' }, { left: 'Baggage reclaim', right: 'Recogida de equipaje' },
+        { left: 'Take off', right: 'Despegar' }, { left: 'Cabin crew', right: 'Tripulación de cabina' }, { left: 'Passport control', right: 'Control de pasaporte' }
+    ] },
+    _u1ClozeLines('Ejercicio 2 · De viaje', _u1INS, [
+        ["1. We stayed in a {} room because we wanted two separate beds.", ["single", "double", "twin"], 2, "Twin room = habitación con camas gemelas."],
+        ["2. It's better to {} a table in advance on Saturday night.", ["book", "tip", "board"], 0, "Book = reservar."],
+        ["3. At the {} desk you leave your suitcase and get your boarding card.", ["check-in", "duty-free", "departures"], 0, "Check-in desk = mostrador de facturación."],
+        ["4. He put on {} so he didn't get sunburn.", ["sun cream", "a bill", "a delay"], 0, "Sun cream = crema solar."],
+        ["5. After a ten-hour flight, the plane finally {} in New York.", ["took off", "landed", "boarded"], 1, "Land = aterrizar."],
+        ["6. After landing, we went to the baggage {} to pick up our suitcases.", ["delay", "reclaim", "board"], 1, "Baggage reclaim = recogida de equipaje."],
+        ["7. For dinner I had soup as a {} and fish as a main course.", ["bill", "dessert", "starter"], 2, "Starter = entrante."],
+        ["8. The city has a famous cathedral, a big castle and many {}.", ["departures", "historic monuments", "suntans"], 1, "Historic monuments = monumentos históricos."],
+        ["9. It's a short trip, so I'm taking only {} luggage: one small bag.", ["hand", "hired", "rough"], 0, "Hand luggage = equipaje de mano."],
+        ["10. The hotel offers {}: breakfast, lunch and dinner are all included.", ["half board", "full board", "B&B"], 1, "Full board = pensión completa (las tres comidas)."]
+    ])
+];
+
+/* ---------------------------------- LECCIONES ---------------------------------- */
+const UNIT_2 = [
+    { id: 'u2-temas-comp', section: 'temas', unit: 2, title: 'Comparative and Superlative Adjectives', description: 'Teoría y práctica: comparativos, superlativos, as…as y adjetivos irregulares.', theory: _u2CompTheory, flashcards: [], exercises: [..._u2CompEx, ..._u2TemasCompEx] },
+    { id: 'u2-temas-edding', section: 'temas', unit: 2, title: "Adjectives Ending in '-ed' and '-ing'", description: 'Teoría y práctica: adjetivos que describen sentimientos (-ed) y lo que los causa (-ing).', theory: _u2EdIngTheory, flashcards: [], exercises: [..._u2EdIngEx, ..._u2TemasEdIngEx] },
+    { id: 'u2-temas-quant', section: 'temas', unit: 2, title: 'Quantifiers', description: 'Teoría y práctica: too, enough, much, many, some, any, no, none, few, little, plenty y a lot of.', theory: _u2QuantTheory, flashcards: [], exercises: [..._u2QuantEx, ..._u2TemasQuantEx] },
+    { id: 'u2-temas-vocab', section: 'temas', unit: 2, title: 'Vocabulary — Holidays and Free Time', description: 'Vocabulario con flashcards: turismo, playa, hoteles y restaurantes y aeropuerto, y su práctica.', theory: _u2VocabTheory, flashcards: _u2VocabCards, exercises: [..._u2VocabEx, ..._u2TemasVocabEx] },
+
+    { id: 'u2-reading-1', section: 'temas', unit: 2, title: 'Reading — Put the story in order', description: 'Ordena las frases para formar una historia. La primera frase ya está dada.', theory: '', flashcards: [], exercises: _u2ReadingEx },
+
+    { id: 'u2-writing-1', section: 'temas', unit: 2, title: 'Writing — HOTEL BOOKING ONLINE', description: 'Cuatro tareas con el formato del Aptis Writing: formulario, formulario con frases, conversación de chat y respuesta a un aviso. Tu profesor las corrige.', theory: '', flashcards: [], exercises: _u2WritingEx },
+    { id: 'u2-writing-extra', section: 'temas', unit: 2, mandatory: false, title: 'Writing — SEASIDE HOLIDAYS (práctica extra)', description: 'Práctica adicional opcional con el mismo formato que la tarea anterior.', theory: '', flashcards: [], exercises: _u2WritingExtraEx }
+];
+
+        const COURSE_CONTENT = [...(typeof UNIT_1 !== 'undefined' ? UNIT_1 : []), ...(typeof UNIT_2 !== 'undefined' ? UNIT_2 : [])];
         const COURSE_RESOURCES = [
             { id: 'res-aptisweb-general', title: 'AptisWeb — Biblioteca de exámenes Aptis General', url: 'https://aptisweb.com/aptis-exam-library/aptis-general', type: 'aptis', description: 'Modelos de examen de Aptis General para practicar.' },
             { id: 'res-aptisexamen', title: 'AptisExamen.net', url: 'https://aptisexamen.net', type: 'aptis', description: 'Práctica de modelos de examen Aptis.' }
