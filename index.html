@@ -900,7 +900,10 @@ const UNIT_1 = [
 ];
 
         const COURSE_CONTENT = (typeof UNIT_1 !== 'undefined') ? [...UNIT_1] : [];
-        const COURSE_RESOURCES = [];
+        const COURSE_RESOURCES = [
+            { id: 'res-aptisweb-general', title: 'AptisWeb — Biblioteca de exámenes Aptis General', url: 'https://aptisweb.com/aptis-exam-library/aptis-general', type: 'aptis', description: 'Modelos de examen de Aptis General para practicar.' },
+            { id: 'res-aptisexamen', title: 'AptisExamen.net', url: 'https://aptisexamen.net', type: 'aptis', description: 'Práctica de modelos de examen Aptis.' }
+        ];
 
         // Lecciones de demostración retiradas (se ignoran si siguen guardadas en el navegador)
         const DEMO_LESSON_IDS = ['core-1', 'reading-1', 'listening-1', 'writing-1', 'speaking-1'];
