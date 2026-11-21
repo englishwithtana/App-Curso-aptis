@@ -15,6 +15,20 @@
     <!-- Supabase JS SDK -->
     <style>
         :root {
+            --bg-app: #e6e8f0;
+            --bg-card: #ffffff;
+            --bg-subtle: #f1f2f7;
+            --border-card: #e5e7ee;
+            --text-main: #0f1115;
+            --text-muted: #6b7080;
+            --accent: #111318;
+            --accent-hover: #000000;
+            --accent-soft: #eceef4;
+            --accent-text: #111318;
+            --on-accent: #ffffff;
+        }
+
+        [data-theme="indigo"] {
             --bg-app: #f8fafc;
             --bg-card: #ffffff;
             --bg-subtle: #f1f5f9;
@@ -90,6 +104,7 @@
             --accent-hover: #0ea5e9;
             --accent-soft: #1e3a5f;
             --accent-text: #bae6fd;
+            --on-accent: #0f172a;
         }
 
         body {
@@ -146,6 +161,17 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .fade-in { animation: fadeIn 0.25s ease-out forwards; }
+
+        /* ---- Nuevo diseño: carril de iconos + tarjeta central ---- */
+        #sidebar { background: var(--bg-card); }
+        #sidebar .nav-item { color: var(--text-muted) !important; }
+        .rail-btn:hover, #sidebar .nav-item:hover { background: var(--bg-card); color: var(--text-main) !important; }
+        #sidebar .nav-item.bg-slate-800 { background: var(--accent) !important; color: var(--on-accent) !important; box-shadow: 0 8px 18px -8px rgba(0,0,0,.45); }
+        .soft-panel { background: var(--bg-subtle); }
+        @media (min-width: 1024px) {
+            #sidebar { background: transparent; box-shadow: none; }
+            #main-app-shell { margin: 1.25rem; padding: 1rem 1rem 1rem .25rem; border-radius: 2rem; background: var(--bg-subtle); box-shadow: 0 24px 60px -24px rgba(15,23,42,.30); min-height: calc(100vh - 2.5rem); }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
@@ -213,17 +239,15 @@
     <div id="main-app-shell" class="hidden min-h-screen flex-col lg:flex-row">
 
         <!-- Barra Superior Móvil -->
-        <header class="lg:hidden bg-slate-900 text-white px-4 py-3 flex items-center justify-between sticky top-0 z-30 shadow-md">
+        <header class="lg:hidden bg-white border-b border-slate-200 px-4 py-3 flex items-center justify-between sticky top-0 z-30">
             <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-emerald-400 flex items-center justify-center font-bold text-white shadow-sm">
-                    A+
-                </div>
+                <div class="w-9 h-9 rounded-full bg-slate-900 flex items-center justify-center font-bold text-white text-sm">A+</div>
                 <div>
-                    <span class="font-bold text-base tracking-tight block leading-none">Aptis Master</span>
-                    <span class="text-[11px] text-slate-400">Interactive Course Studio</span>
+                    <span class="font-bold text-base tracking-tight block leading-none text-slate-900">Aptis Master</span>
+                    <span class="text-[11px] text-slate-500">Curso Interactivo</span>
                 </div>
             </div>
-            <button id="mobile-menu-btn" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 transition" aria-label="Abrir menú">
+            <button id="mobile-menu-btn" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition" aria-label="Abrir menú">
                 <i data-lucide="menu" class="w-5 h-5"></i>
             </button>
         </header>
@@ -231,147 +255,146 @@
         <!-- Overlay Móvil -->
         <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-30 hidden lg:hidden"></div>
 
-        <!-- Barra Lateral (Sidebar) -->
-        <aside id="sidebar" class="fixed lg:sticky top-0 left-0 z-40 h-screen w-72 bg-slate-900 text-slate-200 flex flex-col justify-between transition-transform duration-300 -translate-x-full lg:translate-x-0 shrink-0 shadow-xl">
-            <div class="p-5 overflow-y-auto flex-1">
-                <!-- Logo Desktop -->
-                <div class="hidden lg:flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-emerald-400 flex items-center justify-center font-extrabold text-lg text-white shadow-lg shadow-indigo-500/20">
-                        A+
-                    </div>
-                    <div>
-                        <h1 class="font-bold text-lg text-white tracking-tight leading-none">Aptis Master</h1>
-                        <span id="sidebar-role-badge" class="text-xs text-indigo-300 font-medium">Curso Interactivo</span>
-                    </div>
-                </div>
+        <!-- Barra lateral: menú completo en móvil y carril de iconos en escritorio -->
+        <aside id="sidebar" class="fixed lg:sticky top-0 lg:top-9 left-0 z-40 h-screen lg:h-[calc(100vh-4.5rem)] w-72 lg:w-24 text-slate-700 flex flex-col justify-between transition-transform duration-300 -translate-x-full lg:translate-x-0 shrink-0 shadow-xl">
+            <div class="p-5 lg:px-0 lg:py-2 overflow-y-auto flex-1">
+                <div class="hidden lg:flex w-12 h-12 mx-auto mb-6 rounded-full bg-slate-900 text-white font-extrabold text-sm items-center justify-center" title="Aptis Master">A+</div>
+                <span id="sidebar-role-badge" class="lg:hidden block px-3 mb-4 text-xs text-slate-500 font-semibold">Curso Interactivo</span>
 
-                <!-- Botón Gestión de Alumnos y Revocación (Solo Profesor) -->
-                <button onclick="navigateTo('writings')" id="nav-writings" class="teacher-only nav-item w-full mb-2 py-2.5 px-4 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 border border-rose-500/30 text-rose-300 font-semibold text-xs flex items-center justify-between transition cursor-pointer">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="pen-line" class="w-4 h-4 text-rose-400"></i>
-                        <span>Redacciones (Writing)</span>
-                    </span>
-                    <span id="pending-writings-badge" class="bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded-full font-bold">0</span>
-                </button>
-
-                <button onclick="navigateTo('students')" id="nav-students" class="teacher-only nav-item w-full mb-6 py-2.5 px-4 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/30 text-emerald-300 font-semibold text-xs flex items-center justify-between transition cursor-pointer">
-                    <span class="flex items-center gap-2">
-                        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
-                        <span>Control de Alumnos</span>
-                    </span>
-                    <span id="active-students-badge" class="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-bold">0</span>
-                </button>
-
-                <!-- Navegación Principal -->
-                <div class="space-y-1">
-                    <p class="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-2">Panel General</p>
-                    <button onclick="navigateTo('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-800/80 cursor-pointer">
+                <div class="space-y-1 lg:space-y-2">
+                    <button onclick="navigateTo('writings')" id="nav-writings" title="Redacciones (Writing)" class="teacher-only nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
-                            <i data-lucide="layout-dashboard" class="w-4 h-4 text-indigo-400"></i>
-                            Mi Progreso y Curso
+                            <i data-lucide="pen-line" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Redacciones (Writing)</span>
+                        </span>
+                        <span id="pending-writings-badge" class="nav-badge text-[10px] font-bold bg-rose-500 text-white min-w-[18px] text-center px-1 py-0.5 rounded-full lg:absolute lg:-top-1 lg:-right-1">0</span>
+                    </button>
+                    <button onclick="navigateTo('students')" id="nav-students" title="Control de Alumnos" class="teacher-only nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
+                        <span class="flex items-center gap-3">
+                            <i data-lucide="shield-check" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Control de Alumnos</span>
+                        </span>
+                        <span id="active-students-badge" class="nav-badge text-[10px] font-bold bg-rose-500 text-white min-w-[18px] text-center px-1 py-0.5 rounded-full lg:absolute lg:-top-1 lg:-right-1">0</span>
+                    </button>
+                </div>
+                <div class="hidden lg:block h-px w-8 bg-slate-300/70 mx-auto my-3"></div>
+
+                <div class="space-y-1 lg:space-y-2">
+                    <p class="lg:hidden px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-1 mb-1">Panel General</p>
+                    <button onclick="navigateTo('dashboard')" id="nav-dashboard" title="Mi Progreso y Curso" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
+                        <span class="flex items-center gap-3">
+                            <i data-lucide="layout-dashboard" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Mi Progreso y Curso</span>
                         </span>
                     </button>
                 </div>
+                <div class="hidden lg:block h-px w-8 bg-slate-300/70 mx-auto my-3"></div>
 
-                <!-- Secciones Oficiales del Examen Aptis -->
-                <div class="mt-6 space-y-1">
-                    <p class="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-2">Secciones Examen Aptis</p>
-
-                    <button onclick="navigateTo('core')" id="nav-core" class="nav-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-800/80 cursor-pointer">
+                <div class="space-y-1 lg:space-y-2">
+                    <p class="lg:hidden px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-5 mb-1">Secciones Examen Aptis</p>
+                    <button onclick="navigateTo('core')" id="nav-core" title="Core (Grammar & Vocab)" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
-                            <i data-lucide="brain-circuit" class="w-4 h-4 text-amber-400"></i>
-                            Core (Grammar & Vocab)
+                            <i data-lucide="brain-circuit" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Core (Grammar & Vocab)</span>
                         </span>
-                        <span id="badge-core" class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full">0</span>
+                        <span id="badge-core" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
-
-                    <button onclick="navigateTo('reading')" id="nav-reading" class="nav-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-800/80 cursor-pointer">
+                    <button onclick="navigateTo('reading')" id="nav-reading" title="Reading" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
-                            <i data-lucide="book-open-check" class="w-4 h-4 text-emerald-400"></i>
-                            Reading
+                            <i data-lucide="book-open-check" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Reading</span>
                         </span>
-                        <span id="badge-reading" class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full">0</span>
+                        <span id="badge-reading" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
-
-                    <button onclick="navigateTo('listening')" id="nav-listening" class="nav-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-800/80 cursor-pointer">
+                    <button onclick="navigateTo('listening')" id="nav-listening" title="Listening" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
-                            <i data-lucide="headphones" class="w-4 h-4 text-sky-400"></i>
-                            Listening
+                            <i data-lucide="headphones" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Listening</span>
                         </span>
-                        <span id="badge-listening" class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full">0</span>
+                        <span id="badge-listening" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
-
-                    <button onclick="navigateTo('writing')" id="nav-writing" class="nav-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-800/80 cursor-pointer">
+                    <button onclick="navigateTo('writing')" id="nav-writing" title="Writing" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
-                            <i data-lucide="pen-tool" class="w-4 h-4 text-rose-400"></i>
-                            Writing
+                            <i data-lucide="pen-tool" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Writing</span>
                         </span>
-                        <span id="badge-writing" class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full">0</span>
+                        <span id="badge-writing" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
-
-                    <button onclick="navigateTo('speaking')" id="nav-speaking" class="nav-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-800/80 cursor-pointer">
+                    <button onclick="navigateTo('speaking')" id="nav-speaking" title="Speaking" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
-                            <i data-lucide="mic" class="w-4 h-4 text-purple-400"></i>
-                            Speaking
+                            <i data-lucide="mic" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Speaking</span>
                         </span>
-                        <span id="badge-speaking" class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full">0</span>
+                        <span id="badge-speaking" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
                 </div>
+                <div class="hidden lg:block h-px w-8 bg-slate-300/70 mx-auto my-3"></div>
 
-                <!-- Contenido del Curso: Temas, Exámenes y Recursos Digitales -->
-                <div class="mt-6 space-y-1">
-                    <p class="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 mb-2">Contenido del Curso</p>
-
-                    <button onclick="navigateTo('temas')" id="nav-temas" class="nav-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-800/80 cursor-pointer">
+                <div class="space-y-1 lg:space-y-2">
+                    <p class="lg:hidden px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-5 mb-1">Contenido del Curso</p>
+                    <button onclick="navigateTo('temas')" id="nav-temas" title="Temas" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
-                            <i data-lucide="book-marked" class="w-4 h-4 text-indigo-400"></i>
-                            Temas
+                            <i data-lucide="book-marked" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Temas</span>
                         </span>
-                        <span id="badge-temas" class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full">0</span>
+                        <span id="badge-temas" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
-
-                    <button onclick="navigateTo('examenes')" id="nav-examenes" class="nav-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-800/80 cursor-pointer">
+                    <button onclick="navigateTo('examenes')" id="nav-examenes" title="Exámenes" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
-                            <i data-lucide="clipboard-check" class="w-4 h-4 text-orange-400"></i>
-                            Exámenes
+                            <i data-lucide="clipboard-check" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Exámenes</span>
                         </span>
-                        <span id="badge-examenes" class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full">0</span>
+                        <span id="badge-examenes" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
-
-                    <button onclick="navigateTo('recursos')" id="nav-recursos" class="nav-item w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition hover:bg-slate-800/80 cursor-pointer">
+                    <button onclick="navigateTo('recursos')" id="nav-recursos" title="Recursos Digitales" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
-                            <i data-lucide="link-2" class="w-4 h-4 text-teal-400"></i>
-                            Recursos Digitales
+                            <i data-lucide="link-2" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Recursos Digitales</span>
                         </span>
-                        <span id="badge-recursos" class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full">0</span>
+                        <span id="badge-recursos" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Pie de Barra Lateral: Selector de Color + Respaldo + Cerrar Sesión -->
-            <div class="p-4 border-t border-slate-800 space-y-3 bg-slate-950/40">
-                <!-- Selector de Color de Estudio -->
-                <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700/70">
+            <!-- Pie: color de estudio y cerrar sesión -->
+            <div class="relative p-4 lg:px-0 lg:py-3 border-t border-slate-200 lg:border-0 flex lg:flex-col items-center justify-between gap-3">
+                <button onclick="toggleThemePanel()" id="btn-theme-toggle" title="Color de estudio" class="rail-btn w-11 h-11 rounded-full flex items-center justify-center text-slate-500 transition cursor-pointer">
+                    <i data-lucide="palette" class="w-5 h-5"></i>
+                </button>
+                <button onclick="logoutSession()" title="Cerrar sesión" class="rail-btn h-11 px-3 lg:px-0 lg:w-11 rounded-full flex items-center justify-center gap-2 text-rose-500 hover:text-rose-600 transition cursor-pointer">
+                    <i data-lucide="log-out" class="w-5 h-5"></i>
+                    <span class="lg:hidden text-xs font-bold">Cerrar Sesión</span>
+                </button>
+                <div id="theme-panel" class="hidden absolute bottom-full left-3 mb-2 lg:bottom-3 lg:left-full lg:ml-3 lg:mb-0 w-64 p-3 rounded-2xl bg-white border border-slate-200 shadow-xl z-50">
                     <div class="flex items-center justify-between mb-2">
-                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-                            <i data-lucide="palette" class="w-3.5 h-3.5 text-indigo-400"></i> Color de Estudio
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+                            <i data-lucide="palette" class="w-3.5 h-3.5"></i> Color de Estudio
                         </span>
-                        <span id="active-theme-label" class="text-[11px] font-bold text-white">Índigo Clásico</span>
+                        <span id="active-theme-label" class="text-[11px] font-bold text-slate-900">Negro Elegante</span>
                     </div>
-                    <div id="theme-swatches" class="grid grid-cols-6 gap-1.5"></div>
-                </div>
-
-                <div class="flex items-center justify-between pt-1">
-                    <button onclick="logoutSession()" class="ml-auto text-xs font-bold text-rose-400 hover:text-rose-300 flex items-center gap-1 cursor-pointer">
-                        <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Cerrar Sesión
-                    </button>
+                    <div id="theme-swatches" class="grid grid-cols-7 gap-1.5"></div>
                 </div>
             </div>
         </aside>
 
-        <!-- Contenido Principal Dinámico -->
-        <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 max-w-6xl mx-auto w-full">
-            <div id="app-content" class="fade-in"></div>
+        <!-- Contenido principal: tarjeta central con cabecera -->
+        <main class="flex-1 min-w-0 p-3 sm:p-4 lg:p-0 w-full">
+            <div id="content-card" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-4 sm:p-6 lg:p-8 lg:min-h-[calc(100vh-4.5rem)] max-w-[1500px] mx-auto">
+                <div id="topbar" class="flex items-center justify-between gap-4 mb-6 pb-5 border-b border-slate-200">
+                    <div class="min-w-0">
+                        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 leading-tight">Aptis Master</h1>
+                        <p id="topbar-section" class="text-xs sm:text-sm text-slate-500 truncate">Panel</p>
+                    </div>
+                    <div class="flex items-center gap-3 shrink-0">
+                        <div class="text-right hidden sm:block">
+                            <p id="topbar-user-name" class="text-sm font-bold text-slate-900 leading-tight"></p>
+                            <p id="topbar-user-role" class="text-[11px] text-slate-500"></p>
+                        </div>
+                        <div id="topbar-avatar" class="w-11 h-11 rounded-full bg-slate-900 text-white font-bold text-sm flex items-center justify-center"></div>
+                    </div>
+                </div>
+                <div id="app-content" class="fade-in"></div>
+            </div>
         </main>
     </div>
 
@@ -1042,6 +1065,7 @@ const UNIT_1 = [
         const PASS_PCT = 75; // % mínimo de aciertos para aprobar una actividad (lo valida también el servidor)
 
         const STUDY_THEMES = [
+            { id: 'mono', name: 'Negro Elegante', swatch: '#111318', ring: '#d1d5db' },
             { id: 'indigo', name: 'Índigo Clásico', swatch: '#4f46e5', ring: '#c7d2fe' },
             { id: 'forest', name: 'Bosque Sereno', swatch: '#15803d', ring: '#bbf7d0' },
             { id: 'ocean', name: 'Océano Calma', swatch: '#0284c7', ring: '#bae6fd' },
@@ -1060,7 +1084,7 @@ const UNIT_1 = [
         let teacherPass = null;    // solo en memoria; nunca se guarda en el navegador
         let currentUserRole = null; // 'teacher' | 'student'
         let currentStudentSession = null; // { name, code }
-        let currentTheme = 'indigo';
+        let currentTheme = 'mono';
         let currentRoute = 'dashboard';
         let activeLessonId = null;
         let statusTimer = null;
@@ -1327,6 +1351,28 @@ const UNIT_1 = [
             }
         }
 
+        function toggleThemePanel() {
+            const p = document.getElementById('theme-panel');
+            if (p) p.classList.toggle('hidden');
+        }
+
+        function updateTopbarUser() {
+            const isTeacher = currentUserRole === 'teacher';
+            const name = isTeacher ? 'Profesor' : ((currentStudentSession && currentStudentSession.name) || '');
+            const set = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+            set('topbar-user-name', name);
+            set('topbar-user-role', isTeacher ? 'Modo administrador' : 'Alumno');
+            const initials = name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase() || 'A';
+            set('topbar-avatar', initials);
+        }
+
+        function updateTopbarSection(route) {
+            const labels = { dashboard: 'Panel', students: 'Control de alumnos', 'student-detail': 'Detalle del alumno', writings: 'Redacciones de Writing', recursos: 'Recursos Digitales' };
+            const label = labels[route] || (SECTION_META[route] && SECTION_META[route].name) || 'Panel';
+            const el = document.getElementById('topbar-section');
+            if (el) el.textContent = label;
+        }
+
         function enterAuthorizedApp() {
             document.getElementById('auth-gate-screen').classList.add('hidden');
             const shell = document.getElementById('main-app-shell');
@@ -1339,6 +1385,7 @@ const UNIT_1 = [
                 else el.classList.add('hidden');
             });
 
+            updateTopbarUser();
             const roleBadge = document.getElementById('sidebar-role-badge');
             const watermark = document.getElementById('student-watermark');
 
@@ -1364,9 +1411,9 @@ const UNIT_1 = [
         }
 
         function applyStudyTheme(themeId, persist = true) {
-            const validTheme = STUDY_THEMES.find(t => t.id === themeId) ? themeId : 'indigo';
+            const validTheme = STUDY_THEMES.find(t => t.id === themeId) ? themeId : 'mono';
             currentTheme = validTheme;
-            if (validTheme === 'indigo') {
+            if (validTheme === 'mono') {
                 document.documentElement.removeAttribute('data-theme');
             } else {
                 document.documentElement.setAttribute('data-theme', validTheme);
@@ -1389,7 +1436,7 @@ const UNIT_1 = [
                 const isSelected = t.id === currentTheme;
                 return `
                     <button onclick="applyStudyTheme('${t.id}')" title="${t.name}" aria-label="Tema ${t.name}"
-                        class="h-7 rounded-lg transition-all cursor-pointer flex items-center justify-center border ${isSelected ? 'scale-105 border-white ring-2 ring-white/60' : 'border-white/20 opacity-80 hover:opacity-100'}"
+                        class="h-7 rounded-lg transition-all cursor-pointer flex items-center justify-center border ${isSelected ? 'scale-105 border-white ring-2 ring-slate-400' : 'border-slate-200 opacity-80 hover:opacity-100'}"
                         style="background-color: ${t.swatch};">
                         ${isSelected ? '<span class="w-2 h-2 rounded-full bg-white shadow-xs"></span>' : ''}
                     </button>
@@ -1400,7 +1447,7 @@ const UNIT_1 = [
         function loadState() {
             try {
                 const savedTheme = localStorage.getItem(THEME_KEY);
-                applyStudyTheme(savedTheme || 'indigo', false);
+                applyStudyTheme(savedTheme || 'mono', false);
                 const lastCode = localStorage.getItem(LAST_CODE_KEY);
                 const codeInput = document.getElementById('student-code-input');
                 if (lastCode && codeInput && !codeInput.value) codeInput.value = lastCode;
@@ -1609,6 +1656,7 @@ const UNIT_1 = [
                 }
             }
             currentRoute = route;
+            updateTopbarSection(lessonId ? ((lessons.find(l => l.id === lessonId) || {}).section || route) : route);
             activeLessonId = lessonId;
             currentDetailCode = extra;
 
@@ -2019,6 +2067,26 @@ const UNIT_1 = [
          * 5. VISTA DASHBOARD (PROGRESO GENERAL Y RESUMEN POR SECCIÓN)
          * =========================================================================
          */
+        function progressRingHTML(pct, centerValue, caption) {
+            const N = 48, cx = 90, cy = 90, r1 = 62, r2 = 80;
+            const lit = Math.round((pct / 100) * N);
+            let ticks = '';
+            for (let i = 0; i < N; i++) {
+                const a = (i / N) * 2 * Math.PI - Math.PI / 2;
+                const x1 = (cx + r1 * Math.cos(a)).toFixed(1), y1 = (cy + r1 * Math.sin(a)).toFixed(1);
+                const x2 = (cx + r2 * Math.cos(a)).toFixed(1), y2 = (cy + r2 * Math.sin(a)).toFixed(1);
+                ticks += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${i < lit ? 'var(--accent)' : 'var(--border-card)'}" stroke-width="5" stroke-linecap="round"/>`;
+            }
+            return `
+                <div class="relative w-44 h-44 mx-auto">
+                    <svg viewBox="0 0 180 180" class="w-full h-full" aria-hidden="true">${ticks}</svg>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                        <span class="text-3xl font-extrabold text-slate-900">${centerValue}</span>
+                        <span class="text-[11px] text-slate-500 leading-tight px-6">${caption}</span>
+                    </div>
+                </div>`;
+        }
+
         function renderDashboard(container) {
             const isTeacher = currentUserRole === 'teacher';
             const mandatoryAll = lessons.filter(lessonIsMandatory);
@@ -2027,78 +2095,35 @@ const UNIT_1 = [
             const units = getUnits();
             const currentUnit = units.find(u => !u.complete);
 
-            const sectionCardsHTML = EXAM_SECTION_KEYS.map(key => {
+            // Panel derecho: "Mis cursos" (las 5 destrezas + Temas, Exámenes y Recursos)
+            const courseRow = (key, icon, name, sub, pct) => `
+                <button onclick="navigateTo('${key}')" class="w-full flex items-center gap-3 p-2.5 rounded-2xl hover:bg-white/70 text-left transition cursor-pointer">
+                    <span class="w-11 h-11 rounded-full bg-slate-900 text-white flex items-center justify-center shrink-0"><i data-lucide="${icon}" class="w-5 h-5"></i></span>
+                    <span class="flex-1 min-w-0">
+                        <span class="block font-bold text-sm text-slate-900 truncate">${name}</span>
+                        <span class="block text-xs text-slate-500">${sub}</span>
+                        ${pct === null ? '' : `<span class="block mt-1.5 w-full h-1 bg-slate-200 rounded-full overflow-hidden"><span class="block h-full bg-indigo-600 rounded-full" style="width: ${pct}%"></span></span>`}
+                    </span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400 shrink-0"></i>
+                </button>`;
+
+            const examRows = EXAM_SECTION_KEYS.map(key => {
                 const meta = SECTION_META[key];
-                const secLessons = lessons.filter(l => l.section === key);
-                const secMandatory = secLessons.filter(lessonIsMandatory);
+                const secMandatory = lessons.filter(l => l.section === key).filter(lessonIsMandatory);
                 const secDone = secMandatory.filter(lessonDone).length;
                 const pct = secMandatory.length > 0 ? Math.round((secDone / secMandatory.length) * 100) : 0;
-
-                return `
-                    <div onclick="navigateTo('${key}')" class="group bg-white rounded-2xl p-5 border border-slate-200/90 hover:border-indigo-300 shadow-xs hover:shadow-md transition cursor-pointer flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-start justify-between mb-3">
-                                <div class="w-11 h-11 rounded-xl ${meta.iconBg} flex items-center justify-center">
-                                    <i data-lucide="${meta.icon}" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-xs font-semibold px-2.5 py-1 rounded-full border ${meta.badgeClass}">
-                                    ${secDone}/${secMandatory.length} actividades
-                                </span>
-                            </div>
-                            <h3 class="font-bold text-slate-900 group-hover:text-indigo-600 transition text-base mb-1">${meta.name}</h3>
-                            <p class="text-xs text-slate-500 line-clamp-2 mb-4">${meta.description}</p>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs font-medium text-slate-600 mb-1.5">
-                                <span>Progreso</span>
-                                <span>${pct}%</span>
-                            </div>
-                            <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                                <div class="h-full bg-indigo-600 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
-                            </div>
-                        </div>
-                    </div>
-                `;
+                return courseRow(key, meta.icon, meta.short === 'Core' ? 'Core (Grammar & Vocab)' : meta.short, `${secDone}/${secMandatory.length} actividades`, pct);
             }).join('');
+            const contentRows =
+                courseRow('temas', SECTION_META.temas.icon, 'Temas', `${lessons.filter(l => l.section === 'temas').length} temas`, null) +
+                courseRow('examenes', SECTION_META.examenes.icon, 'Exámenes', `${lessons.filter(l => l.section === 'examenes').length} exámenes`, null) +
+                courseRow('recursos', 'link-2', 'Recursos Digitales', `${COURSE_RESOURCES.length} recursos`, null);
 
-            // Tarjetas de Temas, Exámenes y Recursos Digitales
-            const courseCardsHTML = ['temas', 'examenes'].map(key => {
-                const meta = SECTION_META[key];
-                const count = lessons.filter(l => l.section === key).length;
-                return `
-                    <div onclick="navigateTo('${key}')" class="group bg-white rounded-2xl p-5 border border-slate-200/90 hover:border-indigo-300 shadow-xs hover:shadow-md transition cursor-pointer flex flex-col justify-between">
-                        <div>
-                            <div class="flex items-start justify-between mb-3">
-                                <div class="w-11 h-11 rounded-xl ${meta.iconBg} flex items-center justify-center">
-                                    <i data-lucide="${meta.icon}" class="w-5 h-5"></i>
-                                </div>
-                                <span class="text-xs font-semibold px-2.5 py-1 rounded-full border ${meta.badgeClass}">
-                                    ${count} ${key === 'temas' ? 'temas' : 'exámenes'}
-                                </span>
-                            </div>
-                            <h3 class="font-bold text-slate-900 group-hover:text-indigo-600 transition text-base mb-1">${meta.name}</h3>
-                            <p class="text-xs text-slate-500 line-clamp-2">${meta.description}</p>
-                        </div>
-                    </div>
-                `;
-            }).join('') + `
-                <div onclick="navigateTo('recursos')" class="group bg-white rounded-2xl p-5 border border-slate-200/90 hover:border-indigo-300 shadow-xs hover:shadow-md transition cursor-pointer flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-start justify-between mb-3">
-                            <div class="w-11 h-11 rounded-xl bg-teal-500/10 text-teal-600 flex items-center justify-center">
-                                <i data-lucide="link-2" class="w-5 h-5"></i>
-                            </div>
-                            <span class="text-xs font-semibold px-2.5 py-1 rounded-full border bg-teal-100 text-teal-800 border-teal-200">
-                                ${COURSE_RESOURCES.length} recursos
-                            </span>
-                        </div>
-                        <h3 class="font-bold text-slate-900 group-hover:text-indigo-600 transition text-base mb-1">Recursos Digitales</h3>
-                        <p class="text-xs text-slate-500 line-clamp-2">Enlaces, herramientas, vídeos, audios y plataformas de práctica para complementar tu preparación.</p>
-                    </div>
-                </div>
-            `;
+            const ringHTML = isTeacher
+                ? progressRingHTML(0, mandatoryAll.length, 'actividades obligatorias en el curso')
+                : progressRingHTML(globalPct, globalPct + '%', `${doneAll.length} de ${mandatoryAll.length} actividades`);
 
-            // Ruta por unidades: actual, completadas y bloqueadas
+            // Ruta por unidades
             const unitsHTML = units.length > 0 ? units.map(u => {
                 const state = u.complete ? 'complete' : (u.locked ? 'locked' : 'open');
                 const badge = state === 'complete'
@@ -2107,36 +2132,39 @@ const UNIT_1 = [
                         ? '<span class="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full"><i data-lucide="lock" class="w-3.5 h-3.5"></i> Bloqueada</span>'
                         : '<span class="inline-flex items-center gap-1 text-xs font-semibold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full"><i data-lucide="unlock" class="w-3.5 h-3.5"></i> ' + (currentUnit && currentUnit.unit === u.unit ? 'En curso' : 'Disponible') + '</span>');
                 return `
-                    <div class="bg-white rounded-xl p-4 border ${state === 'locked' ? 'border-slate-200 opacity-70' : 'border-slate-200'}">
-                        <div class="flex items-center justify-between gap-3 mb-2">
-                            <h4 class="font-bold text-sm text-slate-900">Unidad ${escapeHTML(u.unit)}</h4>
-                            ${badge}
-                        </div>
-                        <div class="flex justify-between text-xs text-slate-500 mb-1.5">
-                            <span>${u.done.length} de ${u.mandatory.length} actividades obligatorias aprobadas</span>
-                            <span>${u.pct}%</span>
-                        </div>
-                        <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-indigo-600 rounded-full" style="width: ${u.pct}%"></div>
+                    <div ${state === 'locked' ? '' : `onclick="navigateTo('temas')"`} class="flex items-center gap-4 p-4 rounded-2xl border border-slate-200 transition ${state === 'locked' ? 'opacity-70' : 'hover:bg-slate-100 cursor-pointer'}">
+                        <span class="w-12 h-12 rounded-full bg-slate-900 text-white font-extrabold flex items-center justify-center shrink-0">${escapeHTML(u.unit)}</span>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center justify-between gap-3 mb-1">
+                                <h4 class="font-bold text-sm text-slate-900">Unidad ${escapeHTML(u.unit)}</h4>
+                                ${badge}
+                            </div>
+                            <div class="flex justify-between text-xs text-slate-500 mb-1.5">
+                                <span>${u.done.length} de ${u.mandatory.length} actividades obligatorias aprobadas</span>
+                                <span>${u.pct}%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-full bg-indigo-600 rounded-full" style="width: ${u.pct}%"></div>
+                            </div>
                         </div>
                     </div>`;
             }).join('') : `
-                <div class="md:col-span-2 bg-white rounded-2xl p-8 border border-dashed border-slate-300 text-center text-sm text-slate-500">
+                <div class="bg-white rounded-2xl p-8 border border-dashed border-slate-300 text-center text-sm text-slate-500">
                     ${isTeacher
                         ? 'El curso está vacío. El contenido se irá incorporando unidad a unidad.'
                         : 'Tu profesor irá publicando el contenido del curso unidad a unidad.'}
                 </div>`;
 
             container.innerHTML = `
-                <!-- Banner Hero -->
-                <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl mb-8 relative overflow-hidden">
-                    <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                        <div class="max-w-xl">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-xs font-semibold mb-3">
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                    <div class="xl:col-span-2 space-y-8 min-w-0">
+                        <!-- Banner -->
+                        <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-slate-200 text-xs font-semibold mb-3">
                                 <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> Preparación Integral Aptis General & Advanced
                             </span>
                             <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-2">Tu Curso Interactivo de Aptis</h2>
-                            <p class="text-slate-300 text-sm leading-relaxed">
+                            <p class="text-slate-300 text-sm leading-relaxed max-w-xl">
                                 ${isTeacher
                                     ? 'Gestiona el acceso de tus alumnos, corrige sus redacciones y revisa el contenido del curso. Tú ves todas las unidades desbloqueadas.'
                                     : (currentUnit
@@ -2145,59 +2173,44 @@ const UNIT_1 = [
                             </p>
                             ${isTeacher ? `
                                 <div class="flex flex-wrap gap-3 mt-5">
-                                    <button onclick="navigateTo('students')" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-md transition cursor-pointer">
+                                    <button onclick="navigateTo('students')" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition cursor-pointer">
                                         <i data-lucide="shield-check" class="w-4 h-4"></i> Gestionar Alumnos
                                     </button>
-                                    <button onclick="navigateTo('writings')" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-md transition cursor-pointer">
+                                    <button onclick="navigateTo('writings')" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition cursor-pointer">
                                         <i data-lucide="pen-line" class="w-4 h-4"></i> Redacciones (${pendingWritings})
                                     </button>
                                 </div>
                             ` : ''}
                         </div>
 
-                        <!-- Progreso Global -->
-                        <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-5 min-w-[210px] text-center">
-                            <p class="text-xs uppercase tracking-wider text-indigo-200 font-semibold mb-1">${isTeacher ? 'Contenido' : 'Progreso Global'}</p>
-                            <div class="text-4xl font-extrabold text-white mb-1">${isTeacher ? mandatoryAll.length : globalPct + '%'}</div>
-                            <p class="text-xs text-slate-300 mb-3">${isTeacher ? 'actividades obligatorias en el curso' : `${doneAll.length} de ${mandatoryAll.length} actividades obligatorias aprobadas`}</p>
-                            ${isTeacher ? '' : `<div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-emerald-400 to-indigo-400 rounded-full" style="width: ${globalPct}%"></div>
-                            </div>`}
+                        <!-- Ruta por unidades -->
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-bold text-slate-900">${isTeacher ? 'Unidades del Curso' : 'Mi Ruta por Unidades'}</h3>
+                                <span class="text-xs text-slate-500">${isTeacher ? 'Vista de profesor: nada está bloqueado' : `Aprobado = ${PASS_PCT}% o más de aciertos`}</span>
+                            </div>
+                            <div class="space-y-3">${unitsHTML}</div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Ruta por unidades -->
-                <div class="mb-8">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-bold text-slate-900">${isTeacher ? 'Unidades del Curso' : 'Mi Ruta por Unidades'}</h3>
-                        <span class="text-xs text-slate-500">${isTeacher ? 'Vista de profesor: nada está bloqueado' : `Aprobado = ${PASS_PCT}% o más de aciertos`}</span>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        ${unitsHTML}
-                    </div>
-                </div>
-
-                <!-- Grid de las 5 Secciones del Examen -->
-                <div class="mb-8">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-bold text-slate-900">Módulos Oficiales del Examen</h3>
-                        <span class="text-xs text-slate-500">Selecciona una destreza para estudiar</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        ${sectionCardsHTML}
-                    </div>
-                </div>
-
-                <!-- Contenido del Curso: Temas, Exámenes, Recursos -->
-                <div>
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-bold text-slate-900">Contenido del Curso</h3>
-                        <span class="text-xs text-slate-500">Temas por unidades, exámenes y recursos</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        ${courseCardsHTML}
-                    </div>
+                    <!-- Panel derecho: cursos y progreso -->
+                    <aside class="soft-panel rounded-3xl p-5 space-y-6 self-start">
+                        <div>
+                            <h3 class="text-lg font-extrabold text-slate-900 mb-2 px-1">Mis Cursos</h3>
+                            <div class="space-y-0.5">${examRows}</div>
+                            <p class="px-1 pt-4 pb-1 text-[11px] font-semibold uppercase tracking-wider text-slate-500">Contenido del curso</p>
+                            <div class="space-y-0.5">${contentRows}</div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-extrabold text-slate-900 mb-3 px-1">${isTeacher ? 'Contenido' : 'Mi Progreso'}</h3>
+                            ${ringHTML}
+                            ${isTeacher ? '' : `
+                                <div class="mt-4 px-1">
+                                    <div class="flex justify-between text-xs font-medium text-slate-500 mb-1.5"><span>Progreso global</span><span>${globalPct}%</span></div>
+                                    <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden"><div class="h-full bg-indigo-600 rounded-full" style="width: ${globalPct}%"></div></div>
+                                </div>`}
+                        </div>
+                    </aside>
                 </div>
             `;
         }
