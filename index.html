@@ -1000,22 +1000,18 @@ const _u1TemasVocabEx = [
 ];
 
 /* ---------------------------------- LECCIONES ---------------------------------- */
-const _u1Ref = (tema) => `<p>Antes de empezar, repasa el tema <strong>${tema}</strong> en la sección «Temas» (Unidad 1).</p>`;
+const _u1ArtNote = _u1T.note('En los ejercicios', '<p>El símbolo (–) significa <strong>cero artículo</strong> (no se necesita ningún artículo).</p>');
+// Todo el contenido de la Unidad 1 va en la sección «Temas». Cada tema reúne teoría, práctica original y práctica añadida.
 const UNIT_1 = [
-    { id: 'u1-temas-aux', mandatory: false, section: 'temas', unit: 1, title: 'Auxiliary Verbs — Question tags y respuestas cortas', description: 'Question tags, respuestas cortas y respuestas con So / Neither.', theory: _u1AuxTheory, flashcards: [], exercises: _u1TemasAuxEx },
-    { id: 'u1-temas-articles', mandatory: false, section: 'temas', unit: 1, title: 'Articles: a, an, the, (zero article)', description: 'Artículos: un/una, el/la y cero artículo, con sus reglas especiales.', theory: _u1ArtTheory, flashcards: [], exercises: _u1TemasArtEx },
-    { id: 'u1-temas-countable', mandatory: false, section: 'temas', unit: 1, title: 'Countable and Uncountable Nouns', description: 'Sustantivos contables e incontables, plurales irregulares y cantidades.', theory: _u1CountTheory, flashcards: [], exercises: _u1TemasCountEx },
-    { id: 'u1-temas-vocab', mandatory: false, section: 'temas', unit: 1, title: 'Vocabulary — Family and Relationships', description: 'Vocabulario: familia, estado civil, verbos y otras palabras relacionadas.', theory: _u1VocabTheory, flashcards: _u1VocabCards, exercises: _u1TemasVocabEx },
+    { id: 'u1-temas-aux', section: 'temas', unit: 1, title: 'Auxiliary Verbs — Question tags y respuestas cortas', description: 'Teoría y práctica: question tags, respuestas cortas y respuestas con So / Neither.', theory: _u1AuxTheory, flashcards: [], exercises: [..._u1AuxEx, ..._u1TemasAuxEx] },
+    { id: 'u1-temas-articles', section: 'temas', unit: 1, title: 'Articles: a, an, the, (zero article)', description: 'Teoría y práctica: artículos un/una, el/la y cero artículo, con sus reglas especiales.', theory: _u1ArtTheory + _u1ArtNote, flashcards: [], exercises: [..._u1ArtEx, ..._u1TemasArtEx] },
+    { id: 'u1-temas-countable', section: 'temas', unit: 1, title: 'Countable and Uncountable Nouns', description: 'Teoría y práctica: sustantivos contables e incontables, plurales irregulares y cantidades.', theory: _u1CountTheory, flashcards: [], exercises: [..._u1CountEx, ..._u1TemasCountEx] },
+    { id: 'u1-temas-vocab', section: 'temas', unit: 1, title: 'Vocabulary — Family and Relationships', description: 'Vocabulario con flashcards: familia, estado civil, verbos y otras palabras relacionadas, y su práctica.', theory: _u1VocabTheory, flashcards: _u1VocabCards, exercises: [..._u1VocabEx, ..._u1TemasVocabEx] },
 
-    { id: 'u1-core-aux', section: 'core', unit: 1, title: 'Auxiliary Verbs', description: 'Elige el auxiliar correcto. Las question tags llevan el mismo tiempo verbal que la frase principal y polaridad contraria; las respuestas con So / Neither siguen la polaridad de la frase de la otra persona.', theory: _u1Ref('Auxiliary Verbs'), flashcards: [], exercises: _u1AuxEx },
-    { id: 'u1-core-articles', section: 'core', unit: 1, title: 'Articles', description: 'Elige la respuesta correcta. El símbolo (–) significa cero artículo (no se necesita ningún artículo).', theory: _u1Ref('Articles'), flashcards: [], exercises: _u1ArtEx },
-    { id: 'u1-core-countable', section: 'core', unit: 1, title: 'Countable and Uncountable Nouns', description: 'Practica los sustantivos contables e incontables, sus cantidades y los plurales irregulares.', theory: _u1Ref('Countable and Uncountable Nouns'), flashcards: [], exercises: _u1CountEx },
-    { id: 'u1-core-vocab', section: 'core', unit: 1, title: 'Vocabulary — Family and Relationships', description: 'Elige la respuesta correcta y empareja el vocabulario de familia y relaciones.', theory: _u1Ref('Vocabulary — Family and Relationships'), flashcards: [], exercises: _u1VocabEx },
+    { id: 'u1-reading-1', section: 'temas', unit: 1, title: 'Reading — Gap-fill texts', description: 'Elige la palabra correcta (A, B o C) para completar cada texto.', theory: '', flashcards: [], exercises: _u1ReadingEx },
 
-    { id: 'u1-reading-1', section: 'reading', unit: 1, title: 'Reading — Gap-fill texts', description: 'Elige la palabra correcta (A, B o C) para completar cada texto.', theory: '', flashcards: [], exercises: _u1ReadingEx },
-
-    { id: 'u1-writing-1', section: 'writing', unit: 1, title: 'Writing — PERFECT AU PAIR', description: 'Cuatro tareas con el formato del Aptis Writing: formulario, formulario con frases, conversación de chat y respuesta a un email. Tu profesor las corrige.', theory: '', flashcards: [], exercises: _u1WritingEx },
-    { id: 'u1-writing-extra', section: 'writing', unit: 1, mandatory: false, title: 'Writing — WORLD FRIENDS (práctica extra)', description: 'Práctica adicional opcional con el mismo formato que la tarea anterior.', theory: '', flashcards: [], exercises: _u1WritingExtraEx }
+    { id: 'u1-writing-1', section: 'temas', unit: 1, title: 'Writing — PERFECT AU PAIR', description: 'Cuatro tareas con el formato del Aptis Writing: formulario, formulario con frases, conversación de chat y respuesta a un email. Tu profesor las corrige.', theory: '', flashcards: [], exercises: _u1WritingEx },
+    { id: 'u1-writing-extra', section: 'temas', unit: 1, mandatory: false, title: 'Writing — WORLD FRIENDS (práctica extra)', description: 'Práctica adicional opcional con el mismo formato que la tarea anterior.', theory: '', flashcards: [], exercises: _u1WritingExtraEx }
 ];
 
         const COURSE_CONTENT = (typeof UNIT_1 !== 'undefined') ? [...UNIT_1] : [];
