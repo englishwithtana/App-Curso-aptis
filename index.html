@@ -353,12 +353,19 @@
                         </span>
                         <span id="badge-examenes" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
-                    <button onclick="navigateTo('dossier')" id="nav-dossier" title="Dossier de prácticas" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
+                    <button onclick="navigateTo('dossier')" id="nav-dossier" title="Dossier de prácticas · Version 2" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
                             <i data-lucide="folder-open" class="w-4 h-4 lg:w-5 lg:h-5"></i>
-                            <span class="lg:hidden">Dossier de prácticas</span>
+                            <span class="lg:hidden">Dossier V2</span>
                         </span>
                         <span id="badge-dossier" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
+                    </button>
+                    <button onclick="navigateTo('dossierc')" id="nav-dossierc" title="Dossier de prácticas · Corrected Edition" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
+                        <span class="flex items-center gap-3">
+                            <i data-lucide="book-open-check" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Dossier Corrected</span>
+                        </span>
+                        <span id="badge-dossierc" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
                     <button onclick="navigateTo('recursos')" id="nav-recursos" title="Recursos Digitales" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
@@ -569,7 +576,7 @@
          * 1. CONTENIDO DEL CURSO (se incorpora desde el código, unidad a unidad)
          * =========================================================================
          * COURSE_CONTENT: lecciones de las secciones 'core', 'reading', 'listening',
-         * 'writing', 'speaking', 'temas', 'examenes' y 'dossier'. Esquema de cada lección:
+         * 'writing', 'speaking', 'temas', 'examenes', 'dossier' y 'dossierc'. Esquema de cada lección:
          *   { id, section, level, title, description, theory (HTML), flashcards[],
          *     exercises[], listeningScript?,
          *     unit?        -> número de unidad (se usa para agrupar en "Temas"),
@@ -4838,8 +4845,736 @@ const DOSSIER_2 = [
   _dL1('test-speaking', 'tests', 'Practice Test — Speaking', 'Las 4 partes del Speaking en 12 minutos. Práctica libre.', _dSpeakTest)
 ];
 
+/* ===========================================================================
+ * DOSSIER CORRECTED EDITION (Universidad Pablo de Olavide) — Parte A: Grammar.
+ * Sección independiente del "Dossier de prácticas" (Version 2). Ids: dosc-*.
+ * Claves del PDF revisadas una a una; las explicaciones son mías.
+ * ======================================================================== */
+const _cG1 = [
+ ['1. Mary is asleep. ____ make any noise!', ['Do', 'Don\'t', 'Not', 'No'], 1, 'Imperativo negativo: «Don\'t + verbo».'],
+ ['2. Listen! The teacher ____ to you.', ['is talking', 'talking', 'talks', 'talk'], 0, 'Presente continuo para algo que ocurre ahora (Listen!).'],
+ ['3. What is that? Oh! It\'s ____ dog.', ['ours', 'of us', 'our', 'us'], 2, 'Delante de un sustantivo va el adjetivo posesivo «our». «Ours» se usa sin sustantivo.'],
+ ['4. That is ____ sister.', ['Alice', 'of Alice', 'the Alice\'s', 'Alice\'s'], 3, 'Posesión con nombres de persona: genitivo sajón («Alice\'s sister»).'],
+ ['5. How do the children normally go to school?  — ____', ['by foot', 'on walk', 'in car', 'by car'], 3, 'Medios de transporte: «by + medio» (by car). «A pie» sería «on foot», no «by foot».'],
+ ['6. Please send the fax to ____ .', ['them', 'their', 'they', 'theirs'], 0, 'Tras una preposición se usa el pronombre objeto: «to them».'],
+ ['7. ____ do you go to the gym? Four days a week.', ['What frequency', 'How often', 'How long', 'What time'], 1, '«How often» pregunta por la frecuencia.'],
+ ['8. ____ is this? It\'s not mine.', ['Of who', 'Who', 'Who\'s', 'Whose'], 3, '«Whose» pregunta a quién pertenece algo (¿de quién?).'],
+ ['9. Michael ____ home at 5 o\'clock every day.', ['gone', 'go', 'goes', 'going'], 2, 'Hábito (every day) → presente simple; con «Michael» lleva -s.'],
+ ['10. Do the soldiers work at the weekend? No, ____ .', ['they do', 'they don\'t work', 'they don\'t', 'they not work'], 2, 'Respuesta corta negativa: «No, they don\'t».'],
+ ['11. Paul ____ start his new job on Tuesday.', ['\'s going', 'going', 'going to', '\'s going to'], 3, 'Plan futuro: «be going to + infinitivo» → «\'s going to start».'],
+ ['12. Do you live in Paris? Yes, ____ .', ['I do', 'I live', 'I do live', 'I am'], 0, 'Respuesta corta afirmativa con el auxiliar de la pregunta: «Yes, I do».'],
+ ['13. What ____ do after his military service?', ['is Ron going', '\'s Ron going to', 'Ron is going', 'Ron is going to'], 1, 'En una pregunta con «what» el auxiliar va antes del sujeto: «What\'s Ron going to do?».'],
+ ['14. The blue dress costs €64 and the red one costs €84. The red dress is ____ the blue one.', ['not as expensive as', 'cheaper than', 'more expensive that', 'not as cheap as'], 3, 'El rojo cuesta más, así que «no es tan barato como» el azul. («More expensive that» tiene una errata: debería ser «than».)'],
+ ['15. My brother Peter plays tennis ____ my brother Sam.', ['best than', 'more well than', 'better that', 'better than'], 3, 'Comparativo de «well» = «better», seguido de «than». (En la opción «better that» hay una errata.)'],
+ ['16. The exam ____ at the correct time.', ['don\'t started', 'didn\'t start', 'didn\'t started', 'doesn\'t started'], 1, 'Negativo en pasado: «didn\'t + infinitivo» (sin -ed).'],
+ ['17. The child ____ to the party alone last Saturday.', ['gone', 'goes', 'did went', 'went'], 3, '«Go» es irregular: pasado «went».'],
+ ['18. A: It\'s very cold in here. B: Don\'t worry, I ____ the heating.', ['\'ll turn', '\'m going to turn on', 'turn on', '\'ll turn on'], 3, 'Decisión espontánea → «will». Además «turn on» (encender) necesita la partícula «on».'],
+ ['19. ____ call a doctor for you?', ['Won\'t I', 'Would I', 'Am I going', 'Shall I'], 3, '«Shall I…?» se usa para ofrecerse a hacer algo.'],
+ ['20. When the exam results come out, who ____ with?', ['are going to celebrate', 'you celebrate', 'you will celebrate', 'will you celebrate'], 3, 'Pregunta en futuro con «who»: auxiliar antes del sujeto → «will you celebrate».'],
+ ['21. The soldiers ____ stay in the barracks last weekend.', ['didn\'t have to', 'didn\'t need', 'must', 'had'], 0, '«Didn\'t have to» = no era obligatorio (pasado). «Must» no tiene pasado.'],
+ ['22. Must the soldiers get up at 6 o\'clock on Sundays? No, they ____ .', ['don\'t', 'needn\'t', 'mustn\'t', 'can\'t'], 1, '«Needn\'t» = no hace falta. «Mustn\'t» sería prohibición.'],
+ ['23. My little brother will be five when he ____ to France.', ['will go', 'go', 'goes', '\'s going to'], 2, 'Tras «when» en una oración de futuro se usa el presente simple: «goes».'],
+ ['24. The twins ____ swim when they were three years old.', ['could', 'can', 'knew', 'could to'], 0, '«Could» expresa habilidad en el pasado y va con infinitivo sin «to».'],
+ ['25. The company has worked with us ____ a long time.', ['since', 'for', 'during', 'while'], 1, '«For» + periodo de tiempo. «Since» necesita un punto de inicio.'],
+ ['26. We ____ buy alcohol since we were 16 years old.', ['been able to', '\'ve been able', '\'ve could', '\'ve been able to'], 3, 'Present perfect de «can»: «have been able to + infinitivo».'],
+ ['27. ____ America?', ['Have you ever been in', 'Has you ever been in', 'Have you ever been to', 'Have you ever been'], 2, 'Experiencias: «Have you ever been to + lugar?».'],
+ ['28. I ____ the picture when Roger called.', ['was looking at', 'were looking at', 'was looking', 'was seeing'], 0, 'Pasado continuo interrumpido por otra acción; el verbo es «look at».'],
+ ['29. Most people think that ____ is an interesting hobby.', ['travelling', 'to travel', 'the travel', 'to travelling'], 0, 'Como sujeto de la oración se usa el gerundio: «travelling».'],
+ ['30. Those are the people ____ we sent the letters to.', ['what', 'which', 'who', 'whose'], 2, 'Para personas el relativo es «who». «Which» es para cosas.'],
+ ['31. Those are the men ____ wives are in prison.', ['whose', 'of whose', 'who', 'of who'], 0, '«Whose» expresa posesión: los hombres cuyas esposas…'],
+ ['32. The boy\'s mother told him ____ the disco.', ['not to go to', 'to not go to', 'not going to', 'not to going'], 0, '«Tell someone not to + infinitivo» (orden negativa en estilo indirecto).'],
+ ['33. "What can I do for you?" — The shop assistant asked the man what ____ .', ['can he do for him', 'he can do for him', 'could he do for him', 'he could do for him'], 3, 'Estilo indirecto: orden de afirmación (sujeto + verbo) y retroceso de tiempo: «he could do for him».'],
+ ['34. The man wanted to know if the client objected to ____ .', ['his opening the window', 'he opening the window', 'him to open the window', 'his to open the window'], 0, '«Object to» + gerundio con su sujeto posesivo: «his opening the window».'],
+ ['35. Mary normally has her hair ____ at the hairdresser\'s in town.', ['done', 'did', 'to do', 'doing'], 0, 'Causativa: «have + objeto + participio» → «has her hair done».'],
+ ['36. Before arriving at the flat, Mike and Paula ____ had supper.', ['didn\'t', 'did', 'had', 'have'], 2, 'Acción anterior a otra en el pasado → pasado perfecto: «had had supper» (el primer «had» es el auxiliar).'],
+ ['37. Before you got the job in that company, ____ anywhere else?', ['have you worked', 'had you work', 'has you worked', 'had you worked'], 3, 'Pasado perfecto en pregunta: «had you worked…?».'],
+ ['38. ____ you pay the bank now, they won\'t give you another loan.', ['If', 'Unless', 'If not', 'If don\'t'], 1, '«Unless» = «if… not»: si no pagas ahora, no te darán otro préstamo.'],
+ ['39. The doctor said that his patient ____ have an operation on his foot.', ['ought to', 'ought', 'should to', 'had better to'], 0, '«Ought to + infinitivo». «Ought» sin «to» y «should to» son incorrectas.'],
+ ['40. The employees ____ sign their names in the book before leaving.', ['supposed to', 'should to', 'are supposed to', 'are supposed'], 2, '«Be supposed to + infinitivo» = se supone que deben.'],
+ ['41. The building ____ finished by next April.', ['should been', 'ought be', 'should to be', 'should be'], 3, '«Should be + participio» = debería estar terminado.'],
+ ['42. The car ____ in the explosion.', ['was destroy', 'was destroyed', 'were destroyed', 'destroyed'], 1, 'Voz pasiva en pasado, sujeto singular: «was destroyed».'],
+ ['43. A new government ____ next month.', ['\'s formed', '\'s going to be formed', 'will formed', 'going to form'], 1, 'Futuro en pasiva: «is going to be formed». («Will formed» e «going to form» son incorrectas.)'],
+ ['44. The criminal ____ to prison for life.', ['has sent', 'has sending', 'has been send', 'has been sent'], 3, 'Present perfect pasivo: «has been sent».'],
+ ['45. If I ____ a bad timetable, I won\'t work.', ['\'m given', '\'m giving', '\'ll be given', '\'ll be giving'], 0, 'Primer condicional: «if + presente (pasivo) → will».'],
+ ['46. Tom would travel more if he ____ a car.', ['own', 'would own', 'had owned', 'owned'], 3, 'Segundo condicional: «would + infinitivo… if + pasado simple».'],
+ ['47. The accident wouldn\'t have happened if the driver ____ more careful.', ['would have been', 'would be', 'had been', 'wouldn\'t have been'], 2, 'Tercer condicional: «if + pasado perfecto (had been)».'],
+ ['48. When we were children we ____ to the beach every summer.', ['used go', 'used to go', 'was used to go', 'was used go'], 1, 'Hábito pasado: «used to + infinitivo».'],
+ ['49. When I\'m not feeling well, I ____ in bed.', ['usually stay', 'use to stay', 'used to stay', 'normally to stay'], 0, 'Hábito presente (When I\'m not feeling well) → presente simple con «usually».'],
+ ['50. Monica ____ because her car keys aren\'t here.', ['must already left', 'must have already left', 'can\'t left', 'must to have left'], 1, 'Deducción sobre el pasado: «must have + participio».']
+].map(_dQ);
 
-        const COURSE_CONTENT = [...(typeof UNIT_1 !== 'undefined' ? UNIT_1 : []), ...(typeof UNIT_2 !== 'undefined' ? UNIT_2 : []), ...(typeof UNIT_3 !== 'undefined' ? UNIT_3 : []), ...(typeof UNIT_4 !== 'undefined' ? UNIT_4 : []), ...(typeof UNIT_5 !== 'undefined' ? UNIT_5 : []), ...(typeof UNIT_6 !== 'undefined' ? UNIT_6 : []), ...(typeof UNIT_7 !== 'undefined' ? UNIT_7 : []), ...(typeof UNIT_8 !== 'undefined' ? UNIT_8 : []), ...(typeof EXAM_1 !== 'undefined' ? EXAM_1 : []), ...(typeof DOSSIER_2 !== 'undefined' ? DOSSIER_2 : [])];
+const _cG2 = [
+ ['1. The product manager usually ____ a report to the client on Friday morning.', ['sends', 'send', 'sent'], 0, 'Hábito (usually) con 3.ª persona → «sends».'],
+ ['2. Bill ____ lunch with the Irish President the day before yesterday.', ['hadn\'t', 'didn\'t have', 'hadn\'t got'], 1, 'Pasado simple negativo (the day before yesterday): «didn\'t have».'],
+ ['3. Your English test will be ____ the 8th of June ____ 5 p.m.', ['on / at', 'at / on', 'in / at'], 0, '«On» + fecha; «at» + hora.'],
+ ['4. His salary is the same ____ mine.', ['like', 'than', 'as'], 2, '«The same as» = igual que.'],
+ ['5. All the employees ____ to London tomorrow to do a training course.', ['fly', 'flew', 'are flying'], 2, 'Presente continuo para planes ya organizados en el futuro.'],
+ ['6. Rafael Nadal has won ____ tennis matches.', ['too many', 'a lot of', 'much'], 1, '«A lot of» sirve con contables. «Much» no se usa así en afirmativas y «too many» sería negativo.'],
+ ['7. I ____ the report yet.', ['haven\'t finished', 'finished', 'didn\'t finish'], 0, '«Yet» en negativa → present perfect.'],
+ ['8. They ____ in the International Department.', ['\'d like working', 'like working', 'like work'], 1, '«Like + gerundio» = gustar. («\'d like» llevaría «to work».)'],
+ ['9. There ____ more jobs if the company gets the contract.', ['will be', 'can', 'may'], 0, 'Primer condicional: «there will be».'],
+ ['10. How ____ is your house from the office?', ['distant', 'far', 'long'], 1, '«How far» pregunta por la distancia.'],
+ ['11. ____ the chief engineer who signed the contract?', ['Was he', 'Was it', 'Did he'], 1, 'Pregunta con «it» enfático: «Was it the chief engineer who…?».'],
+ ['12. My job ____ exciting but now I find it boring.', ['is usually', 'use to be', 'used to be'], 2, 'Estado pasado que ya no es cierto: «used to be».'],
+ ['13. I was brought up in Ireland, but I\'ve been living in Germany ____ the past 15 years.', ['since', 'for', 'during'], 1, '«For» + periodo de tiempo.'],
+ ['14. You didn\'t tell me you needed the tickets this afternoon. But don\'t worry! ____ them right now!', ['I\'ll book', 'I\'m going to book', 'I\'m booking'], 0, 'Decisión espontánea → «will».'],
+ ['15. The junior executive felt very ____ when he understood very little at the meeting.', ['embarrassing', 'embarrass', 'embarrassed'], 2, 'Sentimiento de la persona → adjetivo en «-ed».'],
+ ['16. A mechanic is a person ____ job is to repair car engines.', ['whose', 'who', 'who\'s'], 0, '«Whose job» = cuyo trabajo.'],
+ ['17. There\'s ____ fresh air in the countryside.', ['full of', 'plenty of', 'a lot'], 1, '«Plenty of» + incontable. («A lot» necesitaría «of».)'],
+ ['18. "Did the manager send the products?" Michael asked ____ .', ['if the manager did send the products', 'if had the manager sent the products', 'if the manager had sent the products'], 2, 'Estilo indirecto: orden afirmativo y pasado perfecto.'],
+ ['19. James didn\'t get accepted for the job. He ____ improved his computer skills.', ['should\'ve', 'would\'ve', 'may have'], 0, '«Should have + participio» = debería haber (reproche sobre el pasado).'],
+ ['20. If your company ____ you to move to Alaska, ____ ?', ['asks / are you going', 'asked / would you go', 'had asked / will you go'], 1, 'Segundo condicional: «asked… would you go?».'],
+ ['21. John Lennon ____ in 1980. His records ____ increasingly popular since then.', ['died / became', 'dead / are becoming', 'died / have become'], 2, 'Pasado simple con fecha; present perfect con «since then».'],
+ ['22. IT Corp. is ____ by Megacorp.', ['being taken over', 'taking over', 'been taken over'], 0, 'Presente continuo pasivo: «is being taken over».'],
+ ['23. Mary goes to the hairdresser\'s every Friday evening.', ['She\'s having her hair done once a week.', 'She does her hair once a week.', 'She has her hair done once a week.'], 2, 'Hábito + causativa (otra persona le hace el peinado): «has her hair done».'],
+ ['24. He\'s studying ____ degree in ____ Law at ____ University of Leeds.', ['– / – / the', 'a / – / the', 'a / the / the'], 1, '«A degree», sin artículo con «Law» y «the University of Leeds».'],
+ ['25. While he ____ on the phone, the thief ____ into the house and ____ the jewels.', ['chatted / broke / robbed', 'was chatting / broke / stole', 'was speaking / had broken / stolen'], 1, 'Pasado continuo + pasado simple. «Rob» lleva a una persona; las joyas se «steal».'],
+ ['26. You handed in the report on time, ____ ?', ['didn\'t you', 'haven\'t you', 'weren\'t you'], 0, 'Tag question: «handed» (pasado simple) → «didn\'t you?».'],
+ ['27. She ____ for the national team in 25 tournaments so far.', ['has been playing', 'has played', 'is playing'], 1, 'Cuando se da una cantidad (25 torneos) se usa el present perfect simple.'],
+ ['28. By the year 2030, the company ____ into the U.S.A.', ['will have expanded', 'will be expanded', 'will expand'], 0, '«By + fecha futura» → futuro perfecto.'],
+ ['29. The computer crashed, so we ____ a technician.', ['must call', 'must have called', 'had to call'], 2, 'Obligación en el pasado: «had to».'],
+ ['30. If you ____ the service, we ____ a lot of money.', ['\'d outsourced / had saved', 'had outsourced / \'d have saved', 'outsourced / would have saved'], 1, 'Tercer condicional: «if + had + participio, would have + participio».'],
+ ['31. Remember ____ your passport before ____ to the U.K.', ['to check / travelling', 'checking / travelling', 'check / to travel'], 0, '«Remember to + infinitivo» (no olvidar hacer); tras la preposición «before» va gerundio.'],
+ ['32. Being bilingual doesn\'t guarantee a job. ____ , it will help to be shortlisted.', ['Nevertheless', 'Moreover', 'Furthermore'], 0, '«Nevertheless» introduce un contraste (aun así).'],
+ ['33. I wish they ____ me on my mobile at weekends.', ['will call', 'do call', 'wouldn\'t call'], 2, '«I wish + would(n\'t)» expresa queja por un hábito molesto.'],
+ ['34. "Have you heard that Eva is having a baby at 50?"', ['"You joke!"', '"You\'re joking!"', '"You\'ve been joking!"'], 1, 'Expresión de incredulidad: «You\'re joking!».'],
+ ['35. "Hi, Johanna. I ____ if you had any plans for the weekend."', ['am wondering', 'was wondering', 'wonder'], 1, '«I was wondering if…» es la fórmula cortés para preguntar.'],
+ ['36. Half the population are thought ____ bird flu from eating imported chicken.', ['to have caught', 'to be caught', 'having caught'], 0, '«Are thought to have + participio» (se cree que han contraído).'],
+ ['37. I\'ve told you before. ____ I need is help, not sympathy.', ['That', 'Which', 'What'], 2, '«What I need» = lo que necesito.'],
+ ['38. You ____ me you weren\'t coming to the party. I ____ John to accompany me.', ['wouldn\'t told / would ask', 'could\'ve told / could\'ve asked', 'must have told / could have asked'], 1, '«Could have + participio» = podrías haber… (posibilidad no realizada).'],
+ ['39. That model is ____ gorgeous. At 15, she\'s got an ____ huge career ahead.', ['absolutely / absolutely', 'extremely / absolutely', 'absolutely / extremely'], 0, '«Gorgeous» y «huge» son adjetivos extremos y con ellos se usa «absolutely», no «extremely».'],
+ ['40. The secretary took ____ my mobile number but never called me ____ .', ['up / up', 'down / back', 'away / up'], 1, '«Take down» = anotar; «call back» = devolver la llamada.'],
+ ['41. They like nothing ____ having a long break.', ['more than', 'more that', 'more as'], 0, '«Like nothing more than» = nada les gusta más que.'],
+ ['42. Employees ____ clock in by 8:30 a.m.', ['are supposed to', 'should to', 'are supposed'], 0, '«Be supposed to + infinitivo».'],
+ ['43. It\'s time you ____ some of your responsibility. You\'ve too much on your plate.', ['will hand over', 'hand over', 'handed over'], 2, '«It\'s time + sujeto + pasado simple» (ya es hora de que…).'],
+ ['44. Not only ____ a promotion, he also got a new company car.', ['had he got', 'did he get', 'he got'], 1, 'Inversión tras «Not only»: «did he get».'],
+ ['45. The ____ political situation is deplorable. Well, ____ , it\'s on the verge of collapse.', ['current / actually', 'actual / presently', 'present / currently'], 0, '«Current» = actual (de ahora); «actually» introduce una corrección. (La opción C también es posible, aunque «currently» repite lo que ya dice «present».)'],
+ ['46. I\'ve been living here for 3 years and I just can\'t get ____ so late.', ['use to eating', 'used to eating', 'used to eat'], 1, '«Get used to + gerundio» = acostumbrarse a.'],
+ ['47. ____ that Sally was accepted into Harvard Business School.', ['So intelligent was she at 15', 'Such was she intelligent at 15', 'So was her intelligence at 15'], 0, 'Inversión enfática: «So + adjetivo + was + sujeto… that…».'],
+ ['48. ____ to send the e-mail, he ____ in trouble with the boss.', ['Were he to forget / would have been', 'If he hadn\'t forgotten / had been', 'Had he not forgotten / wouldn\'t have been'], 2, 'Tercer condicional invertido: «Had he not forgotten…, he wouldn\'t have been…».'],
+ ['49. ____ my colleagues don\'t object, I\'ll ask for a reduction in working hours.', ['Providing', 'Unless', 'Despite'], 0, '«Providing (that)» = siempre que.'],
+ ['50. No doubt you\'d rather he scheduled the meeting after lunch, ____ ?', ['hadn\'t you', 'didn\'t you', 'wouldn\'t you'], 2, 'La tag repite el auxiliar de «you\'d rather» = «you would rather»: «wouldn\'t you?».']
+].map(_dQ);
+
+/* Practice Tests — Grammar (25 preguntas; el ejemplo «0» va en la descripción) */
+const _cTG1 = [
+ ['01. The woman ____ sold me those flowers spent twenty minutes wrapping them.', ['what', 'that', 'which'], 1, 'Para personas en una oración de relativo se puede usar «that» (o «who»). «Which» es para cosas y «what» no es relativo aquí.'],
+ ['02. A: I\'ve just seen Mark. B: You ____ have seen him. He\'s on holiday at the moment.', ['can\'t', 'shouldn\'t', 'needn\'t'], 0, 'Deducción negativa: «can\'t have + participio» = es imposible que lo hayas visto.'],
+ ['03. He emphasised in his speech that ____ education he received when younger had been excellent.', ['(–)', 'an', 'the'], 2, 'Educación concreta, especificada por la oración de relativo → «the».'],
+ ['04. She takes the bus to work ____ day.', ['early', 'many', 'every'], 2, '«Every day» = todos los días.'],
+ ['05. I\'ll call you when I ____ home.', ['get', 'will get', 'getting'], 0, 'Tras «when» en futuro se usa el presente simple.'],
+ ['06. We ate dinner and ____ we watched a film.', ['then', 'since', 'so'], 0, '«Then» = después (secuencia de acciones).'],
+ ['07. We\'re ____ in a beautiful holiday home at the moment.', ['stay', 'staying', 'stayed'], 1, '«At the moment» → presente continuo.'],
+ ['08. When I got home, Jenny ____ on the telephone.', ['was speaking', 'speaking', 'speak'], 0, 'Pasado continuo: acción en curso cuando llegué a casa.'],
+ ['09. Coffee ____ to be much cheaper a few years ago.', ['would', 'has', 'used'], 2, '«Used to be» = antes era.'],
+ ['10. I\'m not sure about my future. ____ I will start a business.', ['Perhaps', 'Shall', 'Might'], 0, '«Perhaps» = quizá, al comienzo de la frase.'],
+ ['11. They ate their lunch while they ____ coming home from school.', ['were', 'was', 'are'], 0, 'Pasado continuo con «they»: «were coming».'],
+ ['12. She bought it herself, ____ she?', ['hasn\'t', 'didn\'t', 'shouldn\'t'], 1, 'Tag question: «bought» (pasado simple) → «didn\'t she?».'],
+ ['13. If the dress ____ been so expensive, she would have bought it.', ['hadn\'t', 'weren\'t', 'aren\'t'], 0, 'Tercer condicional: «if + hadn\'t been».'],
+ ['14. I ____ a great book this morning — I really want to finish it.', ['was reading', 'read', 'have read'], 0, 'Aún no lo he terminado, así que la acción estaba en curso: pasado continuo.'],
+ ['15. Excuse me? Can I try ____ this jacket to make sure it fits?', ['under', 'with', 'on'], 2, '«Try on» = probarse una prenda.'],
+ ['16. I saw Wi Joo this morning and she ____ if you were free tomorrow.', ['told', 'asked', 'said'], 1, 'Estilo indirecto de una pregunta: «asked if…».'],
+ ['17. When I go to university, I may ____ history.', ['study', 'to study', 'studying'], 0, 'Tras un modal, infinitivo sin «to».'],
+ ['18. It ____ be meat free — it tastes just like chicken!', ['could', 'can', 'can\'t'], 2, 'Deducción negativa: «can\'t be» = es imposible que no tenga carne.'],
+ ['19. It was a dark, moonlit night when the traveller ____ at the inn.', ['arrived', 'was arriving', 'had arrived'], 0, 'Pasado simple para un hecho puntual de la narración.'],
+ ['20. If I hadn\'t gone out last night, I ____ be so tired now.', ['won\'t', 'wouldn\'t', 'hadn\'t'], 1, 'Condicional mixto: «if + had… → would + infinitivo» (resultado en el presente).'],
+ ['21. I ____ like mushrooms, but I can\'t stop eating them now.', ['wouldn\'t', 'didn\'t use to', 'couldn\'t'], 1, '«Didn\'t use to» = antes no me gustaban.'],
+ ['22. The newspaper China Today ____ published for over 60 years.', ['is being', 'has been', 'was being'], 1, '«For over 60 years» → present perfect pasivo: «has been published».'],
+ ['23. They said they ____ been studying for ages.', ['will have', 'are', 'had'], 2, 'Estilo indirecto: «have been studying» pasa a «had been studying».'],
+ ['24. My father, ____ is a dentist, told me not to drink sugary drinks.', ['who', 'which', 'that'], 0, 'En una oración de relativo explicativa (entre comas) no se usa «that»; para personas, «who».'],
+ ['25. ____ memory of the day I met the president is very special to me.', ['The', 'A', '(–)'], 0, 'Es un recuerdo concreto (el de ese día) → «the».']
+].map(_dQ);
+const _cTG2 = [
+ ['01. A: Do you think you will get the job? B: ____ , but I\'m not sure.', ['Possible', 'Possibility', 'Possibly'], 2, 'Se necesita un adverbio: «Possibly» = posiblemente.'],
+ ['02. I ____ 25 years old.', ['have', 'am', '(–)'], 1, 'En inglés la edad se expresa con «to be»: «I am 25».'],
+ ['03. I have ____ English for three years.', ['studied', 'study', 'studying'], 0, 'Present perfect: «have + participio».'],
+ ['04. A: I enjoy working on challenging projects at work. B: So ____ I!', ['am', 'do', 'can'], 1, '«So + auxiliar + sujeto»: «enjoy» → «do».'],
+ ['05. We could cook dinner. ____ , we could buy some takeaway food.', ['Therefore', 'On the other hand', 'Although'], 1, '«On the other hand» presenta una alternativa. (El PDF da la clave «C», pero «Although» no encaja ahí: la correcta es B.)'],
+ ['06. You really should ____ to Barcelona — it\'s a wonderful city.', ['go', 'to go', 'going'], 0, 'Tras «should», infinitivo sin «to».'],
+ ['07. You need ____ new shoes — those ones are too old!', ['to buy', 'buy', 'buying'], 0, '«Need to + infinitivo».'],
+ ['08. When I was at school I used ____ a good student.', ['to be', 'be', 'being'], 0, '«Used to + infinitivo».'],
+ ['09. I\'ve got no plans for the weekend. Maybe ____ visit my parents.', ['I', 'I\'m', 'I\'ll'], 2, 'Decisión del momento → «I\'ll».'],
+ ['10. I\'m reading a really ____ book on the history of Europe.', ['interest', 'interesting', 'interested'], 1, 'El libro provoca interés → adjetivo en «-ing».'],
+ ['11. He\'s about 40, but in this photograph he looks much ____ .', ['young', 'younger', 'youngest'], 1, '«Much» + comparativo: «much younger».'],
+ ['12. She has ____ two books.', ['written', 'wrote', 'write'], 0, 'Present perfect: «has written».'],
+ ['13. I don\'t recommend driving in the morning because there\'s too ____ traffic.', ['much', 'many', 'most'], 0, '«Traffic» es incontable → «too much».'],
+ ['14. I never do my homework ____ I hate studying at home.', ['so', 'because', 'although'], 1, '«Because» introduce la causa.'],
+ ['15. They\'re so different. I ____ , there\'s no way they\'ll be happy together.', ['mean', 'decide', 'wish'], 0, '«I mean» = quiero decir (para precisar lo dicho).'],
+ ['16. Because of computers, many people don\'t watch a lot of ____ now.', ['the television', 'a television', 'television'], 2, 'Televisión en general (como medio) → sin artículo.'],
+ ['17. I think, in the future, people ____ live much longer than they do now.', ['ought', 'will', 'would'], 1, 'Predicción de futuro → «will».'],
+ ['18. Call me tomorrow after 8.30, because I will just ____ at home.', ['about to relax', 'have relax', 'be relaxing'], 2, 'Futuro continuo: «will be relaxing».'],
+ ['19. The doctor says I will ____ much better by the end of the week.', ['to feel', 'be feeling', 'have felt'], 1, 'Futuro continuo: «will be feeling».'],
+ ['20. ____ been reading this book now for a week and it isn\'t getting any better!', ['I\'ve', 'I\'m', 'I\'d'], 0, 'Present perfect continuo: «I\'ve been reading».'],
+ ['21. The garden is looking untidy — you need to get rid ____ the weeds.', ['from', 'out', 'of'], 2, '«Get rid of» = deshacerse de.'],
+ ['22. The next meeting ____ on the sixth of June.', ['is holding', 'will be held', 'holds'], 1, 'Voz pasiva en futuro: «will be held».'],
+ ['23. ____ of China is very interesting.', ['A history', 'History', 'The history'], 2, '«The history of China» (con «of» que la especifica).'],
+ ['24. You ____ have bought that car. What a waste of money!', ['shouldn\'t', 'mustn\'t', 'couldn\'t'], 0, '«Shouldn\'t have + participio» = no deberías haberlo comprado (reproche).'],
+ ['25. This is a ____ train to London. It doesn\'t stop on the way.', ['direction', 'directly', 'direct'], 2, 'Se necesita un adjetivo delante de «train»: «direct» = directo.']
+].map(_dQ);
+
+/* ===========================================================================
+ * DOSSIER CORRECTED EDITION — Parte B: Vocabulary Practice y Reading Practice.
+ * ======================================================================== */
+/* ----------------------------- VOCABULARY ----------------------------- */
+const _cVMatch = [
+  { title: 'Sample 1 (Example: tall = high)', words: ['talk', 'bring', 'arrive', 'do', 'walk', 'pick', 'end', 'go', 'sell', 'begin'], base: ['speak', 'finish', 'make', 'leave', 'choose'], ans: ['talk', 'end', 'do', 'go', 'pick'],
+    why: ['«Speak» = «talk» (hablar).', '«Finish» = «end» (terminar).', '«Make» = «do» (hacer).', '«Leave» = «go» (irse).', '«Choose» = «pick» (elegir).'] },
+  { title: 'Sample 2 (Example: watch = look)', words: ['attempt', 'desire', 'bring', 'listen', 'take', 'sing', 'like', 'receive', 'say', 'plan'], base: ['catch', 'enjoy', 'want', 'tell', 'try'], ans: ['take', 'like', 'desire', 'say', 'attempt'],
+    why: ['«Catch» = «take» (coger).', '«Enjoy» = «like» (disfrutar, gustar).', '«Want» = «desire» (querer, desear).', '«Tell» = «say» (decir).', '«Try» = «attempt» (intentar).'] },
+  { title: 'Sample 3 (Example: short = tiny)', words: ['overweight', 'taste', 'upset', 'angry', 'pleased', 'order', 'send', 'get up', 'fragile', 'busy'], base: ['sad', 'fat', 'stand', 'try', 'weak'], ans: ['upset', 'overweight', 'get up', 'taste', 'fragile'],
+    why: ['«Sad» = «upset» (triste, disgustado).', '«Fat» = «overweight» (gordo, con sobrepeso).', '«Stand» (up) = «get up» (levantarse).', '«Try» (probar una comida) = «taste».', '«Weak» = «fragile» (débil, frágil).'] },
+  { title: 'Sample 4 (Example: lie = deceive)', words: ['purchase', 'sell', 'angry', 'advise', 'loathe', 'tough', 'careful', 'present', 'award', 'thrilled'], base: ['hate', 'pleased', 'difficult', 'prize', 'buy'], ans: ['loathe', 'thrilled', 'tough', 'award', 'purchase'],
+    why: ['«Hate» = «loathe» (odiar).', '«Pleased» = «thrilled» (contento, encantado).', '«Difficult» = «tough» (difícil, duro).', '«Prize» = «award» (premio).', '«Buy» = «purchase» (comprar).'] }
+];
+const _cVMatchEx = _cVMatch.map(s => ({ type: 'cloze', title: 'Word Matching — ' + s.title, label: 'Vocabulary (sinónimos)',
+  instruction: 'Elige la palabra con significado más parecido a la de la izquierda. Hay 5 palabras de más.',
+  text: s.base.map((b, i) => `${i + 1}. ${b} → {${i + 1}}`).join('\n'),
+  gaps: s.base.map((b, i) => _dW(s.words, s.ans[i], s.why[i])) }));
+
+const _cVDef = [
+  { title: 'Sample 1', words: ['adjust', 'stay', 'lend', 'apply', 'steal', 'amuse', 'reject', 'keep', 'cough', 'look after'],
+    items: [['To take something illegally', 'steal', '«Steal» = robar.'], ['To cause to laugh', 'amuse', '«Amuse» = divertir, hacer reír.'], ['To continue to be in a place', 'stay', '«Stay» = quedarse.'], ['To take care of', 'look after', '«Look after» = cuidar de.'], ['To make a formal request', 'apply', '«Apply» = solicitar (apply for a job).']] },
+  { title: 'Sample 2', words: ['argue', 'lend', 'regret', 'degree', 'career', 'afford', 'wealthy', 'share', 'expensive', 'download'],
+    items: [['Academic qualification', 'degree', '«Degree» = título universitario.'], ['To have enough money', 'afford', '«Afford» = permitirse (económicamente).'], ['To be sorry for', 'regret', '«Regret» = lamentar, arrepentirse.'], ['Rich', 'wealthy', '«Wealthy» = rico, adinerado.'], ['To transfer data from a computer', 'download', '«Download» = descargar.']] },
+  { title: 'Sample 3', words: ['argue', 'throw', 'tracksuit', 'lend', 'bargain', 'spend', 'cheat', 'borrow', 'suit', 'reject'],
+    items: [['To use up', 'spend', '«Spend» = gastar (dinero o tiempo).'], ['To act dishonestly', 'cheat', '«Cheat» = hacer trampas, engañar.'], ['Clothes worn for doing sport', 'tracksuit', '«Tracksuit» = chándal.'], ['To receive something you will return', 'borrow', '«Borrow» = tomar prestado. («Lend» es prestar a otro.)'], ['Something bought at an advantageous price', 'bargain', '«Bargain» = ganga.']] },
+  { title: 'Sample 4', words: ['cope', 'warn', 'freeze', 'discuss', 'speed', 'miss', 'choose', 'realise', 'complain', 'settle'],
+    items: [['To convert into ice', 'freeze', '«Freeze» = congelar(se).'], ['To express dissatisfaction', 'complain', '«Complain» = quejarse.'], ['To select', 'choose', '«Choose» = elegir.'], ['To move rapidly', 'speed', '«Speed» (como verbo) = ir a toda velocidad.'], ['To manage difficulties', 'cope', '«Cope» = arreglárselas, sobrellevar.']] }
+];
+const _cVDefEx = _cVDef.map(s => ({ type: 'cloze', title: 'Match Words to Definitions — ' + s.title, label: 'Vocabulary (definiciones)',
+  instruction: 'Completa cada definición con una palabra de la caja: ' + s.words.join(' · ') + '.',
+  text: s.items.map((it, i) => `${i + 1}. ${it[0]} → {${i + 1}}`).join('\n'),
+  gaps: s.items.map(it => _dW(s.words, it[1], it[2])) }));
+
+const _cVSent = [
+  { title: 'Sample 1', words: ['aggressive', 'healthy', 'talented', 'talkative', 'lively', 'sociable', 'ugly', 'self-confident', 'hardworking', 'boring', 'patient'], ex: 'Example: Peter is not very sociable; he hates meeting new people.',
+    items: [['Teachers need to be very {1} with their students when they\'re having problems understanding.', 'patient', '«Patient» = paciente.'], ['My father was always very {2}. He only took one week\'s holiday a year.', 'hardworking', '«Hardworking» = trabajador (solo cogía una semana de vacaciones).'], ['This film is very {3}. Can we watch a different one?', 'boring', '«Boring» = aburrida; por eso piden otra.'], ['Sally\'s {4} personality makes her an ideal candidate for working with children.', 'lively', '«Lively» = animada, vivaz; encaja con el trabajo con niños.']] },
+  { title: 'Sample 2', words: ['noisy', 'traffic', 'crime', 'accommodation', 'booking', 'cottage', 'pollution', 'wildlife', 'neighbourhood', 'countryside', 'quiet'], ex: 'Example: There\'s so much traffic in this city — just thousands of cars all day.',
+    items: [['I can\'t concentrate here because it\'s too {1}.', 'noisy', '«Noisy» = ruidoso (no puedo concentrarme).'], ['I\'m going to stay in Tom\'s house when I go to London as {2} is just too expensive.', 'accommodation', '«Accommodation» = alojamiento (incontable).'], ['I\'d like to go to the {3} this weekend because I\'m tired of the city.', 'countryside', '«The countryside» = el campo. (Dado que cansa la ciudad, también «cottage» podría encajar, pero la clave del dossier es «countryside».)'], ['Our {4} has some really good schools and sports facilities.', 'neighbourhood', '«Neighbourhood» = barrio.']] },
+  { title: 'Sample 3', words: ['grow up', 'take after', 'hang out', 'brought up', 'childhood', 'get together', 'split up', 'grow', 'get on', 'mix up', 'wedding'], ex: 'Example: I wasn\'t invited to my cousin\'s wedding as they got married in Australia.',
+    items: [['I was married for two years, but we {1} 6 months ago and I\'m very sad.', 'split up', '«Split up» = separarse (pasado).'], ['My brother doesn\'t {2} with my boyfriend. In fact, they hate each other.', 'get on', '«Get on with» = llevarse bien con.'], ['I think you {3} your mother. You\'re both so impatient!', 'take after', '«Take after» = parecerse a (un familiar) en carácter.'], ['Our family always {4} at Christmas time. It\'s a great tradition and we always have great fun.', 'get together', '«Get together» = reunirse.']] },
+  { title: 'Sample 4', words: ['successful', 'outstanding', 'skilled', 'useless', 'fit', 'sensitive', 'competitive', 'potential', 'well-known', 'achievement', 'performance'], ex: 'Example: Mark\'s performance in the race was incredible. He won a gold medal.',
+    items: [['He\'s had a lot of injuries, but he always comes back to win. He really is a(n) {1} athlete — there\'s no one like him.', 'outstanding', '«Outstanding» = sobresaliente.'], ['It was an incredible {2} to win two gold medals at the Olympic Games after so many injuries.', 'achievement', '«Achievement» = logro.'], ['It\'s {3} trying to compete against him — he\'s much too good for me.', 'useless', '«It\'s useless + gerundio» = no sirve de nada.'], ['You\'re so {4} that you always get angry when you lose!', 'competitive', '«Competitive» = competitivo.']] },
+  { title: 'Sample 5', words: ['put aside', 'grant', 'donate', 'mortgage', 'affordable', 'invest', 'budget', 'income', 'debt', 'savings', 'pay off'], ex: 'Example: Sally earned a lot of money as a model so she decided to invest her money. Now she\'s a millionaire.',
+    items: [['I have to find a(n) {1} house — this one is too expensive.', 'affordable', '«Affordable» = asequible.'], ['Peter was such a good student that he was given a(n) {2} to study abroad.', 'grant', '«Grant» = beca, subvención.'], ['If I {3} a little money each week, I should be able to get that fabulous dress for the party.', 'put aside', '«Put aside» = apartar (dinero).'], ['Our {4} for the holiday doesn\'t cover such expensive hotels.', 'budget', '«Budget» = presupuesto.']] }
+];
+const _cVSentEx = _cVSent.map(s => ({ type: 'cloze', title: 'Sentence Completion — ' + s.title, label: 'Vocabulary (completar frases)',
+  instruction: 'Completa las frases con una de estas palabras (sobran varias): ' + s.words.join(' · ') + '. ' + s.ex,
+  text: s.items.map((it, i) => `${i + 1}. ${it[0]}`).join('\n'),
+  gaps: s.items.map(it => _dW(s.words, it[1], it[2])) }));
+
+const _cVPair = [
+  { title: 'Sample 1', words: ['traffic', 'income', 'hour', 'news', 'queue', 'belt', 'rise', 'plane', 'stairs', 'pay'], base: ['seat', 'breaking', 'rush', 'pay', 'long'], ans: ['belt', 'news', 'hour', 'rise', 'queue'] },
+  { title: 'Sample 2', words: ['advice', 'job', 'couple', 'rain', 'shop', 'price', 'review', 'sheet', 'page', 'wedding'], base: ['high', 'heavy', 'film', 'married', 'spread'], ans: ['price', 'rain', 'review', 'couple', 'sheet'] },
+  { title: 'Sample 3', words: ['music', 'game', 'cars', 'lights', 'road', 'lane', 'gun', 'film', 'rates', 'money'], base: ['toy', 'interest', 'live', 'cycle', 'traffic'], ans: ['gun', 'rates', 'music', 'lane', 'lights'] },
+  { title: 'Sample 4', words: ['sneeze', 'reunion', 'syrup', 'relative', 'opener', 'space', 'glass', 'affairs', 'people', 'places'], base: ['bottle', 'family', 'current', 'cough', 'parking'], ans: ['opener', 'reunion', 'affairs', 'syrup', 'space'] }
+];
+const _cVPairEx = _cVPair.map(s => ({ type: 'cloze', title: 'Word Pairs — ' + s.title, label: 'Vocabulary (colocaciones)',
+  instruction: 'Elige la palabra que se usa con más frecuencia junto a la palabra dada. (Ejemplo: atom + bomb.)',
+  text: s.base.map((b, i) => `${i + 1}. ${b} + {${i + 1}}`).join('\n'),
+  gaps: s.base.map((b, i) => _dW(s.words, s.ans[i], `«${b} ${s.ans[i]}» es una colocación habitual.` + (s.ans[i] === 'sheet' ? ' («Spread sheet» → spreadsheet, hoja de cálculo.)' : ''))) }));
+
+/* --------------------------- FALSE FRIENDS / FEELINGS --------------------------- */
+const _cFF = [
+ ['actual', 'current, present', 'actual', 'real'],
+ ['actualmente', 'currently, nowadays', 'actually', 'en realidad, de hecho'],
+ ['agenda', 'calendar, appointment book, diary', 'agenda', 'orden del día, plan secreto'],
+ ['alterado', 'upset', 'altered', 'cambiado, modificado'],
+ ['argumento', 'plot, reasoning', 'argument', 'discusión, riña'],
+ ['bravo', 'fierce, wild', 'brave', 'valiente'],
+ ['carpeta', 'folder', 'carpet', 'moqueta'],
+ ['carta', 'letter', 'cart', 'carrito, carreta'],
+ ['casualidad', 'coincidence, chance', 'casualty', 'víctima (en un accidente)'],
+ ['chocar', 'strike, collide', 'choke', 'ahogar'],
+ ['colegio', 'school, secondary/high school', 'college', 'universidad'],
+ ['collar', 'necklace, collar (for pets)', 'collar', 'cuello de prenda de ropa'],
+ ['compromiso', 'obligation, commitment', 'compromise', 'mutuo acuerdo'],
+ ['constipado', 'to have a cold', 'constipated', 'estreñido'],
+ ['contesta', 'answer(s)', 'contest', 'concurso'],
+ ['costumbre', 'habit, custom', 'costume', 'disfraz, vestuario'],
+ ['cráneo', 'skull', 'crane', 'grúa'],
+ ['decepción', 'disappointment, letdown', 'deception', 'engaño'],
+ ['desgracia', 'misfortune, tragedy', 'disgrace', 'deshonra, ridículo'],
+ ['disgusto', 'annoyance, upset', 'disgust', 'asco, repugnancia'],
+ ['diversión', 'fun, amusement', 'diversion', 'desvío, distracción'],
+ ['dormitorio', 'bedroom', 'dormitory', 'residencia universitaria'],
+ ['elaborar', 'make, produce, create', 'elaborate (adj)', 'detallado, minucioso'],
+ ['embarazada', 'pregnant', 'embarrassed', 'avergonzado/a'],
+ ['empresa', 'business, company', 'empress', 'emperatriz'],
+ ['enviar', 'send', 'envy (v)', 'envidiar'],
+ ['eventualmente', 'by chance, occasionally', 'eventually', 'finalmente, con el tiempo'],
+ ['éxito', 'success, hit', 'exit', 'salida'],
+ ['fábrica', 'factory', 'fabric', 'tela, tejido'],
+ ['gentil', 'pleasant, courteous', 'gentle', 'amable, moderado, suave'],
+ ['introducir', 'to insert', 'introduce (somebody)', 'presentar'],
+ ['largo', 'long', 'large', 'grande'],
+ ['lentilla', 'contact lens', 'lentil', 'lenteja'],
+ ['librería', 'bookshop, bookstore', 'library', 'biblioteca'],
+ ['mayor', 'bigger, larger, older', 'mayor', 'alcalde'],
+ ['miseria', 'poverty', 'misery', 'pena, tristeza'],
+ ['molestar', 'bother, disturb', 'molest', 'abusar (sexualmente)'],
+ ['nudo', 'knot', 'nude', 'desnudo'],
+ ['pan', 'bread', 'pan', 'sartén'],
+ ['pared', 'wall', 'parade', 'desfile'],
+ ['pariente', 'relative', 'parent', 'progenitor'],
+ ['pie', 'foot', 'pie', 'pastel'],
+ ['preservativo', 'condom', 'preservative', 'conservante'],
+ ['presumir', 'brag, show off', 'presume', 'suponer'],
+ ['quitar', 'take away, strip', 'quit', 'dejar, renunciar'],
+ ['realizar', 'make, do', 'realise', 'darse cuenta'],
+ ['recordar', 'remind, remember', 'record', 'grabar'],
+ ['relativo', 'related, relating, relative (to)', 'relative', 'pariente'],
+ ['resumir', 'summarise, shorten', 'resume', 'seguir, reanudar'],
+ ['ropa', 'clothes', 'rope', 'cuerda'],
+ ['sensible', 'sensitive', 'sensible', 'sensato, prudente'],
+ ['sin', 'without', 'sin', 'pecado'],
+ ['soportar', 'tolerate, put up with', 'support', 'apoyar'],
+ ['suceso', 'event', 'success', 'éxito'],
+ ['simpatía', 'friendliness', 'sympathy', 'compasión, piedad'],
+ ['últimamente', 'lately, recently', 'ultimately', 'en última instancia'],
+ ['vicioso', 'depraved, immoral, addict', 'vicious', 'violento, feroz, cruel']
+];
+const _cFFTheory = [
+  _u1T.p('<strong>Useful Language: False Friends</strong> — Palabras que se parecen al español pero significan otra cosa.'),
+  _u1T.tbl(['Palabra en español', 'Equivalente en inglés', 'Palabra inglesa parecida', 'Equivalente en español'], _cFF),
+  _u1T.h('(Some) Words to Describe Feelings'),
+  _u1T.p('Afraid · Angry / annoyed · Anxious · Ashamed · Embarrassed · Lonely · Worried · Depressed · Confused · Disappointed · Frustrated · Proud')
+].join('');
+const _cFFCards = _cFF.map(r => ({ front: r[2], back: r[3] + ' (no es «' + r[0] + '»: eso es ' + r[1] + ')' }));
+
+/* ------------------------------- READING ------------------------------- */
+const _cR1 = [
+  { title: 'Sample 1: Nelson Mandela — surprising facts you probably didn\'t know',
+    text: 'He was one of (0) the most iconic figures of modern times and countless words have been written about his life and times, but there are things about Nelson Mandela you probably didn\'t know. Here are just a few:\n\n1. Mandela\'s birth name was Rolihlahla. In Xhosa, one of the official languages of South Africa, "Rolihlahla" (1) {1} troublemaker. The name "Nelson" was given to him by his teacher on his first day of elementary school. It was the early 1920s, and African children were given English names so British colonials (2) {2} pronounce them easily.\n\n2. He had a small part in Spike Lee\'s 1992 biopic Malcolm X. At the very end of the movie, he (3) {3} a teacher reciting Malcolm X\'s famous speech to a room full of Soweto school children. But the pacifist Mandela wouldn\'t say "by any means necessary."\n\n3. He had fancy (4) {4} with world leaders. But (5) {5} Mandela loved eating most was tripe.',
+    gaps: [[['translates', 'means', 'says'], 1, '«Means» = significa.'], [['could', 'may', 'need'], 0, '«So that… could pronounce»: para que pudieran pronunciarlos (pasado).'], [['does', 'interprets', 'plays'], 2, '«Play a teacher» = interpretar el papel de un profesor.'], [['meals', 'food', 'lunch'], 0, '«Fancy meals» = comidas elegantes (contable, plural).'], [['how', 'that', 'what'], 2, '«What Mandela loved eating most» = lo que más le gustaba comer.']] },
+  { title: 'Sample 2: History of St. Patrick',
+    text: 'St. Patrick is the patron saint (0) of Ireland. His real name was Maewyn and it is thought that he was Scottish or Welsh. He first came to Ireland as a slave. It was (1) {1} his time as a slave that he converted to Christianity. After (2) {2} years, he escaped and returned home to his family and trained to become a priest. St. Patrick returned to Ireland as a bishop. He (3) {3} years travelling the country, building churches and converting the pagan Irish people to Christianity. His time in Ireland (4) {4} 30 years and he died on March 17th AD 431. He is said to be buried in Downpatrick, County Down in Ireland. There are many myths and legends surrounding St. Patrick, (5) {5} the most famous one is that he drove all the snakes out of Ireland. It is now thought that snakes were a symbol for paganism. Although, legend or not, the only snakes you can find in Ireland are in the zoo!',
+    gaps: [[['at', 'during', 'for'], 1, '«During his time as a slave» = durante su época como esclavo.'], [['few', 'many', 'much'], 1, '«Many years» = muchos años. («Few» sin «a» tendría sentido negativo.)'], [['lived', 'passed', 'spent'], 2, '«Spend years + gerundio» = pasar años haciendo algo.'], [['lasted', 'happened', 'made'], 0, '«Lasted 30 years» = duró 30 años.'], [['because', 'since', 'but'], 2, '«But» introduce el contraste con «many myths».']] },
+  { title: 'Sample 3: People\'s worst travel experiences',
+    text: 'Tom\'s story: "I\'d been (0) visiting a friend in Berlin and was travelling by train all the way back to Lyon, in France, where I lived. I had to change in Basel, so got (1) {1} and walked down to the ticket office. I couldn\'t find my next train on (2) {2} of the screens, so I asked a member of staff, who informed me that this was the wrong stop and that my train left from the other station in Basel. We sped across the city and I thought I\'d made it, only to find the train pulling out as I ran onto the platform. I remember getting some very strange looks from the people around me as I threw my bags on the floor and shouted in frustration."\n\nBen\'s story: "I must have been nine or ten, and was on holiday with my parents in Greece. We\'d hired a car for a (3) {3} days and were driving through a tiny mountain village when the engine suddenly cut out and we came to a stop. None of us knew (4) {4} about cars and we had no idea what the problem was so, in the end, my dad got out and went to find help. He (5) {5} there was no one around so he resorted to knocking on a random door and then trying to explain the problem to an old Greek woman using hand gestures. As luck would have it, there was a mechanic in the village who she called to come and help us."',
+    gaps: [[['in', 'of', 'off'], 2, '«Get off» = bajarse (del tren).'], [['all', 'any', 'none'], 1, '«On any of the screens» = en ninguna de las pantallas (negación + any).'], [['amount', 'couple', 'few'], 2, '«A few days» = unos pocos días. («A couple» necesitaría «of».)'], [['anything', 'everything', 'nothing'], 0, '«None of us knew anything» = nadie sabía nada.'], [['asked', 'said', 'told'], 1, '«He said there was no one around» = dijo que no había nadie.']] },
+  { title: 'Sample 4: What do you think of banks?',
+    text: 'Agnes: "I don\'t like banks — never have and never will. They (0) make a lot of money from people like me, and I don\'t have a lot of money to give. Why (1) {1} I pay for a bank to have my money? I prefer to use cash only — then I always know exactly how much I have. It also stops me from going overdrawn — (2) {2} I don\'t have it I can\'t spend it!"\n\nFlorence: "I have a bank account but I hate it. They charge me so much for (3) {3}. For example, they charge me for taking money (4) {4} and for writing a cheque. It\'s terrible — every year I pay the bank for keeping my money! I was late paying my credit card bill one month — only by a few days — and they made me pay $40 for that! I don\'t (5) {5} a lot of money so this was a big problem for me. Of course, they charge me for the credit card too!"',
+    gaps: [[['could', 'might', 'should'], 2, '«Why should I pay…?» = ¿por qué tendría que pagar…?'], [['and', 'but', 'if'], 2, '«If I don\'t have it, I can\'t spend it» = si no lo tengo, no puedo gastarlo.'], [['all', 'everything', 'something'], 1, '«They charge me for everything» = me cobran por todo.'], [['out', 'for', 'from'], 0, '«Take money out» = sacar dinero.'], [['earn', 'gain', 'win'], 0, '«Earn money» = ganar dinero trabajando.']] }
+];
+const _cR1Ex = _cR1.map(s => ({ type: 'cloze', title: 'Question 1: Sentence Comprehension — ' + s.title, label: 'Reading (elegir la palabra)',
+  instruction: 'Elige la palabra correcta para cada hueco. Hay un ejemplo (0) al principio.',
+  text: s.text, gaps: s.gaps.map(g => _e1G(g[0], g[1], g[2])) }));
+
+const _cR2Ex = [
+  _dOrd('Sample 1', ['Three-year-old Martin Anderson learnt to play chess by watching his parents in their home.', 'One year later, at the age of just four, Martin took part in the national young chess championship.', 'He was later chosen to take part in the world young chess championship held in Spain in 2000.', 'A month later he was beating his parents at their favourite game.', 'When he first asked to play as well they refused.', 'So eventually they agreed and were surprised that he understood how to play.', 'Martin\'s incredible ability for chess was soon well known and he was selected to be a pupil of the provincial school of talents.'],
+    [1, 5, 6, 4, 7, 2, 3], ['La frase 5 sigue a la 1: «When he first asked to play as well…».', '«So eventually they agreed…» es la consecuencia de que se negaran.', '«A month later he was beating his parents…» cuenta lo que pasó tras empezar a jugar.', 'La frase 7: su habilidad se hizo famosa y entró en la escuela de talentos.', '«One year later, at the age of just four…» continúa la cronología (tenía tres años al empezar).', '«He was later chosen…» cierra la historia con el campeonato mundial en 2000.']),
+  _dOrd('Sample 2', ['Angela Erdmann never knew her grandfather.', 'A lot of the message on the postcard was impossible to read, but the address in Berlin on the front of the card was legible.', 'The brown beer bottle had been in the water for 101 years when a fisherman found it.', 'Platz asked the person who found it to send the postcard to his home address.', 'Erdmann\'s grandfather, Richard Platz, threw the bottle into the sea when he was on a hike in 1913.', 'He died in 1946, six years before she was born.', 'But, on Tuesday April 8th, 2014, she described the extraordinary moment when she received a message in a bottle, 101 years after he threw it into the Baltic Sea.'],
+    [1, 6, 7, 5, 3, 4, 2], ['La frase 6 explica por qué nunca lo conoció: murió antes de que ella naciera.', '«But, on Tuesday April 8th, 2014…» contrasta: recibe un mensaje en una botella.', 'La frase 5 presenta al abuelo (Richard Platz) y cuándo lanzó la botella (1913).', 'La frase 3: la botella llevaba 101 años en el agua cuando la encontró un pescador.', 'La frase 4: Platz pedía a quien la encontrara que enviara la postal.', 'La frase 2 cierra: el mensaje era ilegible, pero la dirección se leía.']),
+  _dOrd('Sample 3', ['For many little boys playing football in the street with friends their dream is to become another Pelé or Beckham.', 'Now playing the position of striker for Washington DC, Freddy is the youngest in any American professional sport since 1887.', 'Freddy Keaton\'s talent was noticed from the moment he was first taken on to a US football pitch by a friend at the age of eight.', 'For Freddy Keaton his dream seems to be coming true.', 'Because Freddy Keaton is only fourteen years old.', 'Two years later the coach of Washington DC saw how good he was and decided he could train for the team.', 'Why is this so remarkable?'],
+    [1, 4, 7, 5, 3, 6, 2], ['«For Freddy Keaton his dream…» retoma «their dream» de la frase 1.', '«Why is this so remarkable?» plantea la pregunta.', '«Because Freddy Keaton is only fourteen years old» responde a esa pregunta.', 'La frase 3 explica cómo empezó: a los ocho años.', '«Two years later…» sigue la cronología.', '«Now playing…» es el presente y cierra el texto.']),
+  _dOrd('Sample 4', ['Laura Dekker, a 16-year-old Dutch girl, has become the youngest person ever to sail round the world alone.', 'They said she was too young to look after herself and ordered her to be in the care of Dutch protection agencies.', 'Laura arrived on the Caribbean island of St Maarten on her 38-foot boat, Guppy, aged 16 years and 123 days.', '"There were moments where I thought, \'What am I doing out here?\' but I never wanted to stop," she told reporters.', '"Now, after sailing around the world — with storms, dangerous reefs and keeping myself and my boat safe — I feel that the Dutch government was totally unfair," she said.', 'She finally won her battle with the courts in July 2010 and started her journey from St Maarten on 20 January 2011.', 'However, the Dutch courts did not allow her to go on the trip when she was 14.'],
+    [1, 3, 4, 7, 2, 6, 5], ['La frase 3 amplía el logro de la 1: llegó a St Maarten con 16 años.', 'La cita de la frase 4 cuenta lo duro del viaje.', '«However, the Dutch courts…» vuelve atrás: a los 14 años no se lo permitieron.', '«They said she was too young…» se refiere a los tribunales de la frase anterior.', '«She finally won her battle…» es la solución al problema.', 'La cita final: tras dar la vuelta al mundo, opina que el gobierno holandés fue injusto.'])
+];
+
+const _cR3Ex = [
+  _dW3('Sample 1: Ebooks at night won\'t help you sleep tight, US study finds', ['over', 'to', 'since', 'took', 'use', 'of', 'from', 'fully', 'before', 'made', 'which'],
+    'Reading a light-emitting ebook (1) before bed is bad for your health, according (2) {1} a new US study. It warned that (3) {2} of the devices affected both sleep at night and alertness the following morning. Researchers (4) {3} Harvard Medical School\'s sleep medicine department put 12 healthy young adults through a two-week experiment, in (5) {4} the participants would either read a light-emitting ebook for four hours before bedtime or a printed book. Study participants reading a light-emitting ebook (6) {5} on average almost 10 minutes longer to fall asleep and said they were less sleepy an hour before bedtime than they were reading a paper book. The next morning, ebook readers didn\'t (7) {6} \'wake up\' for hours and attain the same level of alertness. This is particularly dangerous (8) {7} 90% of Americans use an electronic gadget at least a few nights a week before going to sleep.',
+    ['to', 'use', 'from', 'which', 'took', 'fully', 'since'],
+    ['«According to» = según.', '«Use of the devices» = el uso de los dispositivos.', '«Researchers from Harvard Medical School» = investigadores de la Facultad de Medicina de Harvard.', '«In which the participants…» = en el cual los participantes… (preposición + which).', '«Took almost 10 minutes longer» = tardaron casi 10 minutos más.', '«Didn\'t fully wake up» = no se despertaban del todo.', '«Since» aquí = porque (el 90 % usa aparatos electrónicos).'], true),
+  _dW3('Sample 2: Eclyse', ['some', 'between', 'surprised', 'real', 'so', 'whose', 'goes', 'ride', 'lives', 'face', 'and'],
+    'This is a (1) {1} zebra crossing! Eclyse is a zorse which is the cross (2) {2} a zebra and a horse. Her father is the zebra, (3) {3} her mother is the horse. Her mother, Eclipse, (4) {4} on a safari park in Germany but went to Italy for a short time. There she stayed in a field with (5) {5} horses and zebras, including Ulysses who thought she was very nice! When Eclipse came home she (6) {6} her owner with a baby zorse. Eclyse looks most like a horse but she has stripes on her (7) {7} and back, and the rest of her is white. She is friendly like a horse and quite tame, and you can (8) {8} her. However, sometimes she\'s wild like a zebra and she starts leaping around like crazy!',
+    ['real', 'between', 'and', 'lives', 'some', 'surprised', 'face', 'ride'],
+    ['«A real zebra crossing» = un auténtico cruce de cebra (juego de palabras con el paso de cebra).', '«A cross between X and Y» = un cruce entre X e Y.', '«…the zebra, and her mother is the horse» une las dos partes.', '«Lives on a safari park» = vive en un parque safari (presente).', '«With some horses and zebras» = con algunos caballos y cebras.', '«Surprised her owner» = sorprendió a su dueña.', '«On her face and back» = en la cara y el lomo.', '«You can ride her» = puedes montarla.']),
+  _dW3('Sample 3: Rama', ['with', 'different', 'tail', 'cross', 'take', 'same', 'in', 'have', 'hopes', 'for', 'while'],
+    'Meet Rama the cama, the (1) {1} between a camel and a llama. Rama lives in Dubai, (2) {2} the United Arab Emirates. His father is the camel, and his mother is the llama. They are very (3) {3} in size. His mum is small and weighs 76 kilograms, (4) {4} his dad is very big and weighs almost 450 kilograms! Rama has short ears and a long (5) {5} like a camel, but he doesn\'t (6) {6} a hump. His feet are like a llama\'s and his fleece is like a llama\'s too. However, because Rama is much bigger than a normal llama his owner (7) {7} there will be a lot more wool to sell. His owner also thinks that he will be calmer than a camel, and so easier to work (8) {8}.',
+    ['cross', 'in', 'different', 'while', 'tail', 'have', 'hopes', 'with'],
+    ['«The cross between a camel and a llama» = el cruce entre…', '«In the United Arab Emirates».', '«Very different in size» = muy distintos de tamaño.', '«While» contrapone a la madre pequeña con el padre grande.', '«A long tail like a camel» = una cola larga.', '«He doesn\'t have a hump» = no tiene joroba.', '«His owner hopes (that)…» = su dueño espera que…', '«Easier to work with» = más fácil de trabajar con él.']),
+  _dW3('Sample 4: Gold coins in California', ['saw', 'counted', 'each', 'though', 'better', 'sent', 'into', 'charity', 'under', 'got', 'to'],
+    'A couple in California (1) {1} a huge surprise last year while they were walking in their garden. They found over 1,000 gold coins (2) {2} a tree. The coins are worth over $10 million. They (3) {3} 1,427 coins. The coins are from the period 1847 (4) {4} 1894. Some of them are very rare and could be worth up to $1 million (5) {5}. The couple said they were walking their dog and they (6) {6} some rusty cans sticking out of the ground under an old oak tree. When they dug down, they were shocked at what they found. The woman said: "I never would have thought we would have found something like this." The couple said they plan to keep some of the coins and sell the others online. They will donate some of the money they receive to (7) {7}. They said they would use some of the money to make their house (8) {8}.',
+    ['got', 'under', 'counted', 'to', 'each', 'saw', 'charity', 'better'],
+    ['«Got a huge surprise» = se llevaron una gran sorpresa.', '«Under a tree» = bajo un árbol.', '«Counted 1,427 coins» = contaron 1.427 monedas.', '«From 1847 to 1894» = de… a…', '«Up to $1 million each» = hasta un millón de dólares cada una.', '«Saw some rusty cans» = vieron unas latas oxidadas.', '«Donate… to charity» = donar a una organización benéfica.', '«Make their house better» = mejorar su casa.'])
+];
+
+const _cH4 = (title, heads, paras, ans) => ({ type: 'cloze', title: 'Question 4: Long Text Comprehension — ' + title, label: 'Reading (títulos y párrafos)',
+  instruction: 'Elige el título para cada párrafo. Sobra un título. (El párrafo de ejemplo ya está resuelto.)',
+  text: paras.join('\n\n'), gaps: ans.map(a => _e1G(heads, heads.indexOf(a[0]), a[1])) });
+const _cR4Ex = [
+  _cH4('Sample 1: Easy steps to happier living', ['Notice the world around you', 'Connect with people', 'Have objectives to look forward to', 'Take care of your body', 'Make sure your work doesn\'t suffer', 'Find ways to bounce back', 'Do things for others', 'Keep learning'],
+    ['1. {1}\nCaring about others is fundamental to our happiness. Helping other people is not only good for them; it\'s good for us too. It makes us happier and can help to improve our health. Giving also creates stronger connections between people and helps to build a happier society for everyone.',
+     '2. {2}\nOur relationships with other people are the most important thing for our happiness. People with strong relationships are happier, healthier and live longer. Our close relationships with family and friends provide love, meaning, support and increase our feelings of self-worth. Our broader social networks bring a sense of belonging.',
+     '3. {3}\nOur body and mind are connected. Being active makes us happier as well as healthier. It instantly improves our mood and can even lift us out of depression. We can also boost our wellbeing by spending time outdoors, eating healthily, unplugging from technology and getting enough sleep.',
+     '4. {4}\nHave you ever felt there must be more to life? Good news: there is. And it\'s right here in front of us. We just need to stop and take notice. Learning to be more mindful and aware does wonders for our wellbeing, whether it\'s on our walk to work, in the way we eat or in our relationships.',
+     '5. [Ejemplo: Keep learning]\nLearning affects our wellbeing in lots of positive ways. It exposes us to new ideas and helps us stay curious and engaged. It also gives us a sense of accomplishment and helps boost our self-confidence and resilience. We can share a skill with friends, join a club, learn to sing, play a new sport and so much more.',
+     '6. {5}\nFeeling good about the future is really important for our happiness. We all need goals to motivate us and these have to be challenging enough to excite us, but also achievable. Choosing meaningful but realistic goals gives our lives direction and brings a sense of accomplishment and satisfaction when we achieve them.',
+     '7. {6}\nAll of us have times of stress, loss, failure or trauma in our lives. How we respond to these events has a big impact on our wellbeing. We often cannot choose what happens to us, but we can choose how we react to what happens. In practice it\'s not always easy, but one of the most exciting findings from recent research is that resilience, like many other life skills, can be learned.'],
+    [['Do things for others', 'Habla de cuidar de los demás y de ayudar.'], ['Connect with people', 'Habla de las relaciones con familia y amigos.'], ['Take care of your body', 'Habla de la relación cuerpo-mente: actividad, comida, sueño.'], ['Notice the world around you', 'Habla de parar, fijarse y ser más consciente (mindful).'], ['Have objectives to look forward to', 'Habla de metas y de sentirse bien con el futuro.'], ['Find ways to bounce back', 'Habla de la resiliencia ante el estrés y los fracasos. Sobra «Make sure your work doesn\'t suffer».']]),
+  _cH4('Sample 2: Acorn-fed pigs in Britain produce some of the world\'s best ham', ['Learning from the past', 'Where to eat it', 'Lost tradition', 'Not always in the same period', 'Helping out other animals', 'Not close to home', 'Looking for variety', 'Similarities and differences'],
+    ['1. {1}\nWhen a customer travelled 70 miles from Oxford just to buy a slab of his pork, Jamie Burgess thought nothing of it. "People know about Ibérico ham now and this is like a British version," he says. "They\'re happy to come a long way for something a bit different."',
+     '2. {2}\nThe New Forest farmer makes the comparison loosely. He is referring to "pannage pork", which, like Ibérico, is produced from pigs fattened on acorns. In the UK, the pigs have access to their nutty diet for just two months a year, so it doesn\'t have quite the same taste and texture as the prized Spanish ham.',
+     '3. [Ejemplo: Where to eat it]\nBut increasing numbers of food lovers are seeking it out. Chef James Golding, who previously worked at the Savoy, Le Caprice and J Sheekey restaurants in London, believes pannage pork rivals the best in the world for its flavour and texture, and he puts it on the menu at The Pig Hotel at Brockenhurst, in the New Forest, whenever possible.',
+     '4. {3}\nPannage is an ancient practice virtually extinct outside the New Forest. This former royal hunting ground entitles locals to release their animals into the forest to devour fallen acorns, beech mast and chestnuts in the autumn, and they can stay out for days and weeks on end if there are rich pickings to be found.',
+     '5. {4}\nIt\'s nature\'s own health and safety scheme — the pigs safely scoff as many acorns as they like, clearing the area for the ponies and cattle that can poison themselves if they eat too many; 90 New Forest animals died during the bumper 2013 acorn season.',
+     '6. {5}\nThe exact timing of the season depends on the weather and when the acorns fall. This year it has just come to an end, so the pigs will be brought back in and fed a regular diet in preparation for slaughter in a few weeks\' time.',
+     '7. {6}\n"In the past few years we\'ve definitely started to see more interest in pannage pork," says Burgess. "People are looking for something different these days and they\'re paying a lot more attention to where their food comes from and how it\'s produced."'],
+    [['Not close to home', 'Un cliente viaja 70 millas para comprarlo.'], ['Similarities and differences', 'Compara el cerdo británico con el ibérico.'], ['Lost tradition', 'Es una práctica antigua casi extinguida fuera del New Forest.'], ['Helping out other animals', 'Los cerdos despejan las bellotas que envenenan a ponis y vacas.'], ['Not always in the same period', 'El momento de la temporada depende del tiempo y de la caída de las bellotas.'], ['Looking for variety', 'La gente busca «algo diferente». Sobra «Learning from the past».']]),
+  _cH4('Sample 3: How often should I have an eye test?', ['How old you are is an important factor', 'Expert opinion', 'More education is necessary', 'Every other year, even if it costs money', 'Advice for using computers', 'Questions that need to be answered', 'Recommendations', 'Early detection'],
+    ['1. {1}\nJust over half of people between the ages of 40 and 75 have not had a recent eye test. But do they need one? And is it necessary to spend between £20 and £30 to get tested by an optometrist or is it OK just to pick up some cheap specs at the chemist?',
+     '2. {2}\nEveryone over the age of 16 should have an eye test every two years, and more frequently if they have an eye problem. Children ought to have annual tests. The college stipulates exactly how examinations should be done, which includes looking at the outside and the back of the eye and testing for sight defects (such as loss of visual acuity, whereby you can\'t read those letters on the chart).',
+     '3. {3}\nKaren Sparrow, head of professional development at the Association of Optometrists, says it is best to get your eyes properly assessed before going for the cheap over-the-counter option for your glasses.',
+     '4. {4}\nEye tests can pick up medical problems such as diabetes and high blood pressure before they become symptomatic because these conditions lead to changes in the blood vessels at the back of your eye. Other problems, such as age-related macular degeneration, cataracts and glaucoma, can all be detected by routine eye tests. Some of these conditions are more treatable than others.',
+     '5. {5}\nSparrow says that age most noticeably impacts on our eyes between the ages of 40 and 60. This is when many of us find it harder to read and begin to suffer from eyestrain. Age reduces our ability to focus and, without help, our eyes feel tired and gritty and we get tension headaches. GPs will often suggest a referral to the optometrist when patients complain of having regular headaches.',
+     '6. [Ejemplo: Advice for using computers]\nEven if we wear glasses, it is important to take care of our eyes if we use computer screens for extended periods of time. The image on a screen makes us adjust our focus more often and tires our eyes — which also feel dry because we forget to blink when we read on a screen. Sparrow advises five minutes away from the computer every hour.',
+     '7. {6}\nMost of us don\'t have eye tests every two years, but there is some evidence that it is beneficial to do so. A review by Canadian optometrists recommended two-yearly tests, increasing to yearly over the age of 65. Some people are eligible for free tests, but even if you have to pay, it is likely to be worth it to prevent gritty eyes and headaches.'],
+    [['Questions that need to be answered', 'Plantea preguntas: ¿se necesita una revisión? ¿merece la pena pagar?'], ['Recommendations', 'Recomienda una revisión cada dos años (anual para niños).'], ['Expert opinion', 'Cita a Karen Sparrow, experta de la Asociación de Optometristas.'], ['Early detection', 'Los exámenes detectan problemas antes de los síntomas.'], ['How old you are is an important factor', 'Explica cómo afecta la edad a los ojos (40-60 años).'], ['Every other year, even if it costs money', 'Recomienda revisarse cada dos años aunque haya que pagar. Sobra «More education is necessary».']]),
+  _cH4('Sample 4: Global talent', ['Free time activities also a factor', 'Other top choices', 'A good reason', 'Learning opportunities help', 'Many prepared to find jobs elsewhere', 'Which countries are most popular?', 'Some places attract one type of person', 'Best place to get a job'],
+    ['1. [Ejemplo: Best place to get a job]\nLondon is the most desirable city in the world for foreign workers, beating New York and Paris, according to a study. More than 200,000 people from 189 countries were surveyed by the Boston Consulting Group (BCG) and international jobs websites.',
+     '2. {1}\nLondon was the only place in the UK to be in the top 40, which included Sydney, Barcelona, Berlin, Singapore and Rome among the most popular cities.',
+     '3. {2}\nIn the report, Ali Aslan Gümüs, a 45-year-old Turkish jobseeker, said: "If you ask a young person in this country, \'Where do you want to go in the UK?\' they\'ll never say Liverpool or Manchester. They all say London because of the multi-cultural society."',
+     '4. {3}\nSome cities were chosen because of their appeal to people working in specific industries, such as Zurich for bankers and Los Angeles for people who want to be actors.',
+     '5. {4}\nThe authors of the report noted that many of the most popular cities had a combination of strong economies and famous cultural attractions. Mike Brooker, managing director of The Network job agency, said: "People have never made their career choices strictly on the basis of what happens when they\'re at work. There\'s always an implicit calculation of what the job will allow them to do in their free time."',
+     '6. {5}\nThe US was the most popular country to move to, with 42 per cent of people saying they wanted to work there, compared to 37 per cent in Britain. Canada is the third most desirable country overall, while Germany, Switzerland and France were the favourite non-English-speaking countries for those wanting to go abroad.',
+     '7. {6}\nThe report, Decoding Global Talent, found that 64 per cent of the people surveyed were prepared to move abroad for jobs. The proportion was generally higher in developing countries or those that are experiencing political instability and far lower elsewhere, with the figure standing at only 44 per cent in Britain.'],
+    [['Other top choices', 'Menciona otras ciudades del top 40 (Sídney, Barcelona, Berlín…).'], ['A good reason', 'Da la razón de elegir Londres: la sociedad multicultural.'], ['Some places attract one type of person', 'Zúrich para banqueros, Los Ángeles para actores.'], ['Free time activities also a factor', 'El trabajo se elige también por lo que permite hacer en el tiempo libre.'], ['Which countries are most popular?', 'Habla de los países más populares (EE. UU., Reino Unido, Canadá…).'], ['Many prepared to find jobs elsewhere', 'El 64 % está dispuesto a emigrar por trabajo. Sobra «Learning opportunities help».']])
+];
+
+/* ===========================================================================
+ * DOSSIER CORRECTED EDITION — Parte C: Listening y Practice Tests V1/V2.
+ * ======================================================================== */
+const _cListS1 = _dLet([
+ ['1. Listen to two colleagues. How will their company advertise?', ['use local radio', 'advertise with a sports team', 'go on social media', 'make a television advert']],
+ ['2. Listen to two friends. Which transport will the man use?', ['train and taxi', 'train and bus', 'bus and taxi', 'his car and train']],
+ ['3. Listen to two friends. Why did the man give up smoking?', ['because of his family', 'because of his work', 'because of his health', 'because of the money']],
+ ['4. Listen to two friends. What\'s wrong with the woman\'s phone?', ['It\'s broken.', 'The battery is dead.', 'It won\'t connect to the Internet.', 'Her password does not work.']],
+ ['5. Listen to a couple. Why do the couple decide to take the bus tour?', ['It goes to unusual places.', 'The timetable is best.', 'The price is the best.', 'They DON\'T do exercise.']],
+ ['6. Listen to two friends. Why WON\'T the friends buy clothes as a gift?', ['The price is too high.', 'The style is wrong.', 'The size is not available.', 'The colour is not nice.']],
+ ['7. Listen to two classmates. How will the student get information for his project?', ['by using the Internet', 'by getting things from the woman', 'by interviewing someone', 'by going to the library']],
+ ['8. Listen to a couple. How will the man contact the restaurant?', ['call the restaurant', 'return to the restaurant', 'write to the restaurant', 'send the woman to the restaurant']],
+ ['9. Listen to two people. Where are they?', ['on a train', 'in a restaurant', 'in a doctor\'s waiting room', 'at the woman\'s office']],
+ ['10. Listen to a couple. What do they like about the party?', ['the food', 'the music', 'the people', 'the decorations']],
+ ['11. Listen to two friends. Why will they start going to the sports centre?', ['to get something free', 'to lose weight', 'to learn a new sport', 'to meet others']],
+ ['12. Listen to a couple. What do they AGREE is a disadvantage about getting a dog?', ['A dog is expensive.', 'They have a small house.', 'A dog makes noise.', 'It needs a lot of exercise.']],
+ ['13. Listen to a television presenter. What will the television show help viewers do?', ['find a place to go on holiday with children', 'buy an inexpensive plane ticket', 'learn the best way to travel', 'win a free train trip']],
+ ['14. Listen to two friends. How will they communicate in the foreign language?', ['They will use a book.', 'They will speak in their own language.', 'They will take a class.', 'They will use an app.']],
+ ['15. Listen to two friends. What happened during the job interview?', ['The man received a phone call.', 'The man lied about something.', 'The man arrived late.', 'The man forgot to take something.']],
+ ['16. Listen to two friends. What do they agree about the tennis match?', ['The price of the ticket was worth it.', 'The match was quite long.', 'Travelling to attend the match was a good idea.', 'The woman\'s relatives were unfriendly.']],
+ ['17. Listen to a television interview. What does the host of a talent show say?', ['It\'s ending soon.', 'There are fewer contestants.', 'There are bigger prizes than before.', 'The castings were delayed.']],
+ ['18. Listen to a job interview. What does the job applicant ask the manager about?', ['salary', 'her colleagues', 'workplace', 'responsibilities']],
+ ['19. Listen to a customer and a shop assistant. What does the customer want?', ['her money back', 'the item in a different size', 'a different item', 'a special discount']],
+ ['20. Listen to two friends. What will they do first at the music festival?', ['buy tickets for something', 'get something to eat', 'find their friends', 'go to a concert']],
+ ['21. Listen to a woman. What happened to her while eating in a new restaurant?', ['She made a complaint.', 'She saw a friend.', 'She paid extra for something.', 'She got an unexpected offer.']],
+ ['22. Listen to two friends. How does the man decide to find a job?', ['using the Internet', 'talking to a friend', 'taking a government exam', 'taking a course']],
+ ['23. Listen to a man. What did the man find while shopping in a street market?', ['something valuable', 'something similar to a childhood possession', 'something he had been looking for', 'something to give his friend']],
+ ['24. Listen to two friends. How will the man treat his headache?', ['going for a walk', 'taking medicine', 'sleeping', 'going to the doctor']],
+ ['25. Listen to a man. What does he say about the housing while working abroad?', ['It was difficult to keep the house clean.', 'The location of the house was not ideal.', 'The house was not close to public transport.', 'Something about the house surprised him.']]
+], 'ABBCDCDACBDAADBCADCBDBACD');
+
+const _cListS2 = _dLet([
+ ['1. Listen to a flight attendant and a passenger. What does the passenger request?', ['something special to eat', 'to change his seat', 'a blanket', 'something to read']],
+ ['2. Listen to a man speaking to a secretary. What has the man not done yet to register?', ['decided which days he prefers', 'paid for the class', 'shown a document', 'chosen a course']],
+ ['3. Listen to two friends. What happened to the man?', ['He got injured doing sport.', 'He had an accident working at home.', 'He was in a traffic accident.', 'He got in a fight.']],
+ ['4. Listen to two friends. Why WON\'T the woman take her laptop on holiday?', ['Its size makes it uncomfortable.', 'Its memory is too small for her documents.', 'It doesn\'t have the right programmes.', 'It might get stolen easily.']],
+ ['5. Listen to two friends. Where is the woman going to stay now?', ['at a hotel', 'with a relative', 'in her old house', 'with her friend']],
+ ['6. Listen to a couple. Why WON\'T they make the beef dish for the dinner?', ['They don\'t eat meat.', 'They don\'t have time.', 'They don\'t have the instructions.', 'They don\'t have the ingredients.']],
+ ['7. Listen to a couple. Why do they decide to go to the Italian restaurant?', ['because of the food', 'because of the service', 'because of the entertainment', 'because of the location']],
+ ['8. Listen to a couple. Why ISN\'T the man going to take his brother on the city tour?', ['The man has already bought the concert tickets.', 'The man thinks his brother prefers a concert.', 'The man\'s brother took the tour on a previous visit.', 'The man\'s brother asked to go to a gallery.']],
+ ['9. Listen to a manager and a waiter. What should the waiter do next?', ['pick up dirty dishes', 'put away clean dishes', 'help customers', 'prepare something in the kitchen']],
+ ['10. Listen to two friends. Why might the student decide NOT to study in another country?', ['She might not have enough money.', 'She might not get on the course.', 'She won\'t like the weather.', 'She might not pass a test.']],
+ ['11. Listen to a mother and a son. Why isn\'t the son in school?', ['because of an illness', 'because of the weather', 'because he did something wrong', 'because his teacher did not go']],
+ ['12. Listen to a couple. Why should they wait to take the picture?', ['The phone doesn\'t have any battery.', 'The light isn\'t good.', 'The memory card is full.', 'The woman doesn\'t like that building.']],
+ ['13. Listen to a couple. Where will the family have the meal?', ['in their garden', 'in their dining room', 'in a restaurant', 'at a friend\'s house']],
+ ['14. Listen to a couple. What activity will they start?', ['an exercise class', 'a dance class', 'a language class', 'a cooking class']],
+ ['15. Listen to a couple. What will they do with their children on Saturday?', ['leave them with a neighbour', 'leave them with a relative', 'leave them alone', 'take them to the party']],
+ ['16. Listen to a phone message. What is the man going to do about his cancelled flight?', ['call off his trip', 'take the next flight', 'use another means of transport', 'put off the meeting']],
+ ['17. Listen to a shop assistant and a customer. What does the sales assistant suggest?', ['installing a new hard drive', 'updating the antivirus', 'trying a new operating system', 'buying a new computer']],
+ ['18. Listen to an announcer. What does she explain about the upcoming sports competition?', ['There have never been more participants.', 'The weather may be a factor in the competition.', 'The riders don\'t need to worry about getting things stolen.', 'There are not any local competitors.']],
+ ['19. Listen to a teacher giving a speech. What does she say?', ['She wants to continue her education further.', 'She never felt satisfied in her original position.', 'She regrets not having chosen education sooner.', 'She took a decision some considered wrong.']],
+ ['20. Listen to two friends. What does the man NOT say about his touring holiday?', ['It was boring.', 'It was uncomfortable.', 'It was educational.', 'It was fun.']],
+ ['21. Listen to a couple. What do they disagree on about their visit to an art gallery?', ['The guide was informative.', 'The exhibits were displayed properly.', 'The prices were reasonable.', 'The crowds were annoying.']],
+ ['22. Listen to two friends. What do they say about seeing a famous actor?', ['He looked different than expected.', 'He did something surprising.', 'He should be more careful.', 'He is not very talented.']],
+ ['23. Listen to a couple. What surprised the man most about the space exhibit?', ['the expected date of going into outer space', 'the lack of available information', 'the age of some of the objects', 'the preciseness of the predictions']],
+ ['24. Listen to a coach talking to a player. What is the coach trying to do?', ['give the player advice about which sport to play', 'help the player decide where to study', 'warn the player about a possible problem', 'suggest the player not play professionally']],
+ ['25. Listen to a couple. What do they NOT agree about the painting they have just bought?', ['the quality of the painting', 'where to put the painting', 'the importance of the painter', 'the attractiveness of the painting']]
+], 'BBCDCACBADBBADBABCDAACDCB');
+
+/* ------------------- PRACTICE TESTS — VOCABULARY (V1 y V2) ------------------- */
+const _cTask = (title, label, instruction, opts, items) => {
+  const o = opts.map(x => `${x[0]}. ${x.slice(2)}`);
+  return { type: 'cloze', title, label, instruction, text: items.map((it, i) => it[0].replace('{}', `{${i + 1}}`)).join('\n'),
+    gaps: items.map(it => _e1G(o, o.findIndex(z => z[0] === it[1]), it[2])) };
+};
+const _cV1Ex = [
+  _cTask('Task 01 (1–5) — Similar meaning', 'Vocabulary (sinónimos)', 'Elige la palabra con significado más parecido. (Ejemplo: 0. create = L make.)', ['A train', 'B look after', 'C build', 'D decide', 'E take', 'F shut', 'G propose', 'H believe', 'J develop', 'K worry', 'L make'],
+    [['01. choose → {}', 'D', '«Choose» = «decide» (decidir, elegir).'], ['02. close → {}', 'F', '«Close» = «shut» (cerrar).'], ['03. improve → {}', 'J', '«Improve» = «develop» (mejorar, desarrollar).'], ['04. care → {}', 'B', '«Care (for)» = «look after» (cuidar).'], ['05. practise → {}', 'A', '«Practise» = «train» (practicar, entrenar).']]),
+  _cTask('Task 02 (6–10) — Definitions', 'Vocabulary (definiciones)', 'Completa cada definición con una palabra de la lista.', ['A concern', 'B challenge', 'C instruct', 'D appear', 'E worry', 'F obtain', 'G wish', 'H compensate', 'J assume', 'K approve'],
+    [['06. To oppose someone is to… {}', 'B', '«Challenge» = desafiar, oponerse a alguien.'], ['07. To teach someone is to… {}', 'C', '«Instruct» = instruir, enseñar.'], ['08. To accept something is to… {}', 'K', '«Approve» = aprobar, aceptar.'], ['09. To get something is to… {}', 'F', '«Obtain» = obtener, conseguir.'], ['10. To pay someone is to… {}', 'H', '«Compensate» = compensar, pagar a alguien (por algo).']]),
+  _cTask('Task 03 (11–15) — Definitions', 'Vocabulary (adjetivos)', 'Elige la palabra que corresponde a cada definición.', ['A artificial', 'B brave', 'C crucial', 'D curious', 'E fierce', 'F lazy', 'G obscure', 'H peculiar', 'J smooth', 'K emotional'],
+    [['11. Wanting to know or learn something. → {}', 'D', '«Curious» = curioso.'], ['12. Not natural or real. → {}', 'A', '«Artificial» = artificial.'], ['13. Not clear and difficult to understand or see. → {}', 'G', '«Obscure» = oscuro, poco claro.'], ['14. Having a flat, even surface. → {}', 'J', '«Smooth» = liso, suave.'], ['15. Having a lot of strong emotion. → {}', 'K', '«Emotional» = emotivo.']]),
+  _cTask('Task 04 (16–20) — Sentence completion', 'Vocabulary (completar frases)', 'Completa cada frase con una palabra de la lista.', ['A atmosphere', 'B canteen', 'C ceiling', 'D corridor', 'E discipline', 'F envelope', 'G fringe', 'H hedge', 'J museum', 'K wardrobe'],
+    [['16. He had to walk down a long dark {} to get to his room.', 'D', '«Corridor» = pasillo.'], ['17. The teacher should maintain {} in the classroom to make the lesson effective.', 'E', '«Maintain discipline» = mantener la disciplina.'], ['18. She opened the {} and took a coat out of it.', 'K', '«Wardrobe» = armario.'], ['19. You should cut your {} regularly otherwise your hair will get in your eyes.', 'G', '«Fringe» = flequillo.'], ['20. The local {} has an exhibit about the history of this area.', 'J', '«Museum» = museo.']]),
+  _cTask('Task 05 (21–25) — Word pairs', 'Vocabulary (colocaciones)', 'Elige la palabra que suele usarse junto a la dada.', ['A clean', 'B club', 'C efforts', 'D food', 'E friends', 'F painting', 'G roads', 'H speed', 'J status', 'K tasks'],
+    [['21. abstract + {}', 'F', '«Abstract painting» = pintura abstracta.'], ['22. athletics + {}', 'B', '«Athletics club» = club de atletismo.'], ['23. congested + {}', 'G', '«Congested roads» = carreteras congestionadas.'], ['24. frantic + {}', 'C', '«Frantic efforts» = esfuerzos frenéticos.'], ['25. housework + {}', 'K', '«Housework tasks» = tareas domésticas.']])
+];
+const _cV2Ex = [
+  _cTask('Task 01 (1–5) — Similar meaning', 'Vocabulary (sinónimos)', 'Elige la palabra con significado más parecido. (Ejemplo: 0. big = L large.)', ['A area', 'B rule', 'C money', 'D base', 'E chance', 'F department', 'G plan', 'H approach', 'J business', 'K surprise', 'L large'],
+    [['01. design → {}', 'G', '«Design» = «plan» (diseño, plan).'], ['02. policy → {}', 'B', '«Policy» = «rule» (política, norma).'], ['03. fortune → {}', 'C', '«Fortune» = «money» (fortuna, dinero).'], ['04. wonder → {}', 'K', '«Wonder» = «surprise» (asombro, sorpresa).'], ['05. opportunity → {}', 'E', '«Opportunity» = «chance» (oportunidad).']]),
+  _cTask('Task 02 (6–10) — Definitions', 'Vocabulary (definiciones)', 'Completa cada definición con una palabra de la lista.', ['A figure', 'B board', 'C cottage', 'D army', 'E desk', 'F crowd', 'G carpet', 'H character', 'J case', 'K example'],
+    [['06. The group of people who protect a country is a/an… {}', 'D', '«Army» = ejército.'], ['07. A covering for floors is called a/an… {}', 'G', '«Carpet» = alfombra, moqueta.'], ['08. A type of house in the country is called a/an… {}', 'C', '«Cottage» = casita de campo.'], ['09. A large group of people together is called a/an… {}', 'F', '«Crowd» = multitud.'], ['10. A type of table used for work is called a/an… {}', 'E', '«Desk» = escritorio.']]),
+  _cTask('Task 03 (11–15) — Sentence completion', 'Vocabulary (completar frases)', 'Completa cada frase con una palabra de la lista.', ['A sock', 'B hood', 'C light', 'D script', 'E witness', 'F error', 'G port', 'H call', 'J champion', 'K country'],
+    [['11. Just one more {} is enough to end the project.', 'F', '«Error» = error. (Ojo: «call» también podría encajar; la clave del dossier es «error».)'], ['12. The jacket has a/an {} to protect your head.', 'B', '«Hood» = capucha.'], ['13. The ship sailed into the {} on time.', 'G', '«Port» = puerto.'], ['14. The actors read their lines from the {}.', 'D', '«Script» = guion.'], ['15. The cycling {} broke the world record.', 'J', '«Champion» = campeón.']]),
+  _cTask('Task 04 (16–20) — Sentence completion', 'Vocabulary (completar frases)', 'Completa cada frase con un verbo de la lista.', ['A fly', 'B involve', 'C approve', 'D benefit', 'E complicate', 'F compete', 'G focus', 'H presume', 'J borrow', 'K catch'],
+    [['16. The board will {} the plan tomorrow.', 'C', '«Approve» = aprobar.'], ['17. Can I {} some money from you?', 'J', '«Borrow» = pedir prestado.'], ['18. This fact is going to {} everything.', 'E', '«Complicate» = complicar.'], ['19. Two teams are going to {} in the race.', 'F', '«Compete» = competir.'], ['20. She couldn\'t {} on the question.', 'G', '«Focus on» = concentrarse en.']]),
+  _cTask('Task 05 (21–25) — Word pairs', 'Vocabulary (colocaciones)', 'Elige la palabra que suele usarse junto a la dada.', ['A property', 'B hygiene', 'C mechanism', 'D effort', 'E agreement', 'F formula', 'G personnel', 'H profile', 'J effect', 'K origins'],
+    [['21. adverse + {}', 'J', '«Adverse effect» = efecto adverso.'], ['22. vacant + {}', 'A', '«Vacant property» = propiedad desocupada.'], ['23. collaborative + {}', 'D', '«Collaborative effort» = esfuerzo colaborativo.'], ['24. unanimous + {}', 'E', '«Unanimous agreement» = acuerdo unánime.'], ['25. humble + {}', 'K', '«Humble origins» = orígenes humildes.']])
+];
+
+/* ------------------- PRACTICE TESTS — READING (V1 y V2) ------------------- */
+const _cR1V1 = { type: 'cloze', title: 'Task 01 (1–5) — Sentence comprehension', label: 'Reading (elegir la palabra)', instruction: 'Elige la palabra correcta para cada hueco. (Ejemplo 0: buy.)',
+  text: 'Hi Pete,\n\nCan you (0) buy some things after you finish work today? We need (1) {1} milk and eggs. Don\'t (2) {2} to get a can of dog food. The shop (3) {3} late today. I have an appointment at the (4) {4}. I will see you at home at (5) {5} 7 o\'clock.\n\nLove, Samantha',
+  gaps: [_e1G(['very', 'more', 'same'], 1, '«We need more milk and eggs» = necesitamos más leche y huevos.'), _e1G(['think', 'remember', 'forget'], 2, '«Don\'t forget to get…» = no olvides comprar…'), _e1G(['closes', 'loses', 'works'], 0, '«The shop closes late today» = la tienda cierra tarde hoy.'), _e1G(['hospital', 'room', 'business'], 0, '«An appointment at the hospital» = una cita en el hospital.'), _e1G(['almost', 'around', 'nearly'], 1, '«At around 7 o\'clock» = sobre las 7.')] };
+const _cR1V2 = { type: 'cloze', title: 'Task 01 (1–5) — Sentence comprehension', label: 'Reading (elegir la palabra)', instruction: 'Elige la palabra correcta para cada hueco. (Ejemplo 0: information.)',
+  text: 'Dear Simon,\n\nCan you give me some (0) information about the meeting tomorrow? Is the meeting in the morning or the (1) {1}? Can you (2) {2} me the number of the meeting room? I don\'t know (3) {3} the meeting is about. Please call me (4) {4} today. I will be at (5) {5} all day.\n\nRegards, Samantha',
+  gaps: [_e1G(['hour', 'afternoon', 'week'], 1, '«The morning or the afternoon» = por la mañana o por la tarde.'), _e1G(['say', 'tell', 'speak'], 1, '«Tell me the number» = dime el número (tell + persona).'), _e1G(['when', 'where', 'what'], 2, '«I don\'t know what the meeting is about» = no sé de qué trata la reunión.'), _e1G(['then', 'next', 'later'], 2, '«Later today» = más tarde hoy.'), _e1G(['home', 'traffic', 'job'], 0, '«At home all day» = en casa todo el día.')] };
+const _cR2V1 = _dT2('Task 02 (6–11) — A Life with Horses', '',
+  ['William Bell was born in Argentina in 1953.', 'He used his popularity to help many young people learn to ride and take care of horses.', 'When he was a child, he lived on a farm and he loved animals.', 'After his success, he went on to win many international competitions and he became very famous.', 'Eventually he retired and returned home to his farm in Argentina.', 'He won his first riding competition when he was fifteen.', 'He worked with horses on the farm after school and became a very good horse rider.'],
+  ['C', 'G', 'F', 'D', 'B', 'E'], ['De niño vivía en una granja y amaba a los animales: sigue al nacimiento.', 'Trabajaba con caballos en la granja y llegó a ser muy buen jinete.', 'Ganó su primera competición a los quince años.', '«After his success…» continúa con las competiciones internacionales.', 'Usó su fama para ayudar a jóvenes con los caballos.', '«Eventually he retired…» es el final de la historia.']);
+const _cR2V2 = _dT2('Task 02 (6–11) — A Famous Author', '',
+  ['Kim was born in 1890 into a wealthy family in the English city of Leeds.', 'She finished her final novel at age 90 and passed away peacefully two months later.', 'As a child, her parents sent her to France to stay with an aunt.', 'Her debut full-length novel, The Vengeance, also became a major hit.', 'As a young adult, she gained recognition publishing short stories back in England.', 'After five years abroad, she returned home from mainland Europe.', 'Over her career she published more than 100 books and received the Grand Master Award.'],
+  ['C', 'F', 'E', 'D', 'G', 'B'], ['De niña sus padres la enviaron a Francia: sigue al nacimiento.', '«After five years abroad, she returned home…» continúa lo anterior.', 'De joven publicó cuentos en Inglaterra.', 'Su primera novela larga fue otro gran éxito.', 'A lo largo de su carrera publicó más de 100 libros.', 'Terminó su última novela a los 90 y murió: es el final.']);
+const _cR3V1 = _dT3('Task 03 (12–18) — Workplace Stress (Adapted)', ['illness', 'assistance', 'complication', 'survey', 'increasing', 'significant', 'conflict', 'reducing', 'employers', 'management', 'effects'],
+  'Work-related stress involves the physical, emotional and psychological (0) effects experienced by an employee. It often arises from a (12) {1} between a worker\'s skills and job demands, excessive hours, poor conditions or tense workplace relationships. High-pressure environments can create (13) {2} problems for organisations, including lower output, weak performance and higher absence rates. Left unmanaged, chronic stress may lead to physical or mental (14) {3}. Practical ways to cope include staying active, eating well and (15) {4} intake of caffeine and tobacco. Occasionally, specialist (16) {5} is necessary. Employees who took part in a recent (17) {6} recommended that companies offer clearer guidance on organising tasks, balancing work with personal life and taking regular breaks. Many staff also saw clear benefits after joining time (18) {7} sessions.',
+  ['conflict', 'significant', 'illness', 'reducing', 'assistance', 'survey', 'management'],
+  ['«A conflict between skills and job demands» = un conflicto entre capacidades y exigencias.', '«Significant problems» = problemas importantes.', '«Physical or mental illness» = enfermedad física o mental.', '«Reducing intake» = reducir el consumo (tras «and» un gerundio paralelo a «eating»).', '«Specialist assistance» = ayuda especializada.', '«A recent survey» = una encuesta reciente.', '«Time management sessions» = sesiones de gestión del tiempo.']);
+const _cR3V2 = _dT3('Task 03 (12–18) — Bread (Adapted)', ['which', 'whose', 'wondered', 'evidence', 'variety', 'believed', 'available', 'plenty', 'basic', 'hold', 'one'],
+  'Bread is (0) one of humanity\'s oldest prepared foods. Archaeologists have uncovered (12) {1} showing it was baked in Europe as early as 30,000 years ago. Across the centuries, bread has served as a (13) {2} staple in countless societies. In ancient Egypt, mothers were advised to pack (14) {3} of bread for their children\'s school lunches. Today, it remains perhaps the single food (15) {4} appears in diets worldwide, surrounded by rich folklore. In Scandinavian tradition, it is (16) {5} that a boy and girl sharing the same loaf will fall in love. Sold as white or brown loaves in a wide (17) {6} of shapes and sizes, bread is widely (18) {7}, inexpensive and simple to make.',
+  ['evidence', 'basic', 'plenty', 'which', 'believed', 'variety', 'available'],
+  ['«Uncovered evidence» = descubrieron pruebas.', '«A basic staple» = un alimento básico.', '«Plenty of bread» = mucho pan.', '«The single food which appears…» = el único alimento que aparece…', '«It is believed that…» = se cree que…', '«A wide variety of» = una gran variedad de.', '«Widely available» = ampliamente disponible.']);
+const _cH_V1 = ['A. Where they went, others have followed', 'B. A debatable success', 'C. Water shortage', 'D. An experienced team', 'E. Three months in the Pacific', 'F. He had something to prove', 'G. The technical aspects', 'H. People are still talking about it', 'J. A sight not seen in 500 years'];
+const _cR4V1 = _dH('Task 04 (19–25) — The Kon-Tiki Expedition (Adapted)', _cH_V1, [
+  '0. [Ejemplo: J. A sight not seen in 500 years]\nIn 1947, a traditional wooden raft unlike any vessel seen for five centuries set out across the South Pacific from Peru towards Polynesia. Built by Norwegian explorer Thor Heyerdahl and named Kon-Tiki after a legendary sun deity, the craft was constructed to test his theory about early Pacific migrations.',
+  '19. {1}\nHeyerdahl proposed that ancient settlers had reached Pacific islands from South America, pointing to stylistic similarities between stone statues on Easter Island and sculptures near Lake Titicaca. Many experts doubted that early Peruvian sailors could cross open ocean, so Heyerdahl set out to show that such a voyage was physically feasible.',
+  '20. {2}\nUsing historical sketches and accounts, builders in Peru assembled the raft exclusively from balsa logs, reeds and plant-fibre ropes, avoiding metal nails altogether. Measuring 15 metres by 5 metres, the raft carried a tiny shelter for six men and a parrot, plus 1,250 litres of fresh water, coconuts, fruit, emergency rations and fishing gear.',
+  '21. {3}\nFive Norwegians and one Swede formed the crew, bringing together a cook, an engineer, a researcher-translator, a navigator and radio specialists. Their only modern tools were a compass and radio equipment used to transmit weather updates and coordinates.',
+  '22. {4}\nTowed 50 miles offshore from Callao on 28 April 1947, the raft drifted westward on the Humboldt Current. After 93 days they spotted Puka-Puka, spoke briefly with residents near Angatau four days later, and finally came ashore on Raroia atoll after 101 days and nearly 7,000 kilometres, where neighbouring islanders welcomed them warmly.',
+  '23. {5}\nAcademic reaction was mixed. Critics argued that drifting with currents did not prove deliberate navigation and maintained that most Pacific settlement came from Asia, though genetic studies decades later offered limited support for ancient South American contact.',
+  '24. {6}\nThe crossing inspired subsequent voyages. In 1970 and 1973, Spanish explorer Vital Alsar crossed the Pacific on balsa rafts to demonstrate ancient seamanship, and later Norwegian crews replicated the route and filmed an acclaimed documentary.',
+  '25. {7}\nHeyerdahl\'s adventure left a lasting cultural mark. His 1948 book became an international bestseller, his expedition documentary won an Academy Award in 1951, the Kon-Tiki Museum remains a major Oslo attraction, and a major Norwegian feature film earned an Oscar nomination in 2012.'],
+  [[_cH_V1[5], 'Heyerdahl tenía que demostrar que el viaje era posible.'], [_cH_V1[6], 'Describe cómo se construyó la balsa: aspectos técnicos.'], [_cH_V1[3], 'Habla de la tripulación (cocinero, ingeniero, navegante…).'], [_cH_V1[4], 'Cuenta la travesía de 101 días por el Pacífico.'], [_cH_V1[1], 'La reacción académica fue desigual: un éxito discutible.'], [_cH_V1[0], 'Otros han repetido la ruta después. «Water shortage» sobra.'], [_cH_V1[7], 'Libro, documental y película: aún se habla de la expedición.']]);
+const _cH_V2 = ['A. A Collection of Records', 'B. Without a Single Break', 'C. Hooping Back in Fashion', 'D. Hooping Appeals to Both Genders Alike', 'E. Fun, Fitness or Treatment?', 'F. The Hula Hoop Goes Global', 'G. Spinning Multiple Hoops', 'H. Hooping and Running at the Same Time', 'J. What is it?'];
+const _cR4V2 = _dH('Task 04 (19–25) — The Hula Hoop (Adapted)', _cH_V2, [
+  '0. [Ejemplo: J. What is it?]\nPeople of all ages enjoy spinning a hula hoop around their waist, arms, legs or neck for fun or fitness. Traditionally crafted from flexible wood or grasses, modern versions are typically made from lightweight plastic tubing and remain popular worldwide.',
+  '19. {1}\nAlthough many associate the toy with the 1950s, hooping dates back to ancient Greece as an exercise tool and reappeared in 14th-century Scotland as therapy for heart and back ailments. British soldiers visiting Hawaii in the 1800s added the word "hula" because the waist movement reminded them of traditional island dance.',
+  '20. {2}\nIn 1958, Californian company Wham-O launched a plastic hoop that sparked an international craze: 25 million sold in four months and over 100 million within two years, with 50,000 manufactured daily in the US alone as people of every age joined the trend.',
+  '21. {3}\nWhile its initial hype cooled after the 1960s, the hoop never disappeared from toy shops and has recently enjoyed a major comeback — even appearing in fitness classes with weighted, collapsible models designed for easy storage.',
+  '22. {4}\nEndurance records quickly followed. After an 11-hour-34-minute record in 1960 and a 10-hour-47-minute mark by a younger contestant in 1976, Brix Sorenson set a staggering non-stop record of 90 hours in April 1987.',
+  '23. {5}\nAnother category tests spinning multiple hoops simultaneously. In November 2009, Paul "Dizzy Hips" Blair spun 132 hoops at once without assistance; once rotating between shoulders and hips, competitors cannot touch them with their hands.',
+  '24. {6}\nHoopers also race on foot while keeping a hoop spinning continuously — tracked by a ribbon tied to the rim. Australian Boo Crystal Chan set a 10 km women\'s time of 1 hour 27 minutes 25 seconds in 2009, while Paul Blair completed the distance over 20 minutes faster.',
+  '25. {7}\nOther milestones celebrate size and mass participation: Ashrita Furman spun a 13.88-metre-wide hoop in 2005, Roman Schedler rotated a 53-pound tractor tyre for 71 seconds in Austria in 2000, and 2,496 people hooped together for three minutes in Taiwan.'],
+  [[_cH_V2[4], 'Habla de los usos del aro: ejercicio, terapia y diversión.'], [_cH_V2[5], 'Fiebre mundial de 1958: millones de aros vendidos.'], [_cH_V2[2], 'El aro ha vuelto a estar de moda.'], [_cH_V2[1], 'Récords de resistencia sin parar.'], [_cH_V2[6], 'Girar varios aros a la vez.'], [_cH_V2[7], 'Correr mientras se gira el aro.'], [_cH_V2[0], 'Récords de tamaño y de participación masiva. «Hooping Appeals to Both Genders Alike» sobra.']]);
+
+/* ------------------- PRACTICE TESTS — LISTENING (V1 y V2) ------------------- */
+const _cListV1 = _dLN([
+ ['01. When does Ken want to visit?', ['at 8.30', 'at 11.00', 'before 7.30', 'after 2.00']], ['02. How do most visitors travel to Alan\'s city?', ['boat', 'car', 'train', 'taxi']],
+ ['03. What does Monica\'s son Mark usually eat for breakfast?', ['cake', 'fish', 'milk', 'eggs']], ['04. On which day will Ana\'s rescheduled party take place?', ['Saturday', 'Thursday', 'Friday', 'Tuesday']],
+ ['05. What item did Martin misplace after the party?', ['shoes', 'car', 'glasses', 'book']], ['06. What activity do the two friends agree to do?', ['go to the park', 'watch a football game', 'go swimming', 'go to the woods']],
+ ['07. What kind of television is the shopper looking for?', ['an old-fashioned TV', 'a flat-screen TV', 'an expensive TV', 'a 40-inch screen TV']], ['08. What feature of the house is the speaker planning to remove?', ['floors', 'doors', 'carpet', 'windows']],
+ ['09. According to the radio announcement, whose birthday is in May?', ['Pete', 'Kitty', 'George', 'Paul']], ['10. What time is the car picking Alana up?', ['2.30', '12.45', '5.00', '12.30']],
+ ['11. What makes the job challenging according to the friends?', ['getting up early', 'working with doctors', 'working long hours', 'working at weekends']], ['12. Listen to the department store announcement. Which items have the biggest discounts this weekend?', ['fridges', 'shirts', 'casual shoes', 'beauty products']],
+ ['13. Who is the new shop mainly aimed at?', ['bargain hunters', 'book lovers', 'people who enjoy luxury', 'cooking enthusiasts']], ['14. Which film is screened in the morning only?', ['Abdul\'s Adventures', 'Alice', 'Nasty Shark', 'Swimming with Pink Fishes']],
+ ['15. When and where does the 3K race begin?', ['main gate at 8.00', 'east gate at 7.30', 'main gate at 7.00', 'east gate at 5.00']], ['16. Where will the tour group stop for lunch?', ['museum', 'gallery', 'castle', 'department store']],
+ ['17. How does David\'s friend advise him to obtain the equipment?', ['hire it', 'buy it second-hand', 'buy it new', 'borrow it from his brother']], ['18. Where did the robbery reported on the news occur?', ['bank', 'pet shop', 'petrol station', 'church']],
+ ['19. Why does Paul leave a voicemail for Anita?', ['To apologise.', 'To say goodbye.', 'To thank her.', 'To say hello.']], ['20. From which day is the rental house available?', ['next Tuesday', 'next Thursday', 'this Tuesday', 'this Thursday']],
+ ['21. What is Miss Jones\'s telephone number?', ['071 367714', '071 366714', '071 336714', '071 367414']], ['22. Where does Tom want to meet Ameera?', ['In the park.', 'At work.', 'At the station.', 'At Pete\'s house.']],
+ ['23. Why hasn\'t Khalid completed his report yet?', ['His computer isn\'t working.', 'He\'s feeling sick.', 'He didn\'t sleep well.', 'He\'s got a cold.']], ['24. What gift does Amal choose to buy?', ['A hat.', 'Books.', 'Chocolates.', 'A belt.']],
+ ['25. Why does Anya think Pawel is unsuitable for the role?', ['he doesn\'t work hard', 'he doesn\'t like other people', 'he can\'t make decisions', 'he lacks experience']]
+], [3, 3, 4, 1, 3, 3, 1, 2, 3, 1, 1, 2, 1, 4, 1, 4, 1, 2, 3, 1, 2, 3, 1, 3, 3]);
+const _cListV2 = _dLN([
+ ['01. What does the traveller\'s bag look like?', ['big and red', 'small and white', 'big and black', 'small and red']], ['02. Where is meeting room 308 located?', ['on the 4th floor', 'on the right of the hall', 'near the garden', 'past the photocopier']],
+ ['03. What time does your colleague suggest meeting?', ['12.00', '11.30', '10.30', '11.00']], ['04. What does Jooyeon want to shop for?', ['art', 'books', 'clothes', 'music']],
+ ['05. What is Maggie\'s phone number?', ['210 732 4319', '210 732 4931', '210 732 3491', '210 732 3914']], ['06. What do the two friends decide to do?', ['go to the park', 'watch a football game', 'go swimming', 'go to the woods']],
+ ['07. What dessert does the diner order?', ['ice cream', 'apple pie', 'fruit', 'chocolate cake']], ['08. Where do the woman and her husband normally spend their holidays?', ['with their children', 'in warm, sunny places', 'Turkey or Egypt', 'at Jack\'s parents\' home']],
+ ['09. Which city does Maria say she prefers, and why? (Maria prefers Madrid because…)', ['she has family there', 'it is better than London', 'it has a good football club', 'she doesn\'t like Manchester']], ['10. What was the man\'s previous occupation?', ['doctor', 'computer programmer', 'factory worker', 'teacher']],
+ ['11. What is the new departure time of the flight?', ['9.30', '11.30', '10.00', '11.00']], ['12. When are the discounted fitness sessions held?', ['Thursday to Saturday', 'on weekends', 'Tuesday to Thursday', 'Monday to Wednesday']],
+ ['13. What is new at the Albion School this year?', ['summer courses', 'cheaper courses', 'better value for money', 'conversation with locals']], ['14. What can festival visitors enjoy every day?', ['films', 'well-known artists', 'national costumes', 'an art exhibition']],
+ ['15. What is scheduled at the office on Friday?', ['an inspection', 'a survey', 'a one-hour meeting', 'a ten-minute interview']], ['16. What time does Francisco\'s return flight depart?', ['11.00 p.m.', '6.00 p.m.', '4.00 p.m.', '5.00 p.m.']],
+ ['17. What is the speaker\'s main piece of career advice?', ['write everything down', 'call after interviews', 'develop a system', 'build relationships']], ['18. How should David get the camping gear?', ['hire it', 'buy it second-hand', 'buy it new', 'borrow it from his brother']],
+ ['19. Where can passengers eat lunch during the day trip?', ['The beach.', 'The kiosk.', 'The bus.', 'The café.']], ['20. How does the woman feel about living in her new country?', ['she is still uncertain', 'she is mostly negative', 'she likes everything', 'she doesn\'t want to discuss it']],
+ ['21. How did the man and his wife travel on their trip?', ['plane', 'boat', 'train', 'car']], ['22. How did Martha feel before her job interview?', ['bored', 'relieved', 'nervous', 'angry']],
+ ['23. What is the man\'s opinion of the books the woman suggests?', ['fantastic', 'educational', 'old-fashioned', 'difficult']], ['24. What concerns the couple preparing for the party?', ['there won\'t be enough food', 'there will be too much cake', 'the team won\'t eat if they lose', 'there will be too much leftover food again']],
+ ['25. Where is the conversation taking place?', ['a coffee shop', 'an antique shop', 'a furniture shop', 'a palace']]
+], [1, 4, 2, 3, 3, 3, 2, 4, 1, 4, 3, 1, 4, 4, 3, 1, 3, 1, 1, 1, 3, 4, 4, 1, 3]);
+
+/* ===========================================================================
+ * DOSSIER CORRECTED EDITION — Parte D: Writing, Speaking y teoría.
+ * El PDF no trae respuestas modelo de Writing/Speaking: no se añade ninguna.
+ * ======================================================================== */
+const _cWriteEx1 = _dWritePractice(1, 'Student Union', ['What do you usually do at the weekend?', 'What do you study?', 'What is your favourite colour?', 'What is your favourite time of day?', 'What is the weather like today?'],
+  ['Write some reasons why you are interested in being a member of the student union. Use 20–30 words.', 'Uni Students Union — Please write some reasons why you are interested in being a member of the student union.'],
+  [['Peter', 'Hi! Welcome to Uni Student Union. Why did you decide to join?'], ['Sara', 'Welcome! What are the responsibilities of a student union?'], ['Andrew', 'What is the most important responsibility a student union has?']],
+  'Dear student,\n\nWe are writing to tell you that the international social activities organised with the group of foreign students next week have been cancelled. Unfortunately, they have a very busy schedule and they won\'t have time to visit our university. However, we can organise the activities with just our own students if you like.',
+  'the president of the student union', 'the student union');
+const _cWriteEx2 = _dWritePractice(2, 'Floral Gardening Club', ['What do you usually do at the weekend?', 'What time do you usually get up?', 'What is your favourite sport?', 'Where do you live?', 'How many brothers and sisters do you have?'],
+  ['Write some reasons why you are interested in being a member of the gardening club. Use 20–30 words.', 'Floral Gardening Club — Please write some reasons why you are interested in being a member of the gardening club.'],
+  [['Bob', 'Hi! Welcome to Floral Gardening Club. Why did you decide to join?'], ['Betsy', 'Welcome! What are your favourite activities in the club?'], ['Brian', 'What is the most enjoyable activity you have done in the club?']],
+  'Dear member,\n\nWe are writing to tell you that the filming organised in your garden next week has been cancelled. Unfortunately, we have a very busy schedule and we won\'t have time to reschedule the show. However, if you could send us a photo of your garden, we will mention your garden and your club in the next episode.\n\n(The TV show Remodel Your Garden was going to film your garden.)',
+  'the producer of the programme', 'the TV show Remodel Your Garden');
+const _cWriteEx3 = _dWritePractice(3, 'Hollywood Film Club', ['What type of films do you like?', 'How often do you go to the cinema?', 'What is your favourite place to eat?', 'What do you study?', 'Where do you like going on holiday?'],
+  ['Write how often you watch films and why you enjoy them. Use 20–30 words.', 'Hollywood Film Club — Please write how often you watch films and why you enjoy them.'],
+  [['Sam', 'Hi! Welcome to Hollywood Film Club. I\'ve been a member for two years. Why did you decide to join?'], ['Molly', 'Welcome! What do you enjoy most about watching films and what type of films do you enjoy the most?'], ['Ricky', 'Very few people go to the cinema nowadays. Why do you think this is?']],
+  'Dear member,\n\nWe are writing to tell you that the weekend we had organised for our members has been cancelled because of train strikes. We are reorganising it for a later date. You can ask for a refund or we can hold your deposit for the later date. Please contact us to tell us if you want a refund or to change the date.',
+  'the secretary of the film club', 'the club secretary');
+const _cTravelNotice = 'Dear member,\n\nWe are writing to inform you that the famous travel writer Mr David Price will unfortunately not be able to attend our next club meeting. Although Mr Price will not be there to sign copies of his new book Around the World in Eighty Ways, members of the club will be able to buy a copy at the price of twenty-five pounds. If you would like to reserve a copy, please contact the club secretary.';
+const _cWriteTest = [
+  _dWfield('Part 1 — Travel Club form', 3, 'You want to join a travel club. Complete the form.', ['Name', 'Country', 'Date of birth (day / month in full / year)', 'First language', 'Interest 1', 'Interest 2', 'Interest 3']),
+  _dWtext('Part 2 — Aptis Travel Club', 7, 20, 30, 'Write some reasons why you are interested in travel. Use 20–30 words.', 'Aptis Travel Club — Please write some reasons why you are interested in travel.', ['He escrito frases completas.', 'Explico por qué me interesa viajar.', 'Mi texto tiene entre 20 y 30 palabras.']),
+  _dWchat('Part 3 — Chat room with club members', 10, 'You are talking to some members in the club chat room. Answer using sentences. Use 30–40 words per answer.',
+    [['Sam', 'Hi! Welcome to the club. Can you remember the first time you went on a journey by yourself? What was it like?'], ['Miguel', 'Welcome! What are the most interesting places to visit in your country?'], ['Michelle', 'What is the most exciting journey you\'ve been on?']]),
+  _dWtext('Part 4 · Task A — Informal email to a friend', 10, 40, 60, 'You are a member of a travel club and received this email. Write an email to your friend about your feelings and what you plan to do. Write about 50 words.', _cTravelNotice, _dCkInf),
+  _dWtext('Part 4 · Task B — Formal email to the club secretary', 20, 120, 150, 'Write an email to the club secretary about your feelings and what you would like to do. Write 120–150 words.', _cTravelNotice, _dCkFor)
+];
+
+const _cWriteLangTheory = [
+  _u1T.p('<strong>Writing — Useful Language.</strong> El examen de Writing dura 50 minutos y tiene cuatro partes: Part 1 (1–5 palabras, 3 min), Part 2 (20–30 palabras, 7 min), Part 3 (tres respuestas de chat de 30–40 palabras, 10 min) y Part 4 (correo informal de unas 50 palabras + correo formal de 120–150 palabras, 20 min).'),
+  _u1T.tbl(['Parte', 'Expresiones útiles'], [
+    ['Part 1 (datos personales)', 'Date of birth (21st August 1988) · Language (English, French, German, Spanish, Italian, etc.)'],
+    ['Part 2 (frases cortas)', 'I live with… · We spend time + -ing · I always / sometimes / often / hardly ever / never… · I enjoy / love / hate + -ing because it\'s… · I\'m keen on… · I\'d like to… · I\'ve never… so I\'d like to… · It\'s important to… so…'],
+    ['Part 3 (chat)', 'Hi there! Great to be a member! · I decided to join… because… · I\'m interested in… · I\'m really into… · On the one hand…, but on the other hand… · I\'m very pleased / dissatisfied with… · We should spend the money / time…'],
+    ['Part 4 (correo informal)', 'Hi (there), · Have you heard / seen…? · It\'s great / terrible news about… · Why don\'t we…? · I suggest… · We could try… · What a pity! / What a shame! · Best wishes / All the best / See you soon.'],
+    ['Part 4 (correo formal)', 'Dear Mr/Ms… / Dear Sir or Madam, · It has come to my attention that… · I have recently been informed that… · I would like to express my dissatisfaction regarding… · Moreover / Furthermore, · As you are aware, · An alternative solution would be… · I look forward to hearing from you. · Yours sincerely / Yours faithfully.']
+  ])
+].join('');
+const _cSpeakLangTheory = [
+  _u1T.p('<strong>Speaking — Useful Language.</strong> El examen de Speaking dura 12 minutos y tiene cuatro tareas: Part 1 (3 preguntas personales, 30 s cada una), Part 2 (describir 1 foto + 2 preguntas, 45 s cada una), Part 3 (comparar 2 fotos + 2 preguntas, 45 s cada una) y Part 4 (1 foto + 3 preguntas abstractas, 1 minuto de preparación + 2 minutos de respuesta).'),
+  _u1T.tbl(['Parte', 'Expresiones útiles'], [
+    ['Part 1', 'I like / love / enjoy… · I live in… · My neighbourhood is… · I have three siblings… I get on / don\'t get on with… · My favourite season is (spring, summer, autumn, winter) because… · In my free time I love…'],
+    ['Part 2 (describir una foto)', 'In the picture I can see… · There\'s / There are… · A man/woman is + -ing · At the top/bottom, in the middle, on the left/right · Next to / in front of / behind / near / on top of / under / opposite · He/she looks + adjective · It might be / He could be + -ing.'],
+    ['Part 3 (comparar 2 fotos)', 'In BOTH photos there are people + -ing · In one photo…, WHEREAS / WHILE in the other photo… · On the one hand…, on the other hand… · They seem to be + -ing · They may / might have…'],
+    ['Part 4 (tema abstracto)', 'It seems to me… · I\'m convinced that… · The way I see it… · To be honest… · From my point of view… · Firstly / secondly / and last but not least… · Although / even though / however / despite · There are two sides to the question · Some people say that… while others think…']
+  ])
+].join('');
+
+/* ---------------------------------- SPEAKING ---------------------------------- */
+const _cSpeakP1 = [
+  _dSp1(1, ['Tell me about your family.', 'What do you like doing in your free time?', 'What\'s the weather like today?']),
+  _dSp1(2, ['Tell me about where you live.', 'What do you like to do at the weekend?', 'How do you like to celebrate your birthday?']),
+  _dSp1(3, ['Tell me about your country.', 'What places would you like to visit in the future?', 'Which season of the year do you like best?']),
+  _dSp1(4, ['Tell me about your best friend.', 'What sports do you like to play and watch?', 'Who do you like to spend your free time with?'])
+];
+const _cSpeakP2 = [
+  _dSp23(2, 1, 'An elderly man browsing magazines and newspapers at a street newsstand.', ['Can you describe the photo?', 'Tell me about what type of things you like to buy.', 'Do you think newspapers should be free?']),
+  _dSp23(2, 2, 'A family of four having a sunny picnic on the grass.', ['Can you describe the photo?', 'Talk about who you like to eat with.', 'Do you think it\'s important for families to have meals together?']),
+  _dSp23(2, 3, 'Parents and three children sitting on a sofa watching swimming on television.', ['Can you describe the photo?', 'Tell me what type of programmes you like to watch on television.', 'Do you think children should have their own televisions in their bedrooms?']),
+  _dSp23(2, 4, 'A crowded pebble beach with sunbathers and people swimming in clear water.', ['Can you describe the photo?', 'Tell me about your last holiday.', 'Do you think students should use holiday time to get a part-time job?'])
+];
+const _cSpeakP3 = [
+  _dSp23(3, 1, 'Two photos: young men playing football outdoors vs. a man playing pool indoors.', ['Tell me about what you see.', 'What kind of people play these sports?', 'Which one is more difficult?']),
+  _dSp23(3, 2, 'Two photos: a bride and groom in a park vs. young children blowing out birthday candles.', ['Tell me about what you see.', 'Which kind of celebration is more special?', 'Which celebration will the people remember for longer?']),
+  _dSp23(3, 3, 'Two photos: two men on a video call on a computer vs. a woman and a man talking face to face.', ['Tell me about what you see.', 'Why do people communicate in these different ways?', 'Which type of communication do you think is more effective?']),
+  _dSp23(3, 4, 'Two photos: a classical concert hall with an orchestra vs. a rock band performing under stage lights.', ['Tell me what you see.', 'What kind of people go to these events?', 'Which event do you think is more exciting?'])
+];
+const _cSpeakP4 = [
+  _dSp4(1, 'A stressed man at a desk holding bills and documents.', ['Tell me about a time when you felt stressed.', 'How did you manage the situation?', 'What are some ways of avoiding stress?']),
+  _dSp4(2, 'A woman and a man shouting angrily at each other.', ['Tell me about when you last had an argument with someone.', 'How did you feel after the argument?', 'How can we avoid arguments?']),
+  _dSp4(3, 'A young person sitting alone on a bench looking at a phone.', ['Tell me about when you were on your own.', 'How did you feel about it?', 'What are some of the ways of passing the time on your own?']),
+  _dSp4(4, 'An older man sitting on the pavement hugging a large dog.', ['Tell me what advantages and disadvantages there are about having pets.', 'Why do people choose dangerous pets?', 'Which pet do you think is the best type to own?'])
+];
+const _cSpeakTest = [{ type: 'speaking', tasks: [
+  _dSp('Part 1 · Q1', 'Part 1 — Personal information', 30, 'Please tell me about your family.'),
+  _dSp('Part 1 · Q2', 'Part 1 — Personal information', 30, 'What do you like to do at weekends?'),
+  _dSp('Part 1 · Q3', 'Part 1 — Personal information', 30, 'Tell me about your hometown or city.'),
+  ...['Describe this picture.', 'Tell me about a time you visited a museum.', 'Do you think people should pay to visit museums, or should they be free?'].map((q, i) => ({ ..._dSp(`Part 2 · Q${i + 1}`, 'Part 2 — Describe a photo + 2 questions', 45, q), imageNote: 'A young girl and an adult looking into a museum display case.' })),
+  ...['Tell me what you see in the two pictures.', 'What kind of people play these two sports?', 'Which of these two sports is more difficult to play? Why?'].map((q, i) => ({ ..._dSp(`Part 3 · Q${i + 1}`, 'Part 3 — Compare two photos + 2 questions', 45, q), imageNote: 'Two photos: a golfer swinging outdoors vs. basketball players jumping near a hoop.' })),
+  { partLabel: 'Part 4', title: 'Part 4 — One photo + 3 abstract questions', prepSeconds: 60, speakSeconds: 120, images: [], imageNote: 'A woman resting alone on a park bench.', prompts: ['Tell me about a time when you were on your own.', 'How did you feel about it?', 'What are some of the ways of passing the time on your own?'] }
+] }];
+
+/* ---------------------------------- TEORÍA ---------------------------------- */
+const _cGuideTheory = [
+  _u1T.p('<strong>English Language Course: Tips for Aptis — Complete 10-Hour Preparation Dossier (Corrected Edition).</strong> Universidad Pablo de Olavide · Servicio de Idiomas (Sevilla). Curso introductorio al Aptis: formato del examen, tipos de pregunta y un repaso rápido de gramática básica y vocabulario esencial. Duración: 10 horas.'),
+  _u1T.p('La gramática y el vocabulario se repasan a medida que avanza el curso. Hay ejercicios para hacer en casa: se recomiendan mucho, pero no son obligatorios. No habrá tiempo de corregirlos todos en clase, pero las dudas se pueden preguntar.'),
+  _u1T.h('Course Schedule'),
+  '<ul><li><strong>Day 1:</strong> An overview of the exam · Grammar and Vocabulary test: structure &amp; sample questions</li><li><strong>Day 2:</strong> Writing test: structure &amp; sample questions</li><li><strong>Day 3:</strong> Reading test: structure &amp; sample questions · Speaking test part 1</li><li><strong>Day 4:</strong> Listening test: structure &amp; sample questions · Speaking test part 2</li><li><strong>Day 5:</strong> Speaking test parts 3 &amp; 4</li></ul>',
+  _u1T.h('Aptis — Test Structure'),
+  _u1T.p('Aptis consta de 5 componentes: core (gramática y vocabulario), reading, listening, writing y speaking.'),
+  _u1T.tbl(['Test', 'Parte', 'Actividad', 'Formato'], [
+    ['Core · 25 min', 'Part 1: Grammar', 'Completar frases (25 preguntas)', 'Opción múltiple de 3 opciones (inglés escrito y hablado)'],
+    ['', 'Part 2: Vocabulary', 'Word matching (sinónimos); definiciones; completar frases; word pairs (25 preguntas)', 'Series de 5 palabras con 10 opciones'],
+    ['Reading · 30 min', 'Part 1: Sentence comprehension', 'Elegir palabras para completar frases', 'Opción múltiple de 3 opciones (5 ítems)'],
+    ['', 'Part 2: Text cohesion', 'Ordenar frases para formar una historia', '7 frases desordenadas'],
+    ['', 'Part 3: Short text comprehension', 'Elegir la mejor palabra de una lista para completar un texto', '10 opciones y 7 huecos'],
+    ['', 'Part 4: Long text comprehension', 'Relacionar títulos con párrafos', '7 párrafos y 8 títulos'],
+    ['Listening · aprox. 25–50 min', 'Part 1: Word and number recognition', 'Mensaje de teléfono: identificar información concreta', '25 preguntas en total · 4 opciones'],
+    ['', 'Part 2: Identifying specific information', 'Monólogos o conversaciones: información concreta', ''],
+    ['', 'Part 3: Inference', 'Monólogos y conversaciones: actitud, opinión o intención', ''],
+    ['Writing · 50 min', 'Part 1: Word-level writing', 'Responder a mensajes con palabras sueltas', '1–5 palabras por pregunta'],
+    ['', 'Part 2: Short text writing', 'Datos personales en frases', '20–30 palabras'],
+    ['', 'Part 3: Three written responses', 'Responder a preguntas en una red social', '30–40 palabras por respuesta'],
+    ['', 'Part 4: Formal and informal writing', 'Correo informal a un amigo y correo formal a un desconocido', '40–50 palabras (informal) · 120–150 palabras (formal)'],
+    ['Speaking · 12 min', 'Part 1: Personal information', 'Responder a 3 preguntas personales', '30 segundos cada respuesta'],
+    ['', 'Part 2: Describe, express opinion and provide reasons', 'Describir una imagen y responder a 2 preguntas de dificultad creciente', '45 segundos cada respuesta'],
+    ['', 'Part 3: Describe, compare and provide reasons', 'Describir dos imágenes contrastadas y responder a 2 preguntas', '45 segundos cada respuesta'],
+    ['', 'Part 4: Discuss personal experience and opinion on an abstract topic', 'Responder a 3 preguntas sobre un tema abstracto', '1 minuto de preparación · 2 minutos de respuesta']
+  ])
+].join('');
+const _cSampleTheory = [
+  _u1T.p('<strong>Sample Grammar Questions.</strong> Hay dos tipos de pregunta: la primera se centra en la gramática del inglés escrito y la segunda en la del inglés hablado. (El dossier no incluye la solución de estos ejemplos.)'),
+  _u1T.h('1. Written grammar'),
+  '<ol><li>He ____ me that the machine was broken. (a) told (b) spoke (c) said</li><li>My boss says that I ____ to finish the report by Friday. (a) must (b) have (c) should</li><li>My new computer works ____ faster than my old one. (a) many (b) more (c) much</li><li>I have worked for this company ____ I left university. (a) since (b) after (c) from</li></ol>',
+  _u1T.h('2. Spoken grammar'),
+  '<ol><li>John: She\'s French, isn\'t she? — Ahmed: No, ____ , she\'s from Belgium. (a) exactly (b) actually (c) anyway</li><li>Zeynep: I really don\'t feel like going to see that movie tonight. — Peter: OK. ____ we can go next week instead. (a) Maybe (b) However (c) Nevertheless</li></ol>',
+  _u1T.p('<strong>Sample Vocabulary Questions.</strong>'),
+  _u1T.tbl(['Tipo', 'Ejemplos del dossier'], [
+    ['Type 1 — Word Matching (Similar Meaning)', 'big = large · study = read · receive = get · start = begin · talk = speak · pick = choose'],
+    ['Type 2 — Match Definitions to Words', 'To cover with paper or material is to wrap · To improve or change is to adjust · To state or make public is to announce · To get somewhere is to arrive · To put something together is to assemble'],
+    ['Type 3 — Word Pairs (Collocations)', 'big + house · aerobics + classes · agriculture + minister · aisle + seat · apron + strings · atom + bomb'],
+    ['Type 4 — Sentence Completion', 'More and more people go abroad for their holidays these days. · Drivers need to remain alert when in charge of a car. · The city has many ancient and interesting buildings. · She\'s a highly articulate person who explains things clearly. · He\'s a very aggressive person — always getting into fights.']
+  ])
+].join('');
+
+/* ===========================================================================
+ * DOSSIER CORRECTED EDITION — Parte E: lecciones (una por componente).
+ * ======================================================================== */
+const _cL1 = (id, cat, title, description, exercises, extra) => ({ id: 'dosc-' + id, section: 'dossierc', dossierCategory: cat, mandatory: false, title, description, theory: '', flashcards: [], exercises, ...(extra || {}) });
+const DOSSIER_C = [
+  _cL1('guide', 'guia', 'Aptis — Test Structure & Course Overview', 'Presentación del dossier, calendario de 5 días y estructura de cada componente del examen.', [], { theory: _cGuideTheory }),
+  _cL1('samples', 'guia', 'Sample Questions — Grammar & Vocabulary', 'Ejemplos de los tipos de pregunta de gramática (escrita y hablada) y de vocabulario.', [], { theory: _cSampleTheory }),
+
+  _cL1('grammar-1', 'grammar', 'Grammar Practice 1', '50 preguntas de opción múltiple (4 opciones): auxiliares, tiempos, condicionales, pasiva, estilo indirecto y modales.', _cG1),
+  _cL1('grammar-2', 'grammar', 'Grammar Practice 2', '50 preguntas de opción múltiple (3 opciones): gramática y expresiones de nivel intermedio-avanzado.', _cG2),
+
+  _cL1('vocab-matching', 'vocab', 'Vocabulary — Word Matching', '4 series de 5 palabras: elige el sinónimo (hay 5 palabras de más en cada serie).', _cVMatchEx),
+  _cL1('vocab-definitions', 'vocab', 'Vocabulary — Match Words to Definitions', '4 series de 5 definiciones para completar con una palabra de la caja.', _cVDefEx),
+  _cL1('vocab-sentences', 'vocab', 'Vocabulary — Sentence Completion', '5 series de 4 frases: personalidad, ciudad, familia, deporte y dinero.', _cVSentEx),
+  _cL1('vocab-pairs', 'vocab', 'Vocabulary — Word Pairs / Word Combinations', '4 series de 5 colocaciones (seat + belt).', _cVPairEx),
+  _cL1('vocab-falsefriends', 'vocab', 'Useful Language — False Friends & Feelings', 'Falsos amigos español-inglés y palabras para describir sentimientos.', [], { theory: _cFFTheory, flashcards: _cFFCards }),
+
+  _cL1('reading-1', 'reading', 'Reading — Question 1: Sentence Comprehension', '4 textos con 5 huecos cada uno: elige la palabra correcta.', _cR1Ex),
+  _cL1('reading-2', 'reading', 'Reading — Question 2: Text Cohesion', '4 textos: ordena las frases (la 1 está dada).', _cR2Ex),
+  _cL1('reading-3', 'reading', 'Reading — Question 3: Short Text Comprehension', '4 textos con una lista de palabras (sobran 3).', _cR3Ex),
+  _cL1('reading-4', 'reading', 'Reading — Question 4: Long Text Comprehension', '4 textos largos: relaciona títulos y párrafos (sobra un título).', _cR4Ex),
+
+  _cL1('listening-1', 'listening', 'Listening Practice — Sample 1', '25 preguntas de opción múltiple (4 opciones). Audio pendiente.', _cListS1, { theory: _dListeningNote }),
+  _cL1('listening-2', 'listening', 'Listening Practice — Sample 2', '25 preguntas de opción múltiple (4 opciones). Audio pendiente.', _cListS2, { theory: _dListeningNote }),
+
+  _cL1('writing-language', 'writing', 'Writing — Exam Format & Useful Language', 'Las 4 partes del Writing y expresiones útiles para cada una.', [], { theory: _cWriteLangTheory }),
+  _cL1('writing-1', 'writing', 'Writing Practice 1 — Student Union', 'Las 4 partes del examen con el tema de una asociación de estudiantes. Tu profesor corrige tus textos.', _cWriteEx1),
+  _cL1('writing-2', 'writing', 'Writing Practice 2 — Floral Gardening Club', 'Las 4 partes del examen con el tema de un club de jardinería. Tu profesor corrige tus textos.', _cWriteEx2),
+  _cL1('writing-3', 'writing', 'Writing Practice 3 — Hollywood Film Club', 'Las 4 partes del examen con el tema de un club de cine. Tu profesor corrige tus textos.', _cWriteEx3),
+
+  _cL1('speaking-language', 'speaking', 'Speaking — Exam Format & Useful Language', 'Las 4 partes del Speaking y expresiones útiles para cada una.', [], { theory: _cSpeakLangTheory }),
+  _cL1('speaking-1', 'speaking', 'Speaking — Part 1: Personal Topics', '4 series de 3 preguntas personales (30 segundos cada una). Práctica libre.', _cSpeakP1),
+  _cL1('speaking-2', 'speaking', 'Speaking — Part 2: Describe a Photo + 2 Questions', '4 series con una foto y 3 preguntas (45 segundos cada una). Práctica libre.', _cSpeakP2),
+  _cL1('speaking-3', 'speaking', 'Speaking — Part 3: Compare Two Photos + 2 Questions', '4 series con dos fotos y 3 preguntas (45 segundos cada una). Práctica libre.', _cSpeakP3),
+  _cL1('speaking-4', 'speaking', 'Speaking — Part 4: One Photo + 3 Abstract Questions', '4 series: 1 minuto de preparación y 2 minutos de respuesta. Práctica libre.', _cSpeakP4),
+
+  _cL1('v1-grammar', 'tests', 'Practice Test Version 1 — Grammar', '25 preguntas de opción múltiple (12 minutos recomendados). Ejemplo del dossier: «How old ____ you?» → are.', _cTG1),
+  _cL1('v1-vocab', 'tests', 'Practice Test Version 1 — Vocabulary', '5 tareas de 5 ítems (13 minutos recomendados).', _cV1Ex),
+  _cL1('v1-reading', 'tests', 'Practice Test Version 1 — Reading', '25 preguntas en 4 tareas (30 minutos recomendados).', [_cR1V1, _cR2V1, _cR3V1, _cR4V1]),
+  _cL1('v1-listening', 'tests', 'Practice Test Version 1 — Listening', '25 preguntas de opción múltiple (4 opciones). Audio pendiente.', _cListV1, { theory: _dListeningNote }),
+  _cL1('v2-grammar', 'tests', 'Practice Test Version 2 — Grammar', '25 preguntas de opción múltiple (12 minutos recomendados). Ejemplo del dossier: «How old ____ you?» → are.', _cTG2),
+  _cL1('v2-vocab', 'tests', 'Practice Test Version 2 — Vocabulary', '5 tareas de 5 ítems (13 minutos recomendados).', _cV2Ex),
+  _cL1('v2-reading', 'tests', 'Practice Test Version 2 — Reading', '25 preguntas en 4 tareas (30 minutos recomendados).', [_cR1V2, _cR2V2, _cR3V2, _cR4V2]),
+  _cL1('v2-listening', 'tests', 'Practice Test Version 2 — Listening', '25 preguntas de opción múltiple (4 opciones). Audio pendiente.', _cListV2, { theory: _dListeningNote }),
+  _cL1('test-writing', 'tests', 'Practice Test — Writing (Travel Club)', 'Las 4 partes del Writing en 50 minutos. Tu profesor corrige tus textos.', _cWriteTest),
+  _cL1('test-speaking', 'tests', 'Practice Test — Speaking', 'Las 4 partes del Speaking en 12 minutos. Práctica libre.', _cSpeakTest)
+];
+
+
+        const COURSE_CONTENT = [...(typeof UNIT_1 !== 'undefined' ? UNIT_1 : []), ...(typeof UNIT_2 !== 'undefined' ? UNIT_2 : []), ...(typeof UNIT_3 !== 'undefined' ? UNIT_3 : []), ...(typeof UNIT_4 !== 'undefined' ? UNIT_4 : []), ...(typeof UNIT_5 !== 'undefined' ? UNIT_5 : []), ...(typeof UNIT_6 !== 'undefined' ? UNIT_6 : []), ...(typeof UNIT_7 !== 'undefined' ? UNIT_7 : []), ...(typeof UNIT_8 !== 'undefined' ? UNIT_8 : []), ...(typeof EXAM_1 !== 'undefined' ? EXAM_1 : []), ...(typeof DOSSIER_2 !== 'undefined' ? DOSSIER_2 : []), ...(typeof DOSSIER_C !== 'undefined' ? DOSSIER_C : [])];
         const COURSE_RESOURCES = [
             { id: 'res-aptisweb-general', title: 'AptisWeb — Biblioteca de exámenes Aptis General', url: 'https://aptisweb.com/aptis-exam-library/aptis-general', type: 'aptis', description: 'Modelos de examen de Aptis General para practicar.' },
             { id: 'res-aptisexamen', title: 'AptisExamen.net', url: 'https://aptisexamen.net', type: 'aptis', description: 'Práctica de modelos de examen Aptis.' }
@@ -5327,13 +6062,22 @@ const DOSSIER_2 = [
                 description: 'Exámenes completos, simulacros por destrezas, modelos de examen y pruebas de evaluación.'
             },
             dossier: {
-                name: 'Dossier de prácticas',
-                short: 'Dossier',
+                name: 'Dossier de prácticas · Version 2',
+                short: 'Dossier V2',
                 icon: 'folder-open',
                 color: 'teal',
                 badgeClass: 'bg-teal-100 text-teal-800 border-teal-200',
                 iconBg: 'bg-teal-500/10 text-teal-600',
-                description: 'Dossier de preparación Aptis: gramática, vocabulario, reading, listening, writing, speaking y practice tests alternativos.'
+                description: 'Dossier «Version 2 (Alternative Practice Set)»: gramática, vocabulario, reading, listening, writing, speaking y practice tests alternativos.'
+            },
+            dossierc: {
+                name: 'Dossier de prácticas · Corrected Edition',
+                short: 'Dossier Corrected',
+                icon: 'book-open-check',
+                color: 'teal',
+                badgeClass: 'bg-teal-100 text-teal-800 border-teal-200',
+                iconBg: 'bg-teal-500/10 text-teal-600',
+                description: 'Dossier «Corrected Edition» (Universidad Pablo de Olavide): gramática, vocabulario, reading, listening, writing, speaking y practice tests 1 y 2.'
             }
         };
 
@@ -5348,6 +6092,9 @@ const DOSSIER_2 = [
             speaking: 'Speaking',
             tests: 'Practice Tests (versiones alternativas)'
         };
+
+        // Categorías de la sección Dossier Corrected Edition (misma estructura, rótulo propio en los tests)
+        const DOSSIERC_CATEGORIES = { ...DOSSIER_CATEGORIES, tests: 'Practice Tests (Versions 1 & 2)' };
 
         // Categorías de la sección Exámenes
         const EXAM_CATEGORIES = {
@@ -5416,7 +6163,7 @@ const DOSSIER_2 = [
         });
 
         function updateSidebarBadges() {
-            [...EXAM_SECTION_KEYS, 'temas', 'examenes', 'dossier'].forEach(sec => {
+            [...EXAM_SECTION_KEYS, 'temas', 'examenes', 'dossier', 'dossierc'].forEach(sec => {
                 const count = lessons.filter(l => l.section === sec).length;
                 const badge = document.getElementById(`badge-${sec}`);
                 if (badge) badge.textContent = count;
@@ -5940,7 +6687,8 @@ const DOSSIER_2 = [
             const contentRows =
                 courseRow('temas', SECTION_META.temas.icon, 'Temas', `${lessons.filter(l => l.section === 'temas').length} temas`, null) +
                 courseRow('examenes', SECTION_META.examenes.icon, 'Exámenes', `${lessons.filter(l => l.section === 'examenes').length} exámenes`, null) +
-                courseRow('dossier', SECTION_META.dossier.icon, 'Dossier de prácticas', `${lessons.filter(l => l.section === 'dossier').length} lecciones`, null) +
+                courseRow('dossier', SECTION_META.dossier.icon, 'Dossier de prácticas · V2', `${lessons.filter(l => l.section === 'dossier').length} lecciones`, null) +
+                courseRow('dossierc', SECTION_META.dossierc.icon, 'Dossier de prácticas · Corrected', `${lessons.filter(l => l.section === 'dossierc').length} lecciones`, null) +
                 courseRow('recursos', 'link-2', 'Recursos Digitales', `${COURSE_RESOURCES.length} recursos`, null);
 
             const ringHTML = isTeacher
@@ -6108,6 +6856,15 @@ const DOSSIER_2 = [
                     items: list.filter(l => l.dossierCategory === k)
                 }));
                 const others = list.filter(l => !DOSSIER_CATEGORIES[l.dossierCategory]);
+                if (others.length) groups.push({ label: 'Otros', items: others });
+                return groups.filter(g => g.items.length > 0);
+            }
+            if (sectionKey === 'dossierc') {
+                const groups = Object.keys(DOSSIERC_CATEGORIES).map(k => ({
+                    label: DOSSIERC_CATEGORIES[k],
+                    items: list.filter(l => l.dossierCategory === k)
+                }));
+                const others = list.filter(l => !DOSSIERC_CATEGORIES[l.dossierCategory]);
                 if (others.length) groups.push({ label: 'Otros', items: others });
                 return groups.filter(g => g.items.length > 0);
             }
