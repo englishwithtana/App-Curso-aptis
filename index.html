@@ -310,6 +310,39 @@
                 <div class="hidden lg:block h-px w-8 bg-slate-300/70 mx-auto my-3"></div>
 
                 <div class="space-y-1 lg:space-y-2">
+                    <p class="lg:hidden px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-5 mb-1">Contenido del Curso</p>
+                    <button onclick="navigateTo('temas')" id="nav-temas" title="Temas" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
+                        <span class="flex items-center gap-3">
+                            <i data-lucide="book-marked" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Temas</span>
+                        </span>
+                        <span id="badge-temas" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
+                    </button>
+                    <button onclick="navigateTo('examenes')" id="nav-examenes" title="Exámenes" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
+                        <span class="flex items-center gap-3">
+                            <i data-lucide="clipboard-check" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Exámenes</span>
+                        </span>
+                        <span id="badge-examenes" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
+                    </button>
+                    <button onclick="navigateTo('dossiers')" id="nav-dossiers" title="Dossier de prácticas" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
+                        <span class="flex items-center gap-3">
+                            <i data-lucide="folder-open" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Dossier de prácticas</span>
+                        </span>
+                        <span id="badge-dossiers" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
+                    </button>
+                    <button onclick="navigateTo('recursos')" id="nav-recursos" title="Recursos Digitales" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
+                        <span class="flex items-center gap-3">
+                            <i data-lucide="link-2" class="w-4 h-4 lg:w-5 lg:h-5"></i>
+                            <span class="lg:hidden">Recursos Digitales</span>
+                        </span>
+                        <span id="badge-recursos" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
+                    </button>
+                </div>
+                <div class="hidden lg:block h-px w-8 bg-slate-300/70 mx-auto my-3"></div>
+
+                <div class="space-y-1 lg:space-y-2">
                     <p class="lg:hidden px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-5 mb-1">Secciones Examen Aptis</p>
                     <button onclick="navigateTo('core')" id="nav-core" title="Core (Grammar & Vocab)" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
                         <span class="flex items-center gap-3">
@@ -347,39 +380,7 @@
                         <span id="badge-speaking" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
                     </button>
                 </div>
-                <div class="hidden lg:block h-px w-8 bg-slate-300/70 mx-auto my-3"></div>
 
-                <div class="space-y-1 lg:space-y-2">
-                    <p class="lg:hidden px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500 mt-5 mb-1">Contenido del Curso</p>
-                    <button onclick="navigateTo('temas')" id="nav-temas" title="Temas" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
-                        <span class="flex items-center gap-3">
-                            <i data-lucide="book-marked" class="w-4 h-4 lg:w-5 lg:h-5"></i>
-                            <span class="lg:hidden">Temas</span>
-                        </span>
-                        <span id="badge-temas" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
-                    </button>
-                    <button onclick="navigateTo('examenes')" id="nav-examenes" title="Exámenes" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
-                        <span class="flex items-center gap-3">
-                            <i data-lucide="clipboard-check" class="w-4 h-4 lg:w-5 lg:h-5"></i>
-                            <span class="lg:hidden">Exámenes</span>
-                        </span>
-                        <span id="badge-examenes" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
-                    </button>
-                    <button onclick="navigateTo('dossiers')" id="nav-dossiers" title="Dossier de prácticas" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
-                        <span class="flex items-center gap-3">
-                            <i data-lucide="folder-open" class="w-4 h-4 lg:w-5 lg:h-5"></i>
-                            <span class="lg:hidden">Dossier de prácticas</span>
-                        </span>
-                        <span id="badge-dossiers" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
-                    </button>
-                    <button onclick="navigateTo('recursos')" id="nav-recursos" title="Recursos Digitales" class="nav-item relative w-full lg:w-12 lg:h-12 lg:mx-auto flex items-center justify-between lg:justify-center px-3 lg:px-0 py-2.5 lg:py-0 rounded-xl lg:rounded-full text-sm font-medium transition cursor-pointer">
-                        <span class="flex items-center gap-3">
-                            <i data-lucide="link-2" class="w-4 h-4 lg:w-5 lg:h-5"></i>
-                            <span class="lg:hidden">Recursos Digitales</span>
-                        </span>
-                        <span id="badge-recursos" class="nav-badge text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full lg:hidden">0</span>
-                    </button>
-                </div>
             </div>
 
             <!-- Pie: color de estudio y cerrar sesión -->
